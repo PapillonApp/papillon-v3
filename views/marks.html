@@ -1,0 +1,165 @@
+<div id="ListeOptions" class="liste">
+    <a href="#" onclick="changeOrder()"><div class="cours file" style="--off: 0ms">
+        <span class="material-symbols-outlined">
+            sort
+        </span>
+        <div class="cours_topData">
+            <h3>Changer l'ordre</h3>
+            <p>Passer en affichage chronologique</p>
+        </div>
+    </div></a>
+</div>
+<div id="ListeNotes" class="liste">
+
+</div>
+
+<script>
+    order = 0;
+
+    function changeOrder() {
+        if(order == 0) {
+            order = 1;
+            order_Chrono();
+        } else {
+            order = 0;
+            mainView_Marks();
+        }
+    }
+
+    function mainView_Marks() {
+        let half = new Date(rn);
+        half.setDate(half.getDate() + 1);
+        let from = half.toISOString().split("T")[0]
+        progressStart();
+        $.get(`https://api.allorigins.win/get?url=${encodeURIComponent(`http://159.223.233.152:6858/marks?token=${token}&rand=${uuidv4()}`)}`, function( data ) {
+            if(JSON.parse(data.contents).message !== undefined) {
+                window.location.href = 'login/';
+            }
+            progressEnd();
+            $('#ListeNotes').html('');
+            allMarks = [];
+            
+            let resp = JSON.parse(data.contents).data.marks.subjects;
+
+            for(id_s in resp) {
+                resp[id_s].marks.sort(function(a, b) {
+                    return new Date(a.date) - new Date(b.date);
+                });
+                resp[id_s].marks.reverse();
+            }
+
+            // order by latest mark date
+            resp.sort(function(a, b) {
+                return new Date(b.marks[0].date) - new Date(a.marks[0].date);
+            });
+
+            let AllAverages = 0;
+
+            for(id_s in resp) {
+                subject = resp[id_s];
+                $('#ListeNotes').append(`
+                    <div class="subject" style="--off: ${id_s * 50}ms;--bg:${subject.color}">
+                        <div class="subjectName">
+                            <p>${subject.name}</p>
+                            <p2>${subject.averages.student.toFixed(2)}<small>/20</small></p2>
+                        </div>
+                        <div class="subjectInner" id="marks_${id_s}"></div>
+                    </div>
+                `);
+
+                AllAverages = AllAverages + subject.averages.student;
+
+                let marks = subject.marks;
+
+                for(mark_id in marks) {
+                    mark = marks[mark_id];
+
+                    mark2push = mark;
+                    mark2push.subject = subject.name;
+                    allMarks.push(mark2push);
+
+                    let allMarksId = parseInt(allMarks.length) - 1;
+
+                    let markname = "";
+                    if(mark.title !== "") {
+                        markname = mark.title;
+                    } else {
+                        markname = "Aucun nom";
+                    }
+
+                    let value = 0
+
+                    if(mark.value !== null) {
+                        value = mark.value.toFixed(2);
+                    } else {
+                        value = "N. noté";
+                    }
+
+                    $('#marks_'+id_s).append(`
+                        <a href="#" onclick="viewQuery('mark', '${escapeHtml(markname)}', ${allMarksId}, 'marks', 'Notes')"><div class="mark" style="--off: ${mark_id * 50}ms">
+                            <div class="markName">
+                                <p>${markname}</p>
+                                <p class="p2">Coeff : x${mark.coefficient} – Moy. : ${mark.average}</p>
+                            </div>
+                            <div class="markValue">
+                                <p>${value}<small>/${mark.scale}</small></p>
+                            </div>
+                        </div></a>
+                    `);
+                }
+            }
+
+            let averageStudent = AllAverages / resp.length;
+
+            setMenuTabContent(`Moyenne générale : ${averageStudent.toFixed(2)}/20`);
+        });
+    }
+    mainView_Marks();
+
+    function order_Chrono() {
+        allMarks.sort(function(a, b) {
+            return new Date(a.date) - new Date(b.date);
+        });
+        allMarks.reverse();
+
+        $('#ListeNotes').html(`
+            <div class="subject" style="--off: 0ms">
+                <div class="subjectName" style="--bg:#0066ff">
+                    <p>Toutes les notes</p>
+                </div>
+                <div class="subjectInner" id="marks_all"></div>
+            </div>
+        `);
+
+        for(mark_id in allMarks) {
+                    mark = allMarks[mark_id];
+
+                    let markname = "";
+                    if(mark.title !== "") {
+                        markname = mark.title;
+                    } else {
+                        markname = "Aucun nom";
+                    }
+
+                    let value = 0
+
+                    if(mark.value !== null) {
+                        value = mark.value.toFixed(2);
+                    } else {
+                        value = "N. noté";
+                    }
+
+                    $('#marks_all').append(`
+                    <a href="#" onclick="viewQuery('mark', '${escapeHtml(markname)}', ${mark_id}, 'marks', 'Notes')"><div class="mark" style="--off: ${mark_id * 50}ms">
+                            <div class="markName">
+                                <p>${markname}</p>
+                                <p class="p2">${mark.subject} – x${mark.coefficient} – Moy. : ${mark.average}</p>
+                            </div>
+                            <div class="markValue">
+                                <p>${value}<small>/${mark.scale}</small></p>
+                            </div>
+                        </div></a>
+                    `);
+                }
+    }
+</script>

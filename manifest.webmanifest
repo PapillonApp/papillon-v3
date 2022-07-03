@@ -1,0 +1,8 @@
+{
+    "name": "Pronote+",
+    "start_url": "/",
+    "display": "standalone",
+    "scope": "/",
+    "orientation": "portrait",
+    "lang": "fr-FR"
+}

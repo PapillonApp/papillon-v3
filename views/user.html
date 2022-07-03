@@ -1,0 +1,98 @@
+<div id="ListeUser" class="liste">
+
+    <div class="part frprt">
+        Paramètres personnels
+    </div>
+
+    <a href="#" onclick="changeName()"><div class="cours file" style="--off: 0ms">
+        <span class="material-symbols-outlined">
+            record_voice_over
+        </span>
+        <div class="cours_topData">
+            <h3>Changer de nom</h3>
+            <p>Personnalisez comment vous souhaitez être appelé</p>
+        </div>
+    </div></a>
+
+    <a href="#" onclick="viewQuery('theme', 'Changer de thème', '', 'user', 'Mon profil')"><div class="cours file" style="--off: 0ms">
+        <span class="material-symbols-outlined">
+            palette
+        </span>
+        <div class="cours_topData">
+            <h3>Changer de thème</h3>
+            <p>Personnalisez l'affichage de Pronote+</p>
+        </div>
+    </div></a>
+
+
+    <div class="part">
+        Paramètres de Pronote+
+    </div>
+
+    <a href="#" onclick="logout()"><div class="cours file" style="--off: 0ms">
+        <span class="material-symbols-outlined">
+            meeting_room
+        </span>
+        <div class="cours_topData">
+            <h3>Se déconnecter</h3>
+            <p>Supprimer son compte de Pronote+</p>
+        </div>
+    </div></a>
+
+    <a href="#" onclick="refreshToken()"><div class="cours file" style="--off: 0ms">
+        <span class="material-symbols-outlined">
+            build
+        </span>
+        <div class="cours_topData">
+            <h3>Rafraîchir le token</h3>
+            <p>Se reconnecte à votre compte Pronote</p>
+        </div>
+    </div></a>
+
+    <a href="#" onclick="update()"><div class="cours file" style="--off: 0ms">
+        <span class="material-symbols-outlined">
+            refresh
+        </span>
+        <div class="cours_topData">
+            <h3>Forcer les mises à jour</h3>
+            <p>Vide le cache de la version précédente</p>
+        </div>
+    </div></a>
+
+
+    <div class="part">
+        Avancé
+    </div>
+
+    <a href="#" onclick="viewQuery('userdata', 'Informations sur '+myName, '', 'user', 'Mon profil')"><div class="cours file" style="--off: 0ms">
+        <span class="material-symbols-outlined">
+            account_circle
+        </span>
+        <div class="cours_topData">
+            <h3>Informations sur votre profil</h3>
+            <p>Données de Pronote sur vous</p>
+        </div>
+    </div></a>
+
+
+    <div class="part">
+        Informations
+    </div>
+
+    <a href="#"><div class="cours file" style="--off: 0ms">
+        <span class="material-symbols-outlined">
+            info
+        </span>
+        <div class="cours_topData">
+            <h3>A propos de Pronote+</h3>
+            <p>Pronote+ version <span id="version"></span></p>
+            <small>développé par @levraicnivtwelve</small>
+        </div>
+    </div></a>
+
+</div>
+
+<script>
+    $('#version').text(version);
+    progressEnd();
+</script>

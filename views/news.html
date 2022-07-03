@@ -1,0 +1,52 @@
+<div id="ListeNews" class="liste">
+
+</div>
+
+<script>
+    function mainView_News() {
+        let half = new Date(rn);
+        half.setDate(half.getDate() + 1);
+        let from = half.toISOString().split("T")[0]
+        progressStart(4);
+        $.get(`https://api.allorigins.win/get?url=${encodeURIComponent(`http://159.223.233.152:6858/news?token=${token}&rand=${uuidv4()}`)}`, function( data ) {
+            if(JSON.parse(data.contents).message !== undefined) {
+                window.location.href = 'login/';
+            }
+            progressEnd();
+            
+            let resp = JSON.parse(data.contents).data.infos;
+
+            resp.sort(function(a, b) {
+                return new Date(a.date) - new Date(b.date);
+            });
+            resp.reverse();
+
+            console.log(resp)
+
+            for(news_id in resp) {
+                let info = resp[news_id];
+
+                let date = new Date(parseInt(info.date));
+                let added = date.toLocaleDateString();
+
+                if(info.title == null) {
+                    info.title = "Information";
+                }
+
+                $('#ListeNews').append(`
+                    <a onclick="viewQuery('info','${info.title}','${news_id}', 'news', 'Actualités');" href="#"><div class="cours file" style="--off: 0ms">
+                        <span class="material-symbols-outlined">
+                            newspaper
+                        </span>
+                        <div>
+                            <h3>${info.title}</h3>
+                            <p>${info.content}</p>
+                            <small>ajouté le ${info.author}</small>
+                        </div>
+                    </div></a>
+                `);
+            }
+        });
+    }
+    mainView_News();
+</script>

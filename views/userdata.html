@@ -1,0 +1,48 @@
+<div id="ListeUser" class="liste">
+    <div class="subject" style="--off: 0ms">
+        <div class="subjectName" style="--bg:#08841f">
+            <p>Établissement</p>
+        </div>
+        <div class="subjectInner pad" id="data_etab">
+
+        </div>
+    </div>
+    <div class="subject" style="--off: 0ms">
+        <div class="subjectName" style="--bg:#0066ff">
+            <p>Vos groupes</p>
+        </div>
+        <div class="subjectInner" id="data_groups">
+
+        </div>
+    </div>
+</div>
+
+<script>
+    progressStart();
+    $.get(`https://api.allorigins.win/get?url=${encodeURIComponent(`http://159.223.233.152:6858/user?token=${token}&rand=${uuidv4()}`)}`, function( data, success ) {     
+        if(JSON.parse(data.contents).message !== undefined) {
+            window.location.href = 'login/';
+        }
+        progressEnd();
+        
+        let resp = JSON.parse(data.contents).data.user;
+        console.log(resp)
+
+        for(group_id in resp.groups) {
+            group = resp.groups[group_id];
+            groupName = group.name;
+            $('#data_groups').append(`
+                <div class="mark" style="--off: 0ms">
+                    <div class="markName">
+                        <p>${groupName}</p>
+                    </div>
+                </div>
+            `);
+        }
+
+        $(`#data_etab`).html(`
+            <p>${resp.establishmentsInfo[0].name}</p>
+            <p2>${resp.establishmentsInfo[0].city}</p2>
+        `);
+    });
+</script>

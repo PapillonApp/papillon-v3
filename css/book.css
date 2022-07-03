@@ -1,0 +1,56 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Serif:opsz,wght@8..144,100;8..144,200;8..144,300;8..144,400;8..144,500;8..144,600;8..144,700;8..144,800&display=swap');
+
+* {
+    font-family: 'Roboto Serif', serif;
+}
+
+.modal {
+    border-radius: 5px;
+}
+
+#userModalOver {
+    border-radius: 5px;
+}
+
+.cours {
+    border-radius: 3px;
+}
+
+.subject {
+    border-radius: 3px;
+}
+
+@media screen and (prefers-color-scheme: dark) {
+    body {
+        background: #201715;
+    }
+
+    #menuContent {
+        background: #2b211c;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        color: #fff;
+    }
+
+    .cours {
+        background-color: #2b201c;
+        color: #fff;
+    }
+
+    .subject {
+        background-color: #2b211c;
+        color: #fff;
+    }
+
+    .modal {
+        background: #2b201c;
+        color: #fff;
+    }
+
+    .tabLink {
+        border-bottom: 1px solid #ffffff10;
+    }
+
+    .part {
+        color: #ffffff55 !important;
+    }
+}

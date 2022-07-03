@@ -1,0 +1,50 @@
+<div id="infoPage" class="liste">
+    
+</div>
+
+</div>
+
+<script>
+    function mainView_News() {
+        let half = new Date(rn);
+        half.setDate(half.getDate() + 1);
+        let from = half.toISOString().split("T")[0]
+        progressStart();
+        $.get(`https://api.allorigins.win/get?url=${encodeURIComponent(`http://159.223.233.152:6858/news?token=${token}&rand=${uuidv4()}`)}`, function( data ) {
+            if(JSON.parse(data.contents).message !== undefined) {
+                window.location.href = 'login/';
+            }
+            progressEnd();
+            
+            let resp = JSON.parse(data.contents).data.infos;
+
+            resp.sort(function(a, b) {
+                return new Date(a.date) - new Date(b.date);
+            });
+            resp.reverse();
+
+            $('#infoPage').append(`
+                <div id="infoText" class="cours info" style="--off: 0ms"></div>
+            `);
+
+            $('#infoText').html(resp[q].htmlContent);
+            let files = resp[q].files
+
+            for(file_id in files) {
+                let file = files[file_id];
+                $('#infoPage').append(`
+                    <a href="${file.url}"><div class="cours file" style="--off: ${file_id * 50}ms">
+                        <span class="material-symbols-outlined">
+                            description
+                        </span>
+                        <div>
+                            <h3>${file.name}</h3>
+                            <p>${file.url}</p>
+                        </div>
+                    </div></a>
+                `);
+            }
+        });
+    }
+    mainView_News();
+</script>

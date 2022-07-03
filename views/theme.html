@@ -1,0 +1,69 @@
+<div id="ListeUser" class="liste">
+    <div class="part frprt">
+        Thèmes offciels
+    </div>
+
+    <a href="#" onclick="selectTheme('css/main.css')"><div class="cours file" style="--off: 0ms">
+        <span class="material-symbols-outlined">
+            brush
+        </span>
+        <div class="cours_topData">
+            <h3>Thème par défaut</h3>
+            <p>par Aihvah Interactive</p>
+        </div>
+    </div></a>
+
+    <div class="part">
+        Thèmes spéciaux
+    </div>
+
+    <a href="#" onclick="selectTheme('css/book.css')"><div class="cours file" style="--off: 0ms">
+        <span class="material-symbols-outlined">
+            palette
+        </span>
+        <div class="cours_topData">
+            <h3>Livre vieillisant</h3>
+            <p>par Vince Linise</p>
+        </div>
+    </div></a>
+
+    <a href="#" onclick="selectTheme('css/rgb.css')"><div class="cours file" style="--off: 0ms">
+        <span class="material-symbols-outlined">
+            palette
+        </span>
+        <div class="cours_topData">
+            <h3>Néon Glowy Blue</h3>
+            <p>par Vince Linise</p>
+        </div>
+    </div></a>
+
+    <div class="part">
+        Autres
+    </div>
+
+    <a href="#" onclick="customTheme()"><div class="cours file" style="--off: 0ms">
+        <span class="material-symbols-outlined">
+            language
+        </span>
+        <div class="cours_topData">
+            <h3>Thème personnalisé</h3>
+            <p>Entrez l'URL d'un thème custom</p>
+        </div>
+    </div></a>
+
+</div>
+
+<script>
+    function selectTheme(css) {
+        localStorage.setItem('customTheme', css);
+        update();
+    }
+
+    function customTheme() {
+        var url = prompt("Entrez l'URL d'un thème custom");
+        if (url != null) {
+            localStorage.setItem('customTheme', url);
+            update();
+        }
+    }
+</script>

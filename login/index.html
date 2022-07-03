@@ -1,0 +1,97 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <script src="../js/jquery.js"></script>
+
+        <!-- import manifest -->
+        <link rel="manifest" href="../manifest.webmanifest">
+
+        <script src="login.js"></script>
+
+        <style>
+            * {
+                font-family: Helvetica, sans-serif;
+                border: none;
+            }
+            body {
+                margin: 10vw;
+            }
+            input, select {
+                width: 100%;
+                padding: 10px 15px;
+                font-size: 16px;
+                border-radius: 8px;
+                border: 1px solid #00000022;
+                margin-bottom: 5px;
+                background: none !important;
+                color: #000 !important;
+            }
+            input:focus {
+                border: 1px solid #0066ff;
+            }
+            button {
+                width: 100%;
+                border-radius: 8px;
+                padding: 10px 15px;
+                font-size: 16px;
+                background-color: #FF0082;
+                color: #fff;
+                margin-top: 15px;
+                margin-bottom: 15px;
+            }
+            small {
+                opacity: 50%;
+            }
+            #urlCustom {
+                display: none;
+            }
+        </style>
+    </head>
+    <body>
+        <img src="educonnect.svg">
+        <h2>Connexion à ÉduConnect par le biais de Pronote+</h2>
+        <p>Cette page n'est pas affiliée avec EduConnect ou avec l'Éducation nationnale, elle indique juste qu'il faut votre compte ÉduConnect pour utliser Pronote+.</p>
+
+        <input id="username" type="text" placeholder="Nom d'utilisateur (prénom.nom)"><br>
+        <input id="password" type="password" placeholder="Mot de passe">
+
+        <select id="ent" placeholder="Choisir un ENT" value="toutatice">
+            <option value="toutatice">Toutatice</option>
+            <option value="monbureaunumerique-educonnect">Mon Bureau Numérique</option>
+            <option value="parisclassenumerique">Paris Classe Numerique</option>
+            <option value="moncollege-essonne">Mon collège Essonne</option>
+            <option value="iledefrance">Île de France</option>
+            <option value="portail-famille">Portail Famille</option>
+            <option value="somme">Somme</option>
+            <option value="seine-et-marne">Seine-et-Marne</option>
+            <option value="lyceeconnecte">Lycee Connecte</option>
+            <option value="laclasse">La Classe</option>
+            <option value="hdf">Hauts-de-France</option>
+            <option value="haute-garonne">Haute-Garonne</option>
+            <option value="agora06">Agora 06</option>
+            <option value="ac-clermont">Académie de Clermont-Ferrand</option>
+            <option value="none">Aucun ENT</option>
+        </select>
+        <select onChange="checkURL()" placeholder="Choisir un ENT" id="login_url" value="https://0350053t.pronote.toutatice.fr/pronote/">
+            <option value="https://0350053t.pronote.toutatice.fr/pronote/">Lycée Bertrand d'Argentré (Vitré)</option>
+            <option value="https://0352009u.pronote.toutatice.fr/pronote/">Lycée Victor-et-Hélène-Basch (Rennes)</option>
+            <option value="https://0352304p.pronote.toutatice.fr/pronote/">Lycée Sévigné (Cesson-Sévigné)</option>
+            <option value="https://0352448w.pronote.toutatice.fr/pronote/">Collège P.O.Malherbe (Chateaubourg)</option>
+            <option value="https://0351053e.pronote.toutatice.fr/pronote/">Collège Jean-Monnet (Janzé)</option>
+            <option value="https://3500002a.index-education.net/pronote/">Lycée Lyautey (Casablanca)</option>
+            <option value="https://0922615t.index-education.net/pronote/">Lycée Lucie Aubrac (Courbevoie)</option>
+            <option value="https://0572022n.index-education.net/pronote/">Lycée Polyvalent Félix Mayer (Creutzwald)</option>
+            <option value="https://0350709f.pronote.toutatice.fr/pronote/">Lycée La Champagne (Vitré)</option>
+            <option value="https://0630018c.index-education.net/pronote/">Lycée Blaise Pacal (Clermont-Ferrand)</option>
+            <option value="https://demo.index-education.net/pronote/">Collège de démonstration</option>
+            <option value="other">Autre (mettre ma propre URL Pronote)</option>
+        </select>
+        <input id="urlCustom" type="url" placeholder="URL Pronote personnalisée">
+
+        <button id="loginBtn" onclick="loginGo()">Se connecter</button>
+
+        <small>Votre identifiant et votre mot de passe seront sauvegardés uniquement sur votre appareil.</small>
+    </body>
+</html>

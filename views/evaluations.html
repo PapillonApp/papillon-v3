@@ -1,0 +1,79 @@
+<div id="ListeEvals" class="liste">
+
+</div>
+
+<script>
+    function mainView_Evals() {
+        let half = new Date(rn);
+        half.setDate(half.getDate() + 1);
+        let from = half.toISOString().split("T")[0]
+
+        progressStart();
+        $.get(`https://api.allorigins.win/get?url=${encodeURIComponent(`http://159.223.233.152:6858/evaluations?token=${token}`)}&rand=${uuidv4()}`, function( data ) {
+            if(JSON.parse(data.contents).message !== undefined) {
+                window.location.href = 'login/';
+            }
+            progressEnd();
+            
+            let resp = JSON.parse(data.contents).data.evaluations;
+            console.log(resp)
+
+            for(id_s in resp) {
+                subject = resp[id_s];
+                $('#ListeEvals').append(`
+                    <div class="subject" style="--off: ${id_s * 50}ms;--bg:${subject.color}">
+                        <div class="subjectName" style="--bg:${subject.color}">
+                            <p>${subject.name}</p>
+                        </div>
+                        <div class="subjectInner" id="comp_${id_s}"></div>
+                    </div>
+                `);
+
+                let evals = subject.evaluations;
+                for(eval_id in evals) {
+                    let eval = evals[eval_id];
+
+                    $('#comp_'+id_s).append(`
+                        <div class="mark" style="--off: ${eval_id * 50}ms">
+                            <div class="markName">
+                                <p>${eval.name}</p>
+                                <p class="p2">${eval.levels[0].name}</p>
+                            </div>
+                            <div id="values_${eval.id}" class="markValue compValue">
+                                
+                            </div>
+                        </div>
+                    `);
+
+                    let levels = eval.levels;
+                    for(level_id in levels) {
+                        let level = levels[level_id];
+                        l = level.value.short;
+
+                        let val = "0";
+
+                        if(l == "+" || l == "A" || l == "4" || l == "A+") {
+                            val = "4";
+                        }
+                        else if(l == "*" || l == "B" || l == "3" || l == "A") {
+                            val = "3";
+                        }
+                        else if(l == "xx" || l == "C"  || l == "2" || l == "C") {
+                            val = "2";
+                        }
+                        else if(l == "++" || l == "D"  || l == "1" || l == "E") {
+                            val = "1";
+                        }
+
+                        let img = `../assets/${val}_comp.svg`;
+
+                        $(`#values_${eval.id}`).append(`
+                            <img src="${img}">
+                        `)
+                    }
+                }
+            }
+        });
+    }
+    mainView_Evals();
+</script>

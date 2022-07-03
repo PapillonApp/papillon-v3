@@ -1,0 +1,85 @@
+<div id="ListeCours" class="liste">
+    
+</div>
+
+<script>
+    function min_lead(dt) { 
+        return (dt.getMinutes() < 10 ? '0' : '') + dt.getMinutes();
+    }
+
+    function mainView_Edt() {
+        let from = rn.toISOString().split("T")[0]
+        progressStart();
+        $.get(`https://api.allorigins.win/get?url=${encodeURIComponent(`http://159.223.233.152:6858/edt?token=${token}&from=${from}&rand=${uuidv4()}`)}`, function( data ) {
+            if(JSON.parse(data.contents).message !== undefined) {
+                window.location.href = 'login/';
+            }
+            progressEnd();
+
+            $('#ListeCours').html(``);
+            
+            let resp = JSON.parse(data.contents).data.timetable;
+            console.log(resp)
+
+            for(course in resp) {
+                let debCours = new Date(resp[course].from);
+                var offset = new Date().getTimezoneOffset();
+                debCours.setMinutes(debCours.getMinutes() + offset);
+                let heureMinDebut = debCours.getHours() + "h" + min_lead(debCours);
+
+                if(resp[course].subject == null) {
+                    resp[course].subject = resp[course].status;
+                }
+
+                if(resp[course].teacher == null) {
+                    resp[course].teacher = "Non précisé";
+                }
+
+                if(resp[course].room == null) {
+                    resp[course].room = "inconnue";
+                }
+
+                if(resp[course].subject !== null) {
+                    if(resp[course].status !== null) {
+                        resp[course].teacher = `${resp[course].status} – ` + resp[course].teacher;
+                    }
+                }
+                
+                if(!resp[course].isCancelled) {
+                    $('#ListeCours').append(`
+                        <div class="cours" style="--off: ${course * 50}ms">
+                            <div style="--bg:${resp[course].color}" class="coursleftBar"></div>
+                            <div class="cours_data">
+                                <div class="cours_topData">
+                                    <h3>${resp[course].subject}</h3>
+                                    <p>${resp[course].teacher}</p>
+                                </div>
+                                <div class="cours_btmData">
+                                    <p>salle ${resp[course].room}</p>
+                                    <p class="when">${heureMinDebut}</p>
+                                </div>
+                            </div>
+                        </div>
+                    `);
+                }
+            }
+
+            if(resp.length === 0) {
+                $('#ListeCours').append(`
+                    <div class="cours" style="--off: 0ms">
+                        <div style="--bg:#fff" class="coursleftBar"></div>
+                        <div class="cours_data">
+                            <div class="cours_topData">
+                                <h3>😴 Aucun cours</h3>
+                                <p>Profite bien de cette journée !</p>
+                            </div>
+                        </div>
+                    </div>
+                `);
+            }
+        });
+
+        setMenuTabContent(`du ${getRn(0)}`);
+    }
+    mainView_Edt();
+</script>
