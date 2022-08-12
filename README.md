@@ -1,4 +1,4 @@
-![image](https://user-images.githubusercontent.com/32978709/184417554-7f46bcd8-9f78-4b8a-9702-7bd6b5dc3062.png)
+![image](https://user-images.githubusercontent.com/32978709/184417827-3d03b762-b9d5-45d6-8512-b229ba0c767d.png)
 
 Front-end pour node-pronote / Pronote+
 
