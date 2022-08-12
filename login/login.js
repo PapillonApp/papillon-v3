@@ -24,9 +24,6 @@ function loginGo(auto) {
     $.get(`https://api.allorigins.win/get?url=${encodeURIComponent(`http://206.189.96.57:35500/auth?url=${url}&username=${username}&password=${password}&cas=${cas}&rand=${uuidv4()}`)}`, function( data ) {
         let resp = JSON.parse(data.contents);
         if(resp.code == 3) {
-            mixpanel.track('Identifiants incorrects', {
-              'source': "PronotePlus",
-            });
             alert("Identifiants incorrects.");
             document.getElementById("loginBtn").innerHTML = "Se connecter";
         }
@@ -34,14 +31,10 @@ function loginGo(auto) {
             alert("Remplissez toutes les informations.");
             document.getElementById("loginBtn").innerHTML = "Se connecter";
         }
-        else if(resp.token !== undefined) {
-            mixpanel.track('Connexion réussie', {
-              'source': "PronotePlus",
-            });
-            
+        else if(resp.token !== undefined) {           
             localStorage.setItem('authToken', resp.token);
 
-            let authData = [url, username, password, cas];
+            let authData = [url, username, btoa(password), cas];
             localStorage.setItem('authData', JSON.stringify(authData));
 
             window.location.href = "../index.html";
@@ -60,12 +53,9 @@ function checkURL() {
 
 setTimeout(() => {
     if(localStorage.getItem('authData') !== undefined) {
-        mixpanel.track('Reconnexion', {
-          'source': "PronotePlus",
-        });
         let auth = JSON.parse(localStorage.getItem('authData'));
         document.getElementById("username").value = auth[1];
-        document.getElementById("password").value = auth[2];
+        document.getElementById("password").value = atob(auth[2]);
         document.getElementById("urlCustom").value = auth[0];
         document.getElementById("login_url").value = "other";
         document.getElementById("ent").value = auth[3];

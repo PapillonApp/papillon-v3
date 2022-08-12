@@ -127,9 +127,6 @@ else {
     }
     catch(e) {
         alert("ERREUR [PronotePlusBetaError] : contactez @levraicnivtwelve sur insta si cette erreur persiste");
-        mixpanel.track('Erreur fatale', {
-          'source': "PronotePlus",
-        });
     }
 }
 
@@ -178,11 +175,6 @@ function loadPronoteData() {
     
             $('#userName').text(myName);
             $('#userClass').text(resp.studentClass.name + " – " + resp.establishmentsInfo[0].name);
-            
-            mixpanel.track('Données chargées', {
-              'source': "PronotePlus",
-              'etablissement': resp.establishmentsInfo[0].name
-            });
             
             avatar = resp.avatar;
             if (localStorage.getItem('customPic') !== null) {
@@ -254,8 +246,8 @@ view('edt', 'Emploi du temps', true)
 
 var latestVersion = localStorage.getItem('latestVersion')
 
-const version = "3.2 pre-release";
-const release = '3.2';
+const version = "3.3 beta";
+const release = '3.3';
 
 if(release !== latestVersion) {
     localStorage.setItem('latestVersion', release);

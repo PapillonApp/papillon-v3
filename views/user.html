@@ -39,6 +39,20 @@
         </div>
     </div></a>
 
+    <a href="#" onclick="viewQuery('update', 'Notes de version', '', 'user', 'Mon profil')"><div class="cours file" style="--off: 0ms">
+        <span class="material-symbols-outlined">
+            update
+        </span>
+        <div class="cours_topData">
+            <h3>Notes de version</h3>
+            <p>Redécouvez les nouvelles fonctionnalités</p>
+        </div>
+    </div></a>
+
+    <div class="part">
+        Avancé
+    </div>
+
     <a href="#" onclick="refreshToken()"><div class="cours file" style="--off: 0ms">
         <span class="material-symbols-outlined">
             build
@@ -59,11 +73,6 @@
         </div>
     </div></a>
 
-
-    <div class="part">
-        Avancé
-    </div>
-
     <a href="#" onclick="viewQuery('userdata', 'Informations sur '+myName, '', 'user', 'Mon profil')"><div class="cours file" style="--off: 0ms">
         <span class="material-symbols-outlined">
             account_circle
@@ -79,7 +88,7 @@
         Informations
     </div>
 
-    <a href="#" onclick="verclick()"><div class="cours file" style="--off: 0ms">
+    <a href="#" onclick="viewQuery('about', 'A propos de Pronote+', '', 'user', 'Mon profil')"><div class="cours file" style="--off: 0ms">
         <span class="material-symbols-outlined">
             info
         </span>
@@ -95,14 +104,4 @@
 <script>
     $('#version').text(version);
     progressEnd();
-    
-    let vercount = 0;
-    
-    function verclick() {
-        vercount = vercount + 1;
-        
-        if(vercount > 6) {
-            window.location = "https://www.youtube.com/watch?v=HKY8TrtzTbQ";
-        }
-    }
 </script>

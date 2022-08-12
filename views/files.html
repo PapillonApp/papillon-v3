@@ -16,10 +16,6 @@
             
             let resp = JSON.parse(data.contents).data.files;
             
-            mixpanel.track('Fichiers ouverts', {
-              'source': "PronotePlus",
-            });
-            
 
             // sort by time
             resp.sort(function(a, b) {

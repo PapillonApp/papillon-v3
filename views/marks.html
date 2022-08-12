@@ -38,11 +38,7 @@
             progressEnd();
             $('#ListeNotes').html('');
             allMarks = [];
-            
-            mixpanel.track('Notes consultées', {
-              'source': "PronotePlus",
-            });
-            
+        
             let resp = JSON.parse(data.contents).data.marks.subjects;
 
             for(id_s in resp) {

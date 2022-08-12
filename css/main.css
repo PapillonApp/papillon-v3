@@ -13,8 +13,21 @@ body {
 
 :root {
     --safe-space: 20px;
+    --safe-space-top: 15px;
     --theme-color: #f9f9f9;
     --bg: #00000022;
+}
+
+#iOS-cover {
+    background: #55555555;
+    -webkit-backdrop-filter: blur(24px);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 35pt;
+    display: none;
+    z-index: 9999999;
 }
 
 @media only screen
@@ -37,12 +50,23 @@ and (device-width : 428px)
 and (device-height : 926px)  {
     :root {
         --safe-space: 34pt;
+        --safe-space-top: 36px;
+    }
+    
+    #iOS-cover {
+        display: block;
+    }
+
+    #appContent {
+        --safe-space-top: 55px;
     }
 }
 
 #appContent {
-    height: calc(100vh - (57px + var(--safe-space)));
+    padding-top: var(--safe-space-top);
+    height: calc(100vh - (57px + (var(--safe-space) + var(--safe-space-top))));
     overflow-y: scroll;
+    z-index: 9;
 }
 
 #menuContent {
@@ -87,7 +111,7 @@ and (device-height : 926px)  {
 .material-symbols-outlined {
     font-variation-settings:
     'FILL' 0,
-    'wght' 600,
+    'wght' 300,
     'GRAD' 0,
     'opsz' 48
 }
@@ -181,6 +205,7 @@ and (device-height : 926px)  {
 
 #menu {
     position: fixed;
+    display: flex;
     top: 0;
     left: 0;
     width: 100vw;
@@ -192,42 +217,70 @@ and (device-height : 926px)  {
     justify-content: flex-end;
     align-items: center;
     padding-bottom: var(--safe-space);
+    z-index: 9999999999999999999999;
 
     display: none;
 
     animation: menu 0.3s forwards cubic-bezier(0,0,0,1);
-
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
 }
 
 #menu.close {
     animation: menuClose 0.15s forwards cubic-bezier(0,0,0,1);
 }
 
+#menuTabs {
+    width: 90vw;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background: #fff;
+    animation: menuTabs 0.3s forwards cubic-bezier(0,0,0,1);
+    pointer-events: all;
+}
+
+#menuTabs * {
+    animation: none;
+    border-radius: 0;
+}
+
 @keyframes menu {
     0% {
         background-color: #00000000;
-        backdrop-filter: blur(0px);
-        -webkit-backdrop-filter: blur(0px);
     }
     100% {
         background-color: #00000052;
-        backdrop-filter: blur(14px);
-        -webkit-backdrop-filter: blur(14px);
+    }
+}
+
+#menu.close #menuTabs {
+    animation: menuTabsClose 0.2s forwards;
+}
+
+@keyframes menuTabs {
+    0% {
+        left: -90vw;
+    }
+    100% {
+        left: 0vw;
+    }
+}
+
+@keyframes menuTabsClose {
+    0% {
+        left: 0vw;
+    }
+    100% {
+        left: -90vw;
     }
 }
 
 @keyframes menuClose {
     0% {
         background-color: #00000052;
-        backdrop-filter: blur(14px);
-        -webkit-backdrop-filter: blur(14px);
     }
     100% {
         background-color: #00000000;
-        backdrop-filter: blur(0px);
-        -webkit-backdrop-filter: blur(0px);
     }
 }
 
@@ -239,10 +292,6 @@ and (device-height : 926px)  {
     animation: modal 0.3s forwards cubic-bezier(0,0,0,1);
 }
 
-#menu.close .modal {
-    animation: modalClose 0.15s forwards;
-}
-
 @keyframes modal {
     0% {
         transform: translateY(50px);
@@ -252,18 +301,9 @@ and (device-height : 926px)  {
     }
 }
 
-@keyframes modalClose {
-    0% {
-        transform: translateY(0px);
-    }
-    100% {
-        transform: translateY(20px);
-        opacity: 0%;
-    }
-}
-
 .linkList {
     display: block;
+    margin-top: -12px;
 }
 
 .tabLink {
@@ -271,7 +311,7 @@ and (device-height : 926px)  {
     align-items: center;
     border-bottom: 1px solid #00000020;
     border-radius: 0px;
-    padding: 12px 0px;
+    padding: 15px 0px;
 }
 
 .tabLink:active {
@@ -284,16 +324,20 @@ and (device-height : 926px)  {
 }
 
 .tabLink p {
-    font-weight: 500;
+    font-weight: 600;
+    font-size: 16px;
     margin: 0;
 }
 
 .time {
-    margin-bottom: 14px;
     width: calc(90vw - 50px);
-    padding: 14px 25px;
+    padding: 15px 25px;
     display: flex;
     align-items: center;
+    border-top: #00000022 1px solid;
+    position: absolute;
+    bottom: 0;
+    padding-bottom: var(--safe-space);
 }
 
 .time * {
@@ -329,29 +373,36 @@ and (device-height : 926px)  {
 .user {
     margin-bottom: 14px;
     width: 90vw;
-    background-position: center;
-    background-size: cover;
+    background-position: top !important;
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
 }
 
 #userModalOver {
     display: flex;
-    padding: 15px;
-    align-items: center;
+    flex-direction: column;
+    padding-top: var(--safe-space-top);
+    padding-bottom: 18px;
+    padding-right: 10px;
+    align-items: flex-start;
     background-color: #00000077;
-    border-radius: 15px;
+    border-radius: 0px;
     backdrop-filter: blur(24px);
     -webkit-backdrop-filter: blur(24px);
-    width: calc(90vw - 30px);
+    width: calc(90vw - 35px);
     overflow: hidden;
+    padding-left: 25px;
 }
 
 #userAvatar {
     background-color: #555;
+    margin-top: 18px;
     width: 48px;
     min-width: 48px !important;
     height: 48px;
     border-radius: 100px;
     object-fit: cover;
+    margin-bottom: 10px;
 }
 
 .user * {
@@ -360,7 +411,7 @@ and (device-height : 926px)  {
 }
 
 .userInfo {
-    margin-left: 15px;
+    /* margin-left: 15px; */
     width: calc(90vw - 30px - 60px);
 }
 
@@ -386,6 +437,8 @@ and (device-height : 926px)  {
     padding-left: 5vw;
 }
 
+
+
 @keyframes show {
     from {
         opacity: 0;
@@ -398,7 +451,7 @@ and (device-height : 926px)  {
 }
 
 .cours {
-    background-color: #fff;
+    background-color: #ffffff;
     box-shadow : 0px 1px 2px rgba(0, 0, 0, 0.15);
     width: 90vw;
     border-radius: 8px;
@@ -620,10 +673,22 @@ a {
         background: #151920;
     }
 
+    #iOS-cover {
+        background: #15192055;
+    }
+
     #menuContent {
         background: #1C212B;
         border-top: 1px solid rgba(255, 255, 255, 0.1);
         color: #fff;
+    }
+
+    #menuTabs {
+        background: #1C212B;
+    }
+
+    .time {
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
     }
     
     :root {
@@ -713,4 +778,15 @@ a {
     text-overflow: unset;
     white-space: unset;
     line-height: 18px;
+}
+
+.settings {
+    position: absolute;
+    right: 25px;
+    top: calc(20px + var(--safe-space-top));
+    opacity: 0.5;
+}
+
+.settings:active {
+    opacity: 0.2;
 }

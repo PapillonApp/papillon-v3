@@ -16,26 +16,6 @@
     <div class="part">
         Thèmes classiques
     </div>
-
-    <a href="#" onclick="selectTheme('css/material.css')"><div class="cours file" style="--off: 0ms">
-        <span class="material-symbols-outlined">
-            palette
-        </span>
-        <div class="cours_topData">
-            <h3>Material Design</h3>
-            <p>par Vince Linise</p>
-        </div>
-    </div></a>
-
-    <a href="#" onclick="selectTheme('css/apple.css')"><div class="cours file" style="--off: 0ms">
-        <span class="material-symbols-outlined">
-            palette
-        </span>
-        <div class="cours_topData">
-            <h3>Basique</h3>
-            <p>par Vince Linise</p>
-        </div>
-    </div></a>
     
     <a href="#" onclick="selectTheme('css/nextcloud.css')"><div class="cours file" style="--off: 0ms">
         <span class="material-symbols-outlined">
@@ -145,9 +125,6 @@
     function selectTheme(css) {
         localStorage.setItem('customTheme', css);
         update();
-        mixpanel.track('Thème changé', {
-          'source': "PronotePlus",
-        });
     }
 
     function customTheme() {
@@ -155,9 +132,6 @@
         if (url != null) {
             localStorage.setItem('customTheme', url);
             update();
-            mixpanel.track('Thème changé', {
-              'source': "PronotePlus",
-            });
         }
     }
 </script>
