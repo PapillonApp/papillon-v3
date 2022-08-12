@@ -1,0 +1,40 @@
+* {
+	font-family: 'Arial', sans-serif;
+}
+
+.cours, .subject {
+	box-shadow : 0px 3px 5px rgba(0, 0, 0, 0.5);
+	background: linear-gradient(0deg, #e5e5e5 0%, #fff 100%);
+}
+
+.coursleftBar {
+    background: url("../themes/xp/background.png"); 
+}
+
+body {
+	background: url("../themes/xp/background.png");
+	background-size: cover;
+}
+
+#menuContent {
+	background: url("../themes/xp/taskbar.png");
+	background-size: cover;
+	color: #fff;
+}
+
+:root {
+	--theme-color: #688FED;
+}
+
+.modal {
+	background: linear-gradient(0deg, #e5e5e5 0%, #fff 100%);
+}
+
+@media screen and (prefers-color-scheme: dark) {
+	.cours, .subject, .modal {
+		color: black;
+	}
+	:root {
+		--theme-color: #688FED;
+	}
+}

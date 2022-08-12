@@ -20,9 +20,27 @@
     border-radius: 3px;
 }
 
+@import url('https://fonts.googleapis.com/css2?family=Mali:wght@300;400;500;600;700&display=swap');
+
+body {
+    background: #fff4e9;
+}
+
+#menuContent {
+    background : #feebc5;
+}
+
+:root {
+    --theme-color: #fff4e9;
+}
+
 @media screen and (prefers-color-scheme: dark) {
     body {
         background: #201715;
+    }
+    
+    :root {
+        --theme-color: #201715;
     }
 
     #menuContent {

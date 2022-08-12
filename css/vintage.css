@@ -1,0 +1,13 @@
+#menuContent {
+	background: url('../themes/grunge/image 9.png');
+	color: #fff;
+}
+
+body {
+	background: linear-gradient(0deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.5) 100%), url('../themes/grunge/bg.gif');
+}
+
+.cours, .subject {
+	background: url('../themes/grunge/image 9.png');
+	color: #fff;
+}

@@ -5,6 +5,10 @@
 <script>
     markID = q;
     mark = allMarks[q];
+    
+    mixpanel.track('Détail de la note ouvert', {
+      'source': "PronotePlus",
+    });
 
     markname = "";
     if(mark.title !== "") {
@@ -16,7 +20,7 @@
     value = 0
 
     if(mark.value !== null) {
-        value = mark.value.toFixed(2);
+        value = ((mark.value/mark.scale)*20).toFixed(2);
     } else {
         value = "N. noté";
     }
@@ -35,13 +39,16 @@
                 <div class="cours_btmData">
                     <div>
                         <p>👀 Moyenne : ${mark.average}/${mark.scale}</p>
+                        <p>👹 Note originale : ${mark.value}/${mark.scale}</p>
                         <p>👭 Coeff : x${mark.coefficient}</p>
-                        <p>👍 Meilleure note : ${mark.min}/${mark.scale}</p>
-                        <p>🤯 Moins bonne note : ${mark.max}/${mark.scale}</p>
+                        <p>👍 Meilleure note : ${mark.max}/${mark.scale}</p>
+                        <p>🤯 Moins bonne note : ${mark.min}/${mark.scale}</p>
                     </div>
                     <p class="when">${dateString}</p>
                 </div>
             </div>
         </div>
     `)
+
+    setMenuTabContent("Détail de la note");
 </script>

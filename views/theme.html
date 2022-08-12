@@ -14,8 +14,72 @@
     </div></a>
 
     <div class="part">
+        Thèmes classiques
+    </div>
+
+    <a href="#" onclick="selectTheme('css/material.css')"><div class="cours file" style="--off: 0ms">
+        <span class="material-symbols-outlined">
+            palette
+        </span>
+        <div class="cours_topData">
+            <h3>Material Design</h3>
+            <p>par Vince Linise</p>
+        </div>
+    </div></a>
+
+    <a href="#" onclick="selectTheme('css/apple.css')"><div class="cours file" style="--off: 0ms">
+        <span class="material-symbols-outlined">
+            palette
+        </span>
+        <div class="cours_topData">
+            <h3>Basique</h3>
+            <p>par Vince Linise</p>
+        </div>
+    </div></a>
+    
+    <a href="#" onclick="selectTheme('css/nextcloud.css')"><div class="cours file" style="--off: 0ms">
+        <span class="material-symbols-outlined">
+            palette
+        </span>
+        <div class="cours_topData">
+            <h3>Thème inspiré de Gnome & Nextcloud</h3>
+            <p>par Vince Linise</p>
+        </div>
+    </div></a>
+    
+    <a href="#" onclick="selectTheme('css/discord.css')"><div class="cours file" style="--off: 0ms">
+        <span class="material-symbols-outlined">
+            palette
+        </span>
+        <div class="cours_topData">
+            <h3>Thème inspiré de Discord</h3>
+            <p>par Vince Linise</p>
+        </div>
+    </div></a>
+    
+    <div class="part">
         Thèmes spéciaux
     </div>
+    
+    <a href="#" onclick="selectTheme('css/windowsxp.css')"><div class="cours file" style="--off: 0ms">
+        <span class="material-symbols-outlined">
+            palette
+        </span>
+        <div class="cours_topData">
+            <h3>Windows XP</h3>
+            <p>par Timo Febvet-Viviani</p>
+        </div>
+    </div></a>
+    
+    <a href="#" onclick="selectTheme('css/aesthetic.css')"><div class="cours file" style="--off: 0ms">
+        <span class="material-symbols-outlined">
+            palette
+        </span>
+        <div class="cours_topData">
+            <h3>Aestheticgirl</h3>
+            <p>par Vince Linise</p>
+        </div>
+    </div></a>
 
     <a href="#" onclick="selectTheme('css/book.css')"><div class="cours file" style="--off: 0ms">
         <span class="material-symbols-outlined">
@@ -34,6 +98,30 @@
         <div class="cours_topData">
             <h3>Néon Glowy Blue</h3>
             <p>par Vince Linise</p>
+        </div>
+    </div></a>
+    
+    <div class="part">
+        Thèmes proposés par la communauté
+    </div>
+    
+    <a href="#" onclick="selectTheme('css/vintage.css')"><div class="cours file" style="--off: 0ms">
+        <span class="material-symbols-outlined">
+            palette
+        </span>
+        <div class="cours_topData">
+            <h3>Thème Vintage (bien grunge 🎸📺)</h3>
+            <p>proposé par @simply_.ayaa</p>
+        </div>
+    </div></a>
+    
+    <a href="#" onclick="selectTheme('css/lgbt.css')"><div class="cours file" style="--off: 0ms">
+        <span class="material-symbols-outlined">
+            palette
+        </span>
+        <div class="cours_topData">
+            <h3>Thème LGBT</h3>
+            <p>proposé par @matthieumonthuir</p>
         </div>
     </div></a>
 
@@ -57,6 +145,9 @@
     function selectTheme(css) {
         localStorage.setItem('customTheme', css);
         update();
+        mixpanel.track('Thème changé', {
+          'source': "PronotePlus",
+        });
     }
 
     function customTheme() {
@@ -64,6 +155,9 @@
         if (url != null) {
             localStorage.setItem('customTheme', url);
             update();
+            mixpanel.track('Thème changé', {
+              'source': "PronotePlus",
+            });
         }
     }
 </script>

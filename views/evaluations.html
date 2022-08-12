@@ -9,7 +9,12 @@
         let from = half.toISOString().split("T")[0]
 
         progressStart();
-        $.get(`https://api.allorigins.win/get?url=${encodeURIComponent(`http://159.223.233.152:6858/evaluations?token=${token}`)}&rand=${uuidv4()}`, function( data ) {
+        $.get(`https://api.allorigins.win/get?url=${encodeURIComponent(`http://206.189.96.57:35500/evaluations?token=${token}`)}&rand=${uuidv4()}`, function( data ) {
+            
+            mixpanel.track('Compétences consultées', {
+              'source': "PronotePlus",
+            });
+            
             if(JSON.parse(data.contents).message !== undefined) {
                 window.location.href = 'login/';
             }
@@ -51,6 +56,11 @@
                         l = level.value.short;
 
                         let val = "0";
+                        let mode = 0;
+                        
+                        if(l == "A+") {
+                            mode = 4;
+                        }
 
                         if(l == "+" || l == "A" || l == "4" || l == "A+") {
                             val = "4";
@@ -63,6 +73,12 @@
                         }
                         else if(l == "++" || l == "D"  || l == "1" || l == "E") {
                             val = "1";
+                        }
+                        
+                        if(l == "A") {
+                            if(mode == 4) {
+                                val = "3";
+                            }
                         }
 
                         let img = `../assets/${val}_comp.svg`;

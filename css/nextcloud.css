@@ -1,0 +1,52 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap');
+
+* {
+	font-family: 'Open Sans';
+}
+
+#menuContent {
+	background: #ffffff;
+	color: #0099ff;
+}
+
+@media screen and (prefers-color-scheme: dark) {
+	body {
+		background: #0e1012;
+	}
+	#menuContent {
+		background: #16191c;
+		color: #0099ff;
+	}
+	:root {
+		--theme-color: #0e1012;
+	}
+}
+
+#progressBarFill {
+	background-color: #0099ff;
+}
+
+.cours {
+	box-shadow : 0px 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.subject {
+	box-shadow : 0px 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.subjectName {
+	background: linear-gradient(0deg, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0.7) 100%), var(--bg);
+}
+
+.coursleftBar {
+	background-color: none !important;
+	background: linear-gradient(0deg, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0.7) 100%), var(--bg);
+}
+
+.subjectName p {
+	color: #222;
+}
+
+.subjectName p2 {
+	color: #222;
+}

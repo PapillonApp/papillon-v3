@@ -8,7 +8,7 @@
         half.setDate(half.getDate() + 1);
         let from = half.toISOString().split("T")[0]
         progressStart(4);
-        $.get(`https://api.allorigins.win/get?url=${encodeURIComponent(`http://159.223.233.152:6858/news?token=${token}&rand=${uuidv4()}`)}`, function( data ) {
+        $.get(`https://api.allorigins.win/get?url=${encodeURIComponent(`http://206.189.96.57:35500/news?token=${token}&rand=${uuidv4()}`)}`, function( data ) {
             if(JSON.parse(data.contents).message !== undefined) {
                 window.location.href = 'login/';
             }
@@ -32,6 +32,10 @@
                 if(info.title == null) {
                     info.title = "Information";
                 }
+                
+                mixpanel.track('News consultées', {
+                  'source': "PronotePlus",
+                });
 
                 $('#ListeNews').append(`
                     <a onclick="viewQuery('info','${info.title}','${news_id}', 'news', 'Actualités');" href="#"><div class="cours file" style="--off: 0ms">

@@ -10,7 +10,12 @@
     function mainView_Edt() {
         let from = rn.toISOString().split("T")[0]
         progressStart();
-        $.get(`https://api.allorigins.win/get?url=${encodeURIComponent(`http://159.223.233.152:6858/edt?token=${token}&from=${from}&rand=${uuidv4()}`)}`, function( data ) {
+        $.get(`https://api.allorigins.win/get?url=${encodeURIComponent(`http://206.189.96.57:35500/edt?token=${token}&from=${from}&rand=${uuidv4()}`)}`, function( data ) {
+            
+            mixpanel.track('Emploi du temps ouvert', {
+              'source': "PronotePlus",
+            });
+            
             if(JSON.parse(data.contents).message !== undefined) {
                 window.location.href = 'login/';
             }
@@ -38,10 +43,12 @@
                 if(resp[course].room == null) {
                     resp[course].room = "inconnue";
                 }
+                
+                let status = "";
 
                 if(resp[course].subject !== null) {
                     if(resp[course].status !== null) {
-                        resp[course].teacher = `${resp[course].status} – ` + resp[course].teacher;
+                        status = `<span class="status">${resp[course].status}</span>`
                     }
                 }
                 
@@ -50,9 +57,9 @@
                         <div class="cours" style="--off: ${course * 50}ms">
                             <div style="--bg:${resp[course].color}" class="coursleftBar"></div>
                             <div class="cours_data">
-                                <div class="cours_topData">
+                                <div class="courd">
                                     <h3>${resp[course].subject}</h3>
-                                    <p>${resp[course].teacher}</p>
+                                    <p><span class="teacher">${resp[course].teacher}</span> ${status}</p>
                                 </div>
                                 <div class="cours_btmData">
                                     <p>salle ${resp[course].room}</p>
@@ -67,7 +74,7 @@
             if(resp.length === 0) {
                 $('#ListeCours').append(`
                     <div class="cours" style="--off: 0ms">
-                        <div style="--bg:#fff" class="coursleftBar"></div>
+                        <div class="coursleftBar"></div>
                         <div class="cours_data">
                             <div class="cours_topData">
                                 <h3>😴 Aucun cours</h3>

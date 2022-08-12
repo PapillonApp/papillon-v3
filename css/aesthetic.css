@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Mali:wght@300;400;500;600;700&display=swap');
+
+* {
+	font-family: 'Mali', cursive;
+}
+
+body {
+	background: #FDE9FF;
+}
+
+#menuContent {
+	background : #FEC6FC;
+}
+
+:root {
+	--theme-color: #FDE9FF;
+}
+
+@media screen and (prefers-color-scheme: dark) {
+	body {
+		background: #1a131b;
+	}
+	#menuContent {
+		background : #312030;
+	}
+	:root {
+		--theme-color: #1a131b;
+	}
+}

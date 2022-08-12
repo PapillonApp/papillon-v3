@@ -15,6 +15,25 @@ if (localStorage.getItem('customTheme') !== null) {
     head.appendChild(link);
 }
 
+let metaThemeColor = document.querySelector("meta[name=theme-color]");
+
+function apply_theme_color() {
+    let themeColor = getComputedStyle(document.documentElement).getPropertyValue('--theme-color');
+    metaThemeColor.setAttribute("content", themeColor);
+}
+
+apply_theme_color();
+
+window
+.matchMedia("(prefers-color-scheme: dark)")
+.addEventListener("change", function (e) {
+    apply_theme_color();
+});
+
+setInterval(function() {
+        apply_theme_color();
+}, 400)
+
 // marks
 let allMarks = [];
 
@@ -108,6 +127,9 @@ else {
     }
     catch(e) {
         alert("ERREUR [PronotePlusBetaError] : contactez @levraicnivtwelve sur insta si cette erreur persiste");
+        mixpanel.track('Erreur fatale', {
+          'source': "PronotePlus",
+        });
     }
 }
 
@@ -136,7 +158,8 @@ function uuidv4() {
 
 function loadPronoteData() {
     progressStart();
-    $.get(`https://api.allorigins.win/get?url=${encodeURIComponent(`http://159.223.233.152:6858/user?token=${token}&rand=${uuidv4()}`)}`, function( data, success ) {     
+    $.get(`https://api.allorigins.win/get?url=${encodeURIComponent(`http://206.189.96.57:35500/user?token=${token}&rand=${uuidv4()}`)}`, function( data, success ) { 
+      
             if(JSON.parse(data.contents).message !== undefined) {
                 window.location.href = 'login/';
             }
@@ -144,13 +167,22 @@ function loadPronoteData() {
         
             let resp = JSON.parse(data.contents).data.user;
     
-            myName = resp.name.split(" ").reverse().join(" ");
+            myNameStep = resp.name.split(" ");
+            lastName = myNameStep.shift();
+            firstName = myNameStep[0];
+            myName = firstName + " " + lastName;
+            
             if (localStorage.getItem('customName') !== null) {
                 myName = localStorage.getItem('customName');
             }
     
             $('#userName').text(myName);
             $('#userClass').text(resp.studentClass.name + " – " + resp.establishmentsInfo[0].name);
+            
+            mixpanel.track('Données chargées', {
+              'source': "PronotePlus",
+              'etablissement': resp.establishmentsInfo[0].name
+            });
             
             avatar = resp.avatar;
             if (localStorage.getItem('customPic') !== null) {
@@ -169,6 +201,9 @@ function changeName() {
             update()
         }, 500);
     }
+    mixpanel.track('Nom changé', {
+      'source': "PronotePlus",
+    });
 }
 
 function changePic() {
@@ -217,4 +252,12 @@ function escapeHtml(text) {
 // show edt first 
 view('edt', 'Emploi du temps', true)
 
-const version = "3.0.4";
+var latestVersion = localStorage.getItem('latestVersion')
+
+const version = "3.2 pre-release";
+const release = '3.2';
+
+if(release !== latestVersion) {
+    localStorage.setItem('latestVersion', release);
+    view('update', 'Notes de mise à jour', true)
+}

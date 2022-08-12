@@ -1,0 +1,20 @@
+@media screen and (prefers-color-scheme: light) {
+	#menuContent {
+		background: linear-gradient(124deg, rgba(255,0,0,1) 0%, rgba(255,128,0,1) 20%, rgba(236,255,0,1) 40%, rgba(0,255,34,1) 60%, rgba(0,108,255,1) 80%, rgba(248,0,255,1) 100%);
+		color: #000;
+	}
+}
+
+:root {
+	--bg: linear-gradient(124deg, rgba(255,0,0,1) 0%, rgba(255,128,0,1) 20%, rgba(236,255,0,1) 40%, rgba(0,255,34,1) 60%, rgba(0,108,255,1) 80%, rgba(248,0,255,1) 100%) !important;
+}
+
+@media screen and (prefers-color-scheme: dark) {
+	#menuContent {
+		background: linear-gradient(124deg, rgba(154,0,0,1) 0%, rgba(166,108,0,1) 20%, rgba(137,145,0,1) 40%, rgba(47,157,0,1) 60%, rgba(0,68,159,1) 80%, rgba(149,0,153,1) 100%);
+		color: #fff;
+	}
+	#progressBarFill {
+		background: linear-gradient(124deg, rgba(255,0,0,1) 0%, rgba(255,128,0,1) 20%, rgba(236,255,0,1) 40%, rgba(0,255,34,1) 60%, rgba(0,108,255,1) 80%, rgba(248,0,255,1) 100%);
+	}
+}

@@ -1,0 +1,17 @@
+#menuContent {
+	background : linear-gradient(0deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.5) 100%), url('https://i.scdn.co/image/ab6761610000e5eb834c455c15e40160ec4a60c1');
+	background-size: contain;
+}
+
+.cours, .subject {
+	background : linear-gradient(0deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.5) 100%),url('https://i.scdn.co/image/ab6761610000e5eb834c455c15e40160ec4a60c1');
+	background-size: contain;
+}
+
+body {
+	background : linear-gradient(0deg, rgba(0,0,0,0.0) 0%, rgba(0,0,0,0.7) 100%),url('https://i.scdn.co/image/ab6761610000e5eb834c455c15e40160ec4a60c1');
+}
+
+:root {
+	--theme-color: #000;
+}

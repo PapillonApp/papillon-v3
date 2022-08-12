@@ -1,0 +1,49 @@
+@import url('https://fonts.cdnfonts.com/css/whitney-2');
+
+* {
+	font-family: 'Whitney', sans-serif;
+}
+
+body {
+	background: #2F3237;
+}
+
+:root {
+	--theme-color: #2f3237;
+}
+
+@media screen and (prefers-color-scheme: dark) {
+	:root {
+		--theme-color: #2f3237;
+	}
+}
+
+#menuContent {
+	background: #292B2F;
+	color: #fff;
+}
+
+.cours {
+	background-color: #3E4248;
+	color: #fff;
+	border-radius : 4px; 
+}
+
+.subject {
+	background-color: #3E4248;
+	color: #fff;
+	border-radius : 4px; 
+}
+
+.modal {
+	background: #2F3237;
+	color: #fff;
+}
+
+.tabLink {
+	border-bottom: 1px solid #ffffff10;
+}
+
+.part {
+	color: #ffffff55 !important;
+}

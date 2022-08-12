@@ -4,7 +4,12 @@ function uuidv4() {
     );
 }
 
-function loginGo() {
+function loginGo(auto) {
+    if(auto == true) {
+        document.getElementById("login").style.display = "none";
+        document.getElementById("logText").innerHTML = "Reconnexion à Pronote+...";
+    }
+    
     document.getElementById("loginBtn").innerHTML = "Connexion...";
 
     let url = document.getElementById("login_url").value;
@@ -16,9 +21,12 @@ function loginGo() {
     let password = document.getElementById("password").value;
     let cas = document.getElementById("ent").value;
 
-    $.get(`https://api.allorigins.win/get?url=${encodeURIComponent(`http://159.223.233.152:6858/auth?url=${url}&username=${username}&password=${password}&cas=${cas}&rand=${uuidv4()}`)}`, function( data ) {
+    $.get(`https://api.allorigins.win/get?url=${encodeURIComponent(`http://206.189.96.57:35500/auth?url=${url}&username=${username}&password=${password}&cas=${cas}&rand=${uuidv4()}`)}`, function( data ) {
         let resp = JSON.parse(data.contents);
         if(resp.code == 3) {
+            mixpanel.track('Identifiants incorrects', {
+              'source': "PronotePlus",
+            });
             alert("Identifiants incorrects.");
             document.getElementById("loginBtn").innerHTML = "Se connecter";
         }
@@ -27,6 +35,10 @@ function loginGo() {
             document.getElementById("loginBtn").innerHTML = "Se connecter";
         }
         else if(resp.token !== undefined) {
+            mixpanel.track('Connexion réussie', {
+              'source': "PronotePlus",
+            });
+            
             localStorage.setItem('authToken', resp.token);
 
             let authData = [url, username, password, cas];
@@ -48,12 +60,15 @@ function checkURL() {
 
 setTimeout(() => {
     if(localStorage.getItem('authData') !== undefined) {
+        mixpanel.track('Reconnexion', {
+          'source': "PronotePlus",
+        });
         let auth = JSON.parse(localStorage.getItem('authData'));
         document.getElementById("username").value = auth[1];
         document.getElementById("password").value = auth[2];
         document.getElementById("urlCustom").value = auth[0];
         document.getElementById("login_url").value = "other";
         document.getElementById("ent").value = auth[3];
-        loginGo();
+        loginGo(true);
     }
 }, 150);

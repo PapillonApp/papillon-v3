@@ -16,11 +16,15 @@
         let from = half.toISOString().split("T")[0]
         console.log(from)
         progressStart();
-        $.get(`https://api.allorigins.win/get?url=${encodeURIComponent(`http://159.223.233.152:6858/hw?token=${token}&from=${from}&rand=${uuidv4()}`)}`, function( data ) {
+        $.get(`https://api.allorigins.win/get?url=${encodeURIComponent(`http://206.189.96.57:35500/hw?token=${token}&from=${from}&rand=${uuidv4()}`)}`, function( data ) {
             if(JSON.parse(data.contents).message !== undefined) {
                 window.location.href = 'login/';
             }
             progressEnd();
+            
+            mixpanel.track('Devoirs consultés', {
+              'source': "PronotePlus",
+            });
             
             let resp = JSON.parse(data.contents).data.homeworks;
 
@@ -43,7 +47,7 @@
             if(resp.length === 0) {
                 $('#ListeDevoirs').append(`
                     <div class="cours" style="--off: 0ms">
-                        <div style="--bg:#fff" class="coursleftBar"></div>
+                        <div class="coursleftBar"></div>
                         <div class="cours_data">
                             <div class="cours_topData">
                                 <h3>🤩 Pas de travail à faire</h3>
