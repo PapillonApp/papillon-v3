@@ -313,7 +313,7 @@ const ptr = PullToRefresh.init({
 // show edt first 
 var latestVersion = localStorage.getItem('latestVersion')
 
-const version = "3.4.1 beta";
+const version = "3.4.2 beta";
 const release = '3.4';
 
 function openApp() {
