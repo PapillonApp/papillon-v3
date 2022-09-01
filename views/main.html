@@ -95,15 +95,21 @@
         $.get(`https://api.allorigins.win/get?url=${encodeURIComponent(`http://206.189.96.57:35500/edt?token=${token}&from=${from}&rand=${uuidv4()}`)}`, function( data ) {
             
             if(JSON.parse(data.contents).error !== undefined) {
-                Toastify({
-                    text: "Impossible de récupérer l'emploi du temps.",
-                    gravity: "top",
-                    position: "center",
-                    className: "toasty",
-                    style: {
-                        background: "#FF0000",
-                    }
-                }).showToast();
+                if(JSON.parse(data.contents).code == 2) {
+                    Toastify({
+                        text: "Vous avez envoyé trop de demandes à Pronote, veuillez patienter quelques minutes.",
+                        gravity: "top",
+                        position: "center",
+                        className: "toasty",
+                        style: {
+                            background: "#FF0000",
+                        }
+                    }).showToast();
+                }
+                else {
+                    window.location.href = 'login/';
+                    localStorage.removeItem('cache_edt');
+                }
             }
             else {
                 localStorage.setItem('cache_edt', JSON.stringify(data));
