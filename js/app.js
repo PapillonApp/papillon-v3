@@ -5,14 +5,15 @@ if (window.matchMedia('(display-mode: standalone)').matches) {
     standalone = true;
 }
 
+let deferredPrompt;window.addEventListener('beforeinstallprompt', (e) => {    e.preventDefault();   deferredPrompt = e;    showInstallPromotion();});
+
+if('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/js/sw.js');
+};
+
 // theme
-if (localStorage.getItem('customTheme') !== null) {
-    var head = document.getElementsByTagName('HEAD')[0];
-    var link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.type = 'text/css';
-    link.href = localStorage.getItem('customTheme');
-    head.appendChild(link);
+if (localStorage.getItem('customFont') !== null) {
+    $('body').css('--font', localStorage.getItem('customFont'));
 }
 
 let metaThemeColor = document.querySelector("meta[name=theme-color]");
@@ -76,40 +77,57 @@ function progressEnd() {
 
 // date change
 let rn = new Date();
+let rn2 = new Date();
+
 let dateChanged = false;
 let dateChangedOnce = false;
 
 let days = ["dimanche", "lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi"];
 let months = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"];
 
-function prev() {
-    rn.setDate(rn.getDate() - 1);
-    updateTime();
+let rnPicker = document.getElementById("rn");
+
+rnPicker.addEventListener("change", function(e) {
+    rnPicker.value = event.target.value;
+    console.log(event.target.valueAsDate);
+
+    let rnE = event.target.valueAsDate;
+
     dateChanged = true;
     dateChangedOnce = true;
+
+    updateRn(rnE);
+});
+
+function updateRn(rnE) {
+    console.log(rnE);
+    rn = rnE;
 }
 
-function next() {
-    rn.setDate(rn.getDate() + 1);
-    updateTime();
-    dateChanged = true;
-    dateChangedOnce = true;
+function pad(num, places) {
+    var zero = places - num.toString().length + 1;
+    return Array(+(zero > 0 && zero)).join("0") + num;
 }
 
-function getRn(add) {
-    workRn = new Date(rn);
+function getRn(add, type) {
+    workRn = rn;
     workRn.setDate(workRn.getDate() + add);
 
     let day = days[workRn.getDay()];
     let month = months[workRn.getMonth()];
     let date = workRn.getDate();
     let year = workRn.getFullYear();
-    let rnText = `${day} ${date} ${month} ${year}`;
-    return rnText;
+
+    if(type == true) {
+        return `${year}-${pad((workRn.getMonth() + 1), 2)}-${pad(date, 2)}`
+    }
+    else {
+        return `${day} ${date} ${month} ${year}`;
+    }
 }
 
 function updateTime() {
-    $("#currentDate").text(getRn(0));
+    rnPicker.value = getRn(0, true)
 }
 
 updateTime();
@@ -153,6 +171,8 @@ function uuidv4() {
     );
 }
 
+let userEverything;
+
 function loadPronoteData() {
     progressStart();
     $.get(`https://api.allorigins.win/get?url=${encodeURIComponent(`http://206.189.96.57:35500/user?token=${token}&rand=${uuidv4()}`)}`, function( data, success ) { 
@@ -163,6 +183,7 @@ function loadPronoteData() {
             progressEnd();
         
             let resp = JSON.parse(data.contents).data.user;
+            userEverything = resp;
     
             myNameStep = resp.name.split(" ");
             lastName = myNameStep.shift();
@@ -182,6 +203,8 @@ function loadPronoteData() {
             }
             $('#userAvatar').attr('src', avatar);
             $('#userModal').css('background-image', `url(${avatar})`);
+
+            openApp();
         });
 }
 
@@ -239,17 +262,66 @@ function escapeHtml(text) {
         .replace(/>/g, "&gt;")
         .replace(/"/g, "&quot;")
         .replace(/'/g, "&#039;");
-  }
+}
+
+let avr;
+let avrClass;
+
+function animateValue(obj, start, end, duration) {
+    let startTimestamp = null;
+    const step = (timestamp) => {
+      if (!startTimestamp) startTimestamp = timestamp;
+      const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+      obj.innerHTML = (progress * (end - start) + start).toFixed(2);
+      if (progress < 1) {
+        window.requestAnimationFrame(step);
+      }
+    };
+    window.requestAnimationFrame(step);
+}
+
+function average() {
+    document.getElementById("fanAverage").innerHTML = avr.toFixed(2);
+    document.getElementById("fanAverageClass").innerHTML = avrClass.toFixed(1);
+    document.getElementById("fanAverageEcart").innerHTML = (avr - avrClass).toFixed(1);
+    
+    animateValue(document.getElementById("fanAverage"), 0, avr, 3000);
+
+    document.getElementById("average").style.display = "flex";
+}
+
+function averageClose() {
+    document.getElementById("average").style.display = "none";
+}
+
+const ptr = PullToRefresh.init({
+    mainElement: '#appContent',
+    triggerElement : '#appContent',
+    instructionsPullToRefresh: 'Glissez pour actualiser',
+    instructionsReleaseToRefresh: 'Relâchez pour actualiser',
+    instructionsRefreshing: 'Obtention des données...',
+    iconArrow: '<span class="material-symbols-outlined">autorenew</span>',
+    iconRefreshing: '<span class="material-symbols-outlined">more_horiz</span>',
+    onRefresh() {
+        allRefresh();
+    },
+    shouldPullToRefresh() {
+        return document.getElementById("appContent").scrollTop === 0;
+    }
+});
 
 // show edt first 
-view('edt', 'Emploi du temps', true)
-
 var latestVersion = localStorage.getItem('latestVersion')
 
-const version = "3.3 beta";
-const release = '3.3';
+const version = "3.4 stable";
+const release = '3.4';
 
-if(release !== latestVersion) {
-    localStorage.setItem('latestVersion', release);
-    view('update', 'Notes de mise à jour', true)
+function openApp() {
+    if(release !== latestVersion) {
+        localStorage.setItem('latestVersion', release);
+        view('update', 'Notes de mise à jour', true)
+    }
+    else {
+        view('main', 'Accueil');
+    }
 }

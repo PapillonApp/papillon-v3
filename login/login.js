@@ -4,12 +4,21 @@ function uuidv4() {
     );
 }
 
+
 function loginGo(auto) {
     if(auto == true) {
-        document.getElementById("login").style.display = "none";
-        document.getElementById("logText").innerHTML = "Reconnexion à Pronote+...";
+        Toastify({
+            text: "Reconnexion à Pronote...",
+            gravity: "top",
+            position: "center",
+            className: "toasty",
+            style: {
+                background: "#0066FF",
+            }
+        }).showToast();
     }
-    
+
+    document.getElementById("login").classList.add("autologin");
     document.getElementById("loginBtn").innerHTML = "Connexion...";
 
     let url = document.getElementById("login_url").value;
@@ -24,12 +33,60 @@ function loginGo(auto) {
     $.get(`https://api.allorigins.win/get?url=${encodeURIComponent(`http://206.189.96.57:35500/auth?url=${url}&username=${username}&password=${password}&cas=${cas}&rand=${uuidv4()}`)}`, function( data ) {
         let resp = JSON.parse(data.contents);
         if(resp.code == 3) {
-            alert("Identifiants incorrects.");
+            document.getElementById("loginBtn").classList.add("incorrect");
+            setTimeout(() => {
+                document.getElementById("loginBtn").classList.remove("incorrect");
+            }, 300);
+
+            document.getElementById("login").classList.remove("autologin");
             document.getElementById("loginBtn").innerHTML = "Se connecter";
+            localStorage.removeItem("token");
+            localStorage.removeItem("authData");
         }
         else if(resp.message !== undefined) {
-            alert("Remplissez toutes les informations.");
+            document.getElementById("loginBtn").classList.add("incorrect");
+            setTimeout(() => {
+                document.getElementById("loginBtn").classList.remove("incorrect");
+            }, 300);
+
+            document.getElementById("login").classList.remove("autologin");
             document.getElementById("loginBtn").innerHTML = "Se connecter";
+
+            if(resp.message == "The instance is closed, try again later") {
+                Toastify({
+                    text: "Pronote n'est pas encore ouvert dans votre établissement, veuillez réessayer ultérieurement.",
+                    gravity: "top",
+                    position: "center",
+                    className: "toasty",
+                    style: {
+                        background: "#FF0000",
+                    }
+                }).showToast();
+            }
+
+            if(resp.message == "Wrong user credentials") {
+                Toastify({
+                    text: "Identifiant ou mot de passe incorrect.",
+                    gravity: "top",
+                    position: "center",
+                    className: "toasty",
+                    style: {
+                        background: "#FF0000",
+                    }
+                }).showToast();
+            }
+
+            if(resp.message == "Missing 'url', or 'username', or 'password', or header 'Content-Type: application/json'") {
+                Toastify({
+                    text: "Veuillez remplir tous les champs.",
+                    gravity: "top",
+                    position: "center",
+                    className: "toasty",
+                    style: {
+                        background: "#FF0000",
+                    }
+                }).showToast();
+            }
         }
         else if(resp.token !== undefined) {           
             localStorage.setItem('authToken', resp.token);

@@ -3,6 +3,14 @@
 </div>
 
 <script>
+    if(localStorage.getItem("cache_evals") !== null){
+        parse_Evals(JSON.parse(localStorage.getItem("cache_evals")));
+        mainView_Evals();
+    }
+    else {
+        mainView_Evals();
+    }
+
     function mainView_Evals() {
         let half = new Date(rn);
         half.setDate(half.getDate() + 1);
@@ -11,13 +19,21 @@
         progressStart();
         $.get(`https://api.allorigins.win/get?url=${encodeURIComponent(`http://206.189.96.57:35500/evaluations?token=${token}`)}&rand=${uuidv4()}`, function( data ) {
             
-            if(JSON.parse(data.contents).message !== undefined) {
+            if(JSON.parse(data.contents).errors !== undefined) {
                 window.location.href = 'login/';
             }
             progressEnd();
             
-            let resp = JSON.parse(data.contents).data.evaluations;
+            localStorage.setItem('cache_evals', JSON.stringify(data));
+            parse_Evals(data);
+        });
+    }
+
+    function parse_Evals(data) {
+        let resp = JSON.parse(data.contents).data.evaluations;
             console.log(resp)
+
+            $('#ListeEvals').html('');
 
             for(id_s in resp) {
                 subject = resp[id_s];
@@ -85,7 +101,5 @@
                     }
                 }
             }
-        });
     }
-    mainView_Evals();
 </script>

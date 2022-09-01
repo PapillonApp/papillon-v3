@@ -1,0 +1,77 @@
+<div id="ListeUser" class="liste">
+
+    <div class="part frprt">
+        Polices disponibles
+    </div>
+
+    <a href="#" onclick="setFont('system-ui')"> <div class="cours file" style="--off: 0ms">
+        <span class="material-symbols-outlined">
+            text_format
+        </span>
+        <div class="cours_topData">
+            <h3 style="font-family: system-ui !important;">Par défaut</h3>
+        </div>
+    </div></a>
+
+    <a href="#" onclick="setFont('Montserrat')"> <div class="cours file" style="--off: 0ms">
+        <span class="material-symbols-outlined">
+            text_format
+        </span>
+        <div class="cours_topData">
+            <h3 style="font-family: 'Montserrat' !important;">Montserrat</h3>
+        </div>
+    </div></a>
+
+    <a href="#" onclick="setFont('Space Grotesk')"> <div class="cours file" style="--off: 0ms">
+        <span class="material-symbols-outlined">
+            text_format
+        </span>
+        <div class="cours_topData">
+            <h3 style="font-family: 'Space Grotesk' !important;">Space Grotesk</h3>
+        </div>
+    </div></a>
+
+    <a href="#" onclick="setFont('DynaPuff')"> <div class="cours file" style="--off: 0ms">
+        <span class="material-symbols-outlined">
+            text_format
+        </span>
+        <div class="cours_topData">
+            <h3 style="font-family: 'DynaPuff' !important;">DynaPuff</h3>
+        </div>
+    </div></a>
+
+    <a href="#" onclick="setFont('Comfortaa')"> <div class="cours file" style="--off: 0ms">
+        <span class="material-symbols-outlined">
+            text_format
+        </span>
+        <div class="cours_topData">
+            <h3 style="font-family: 'Comfortaa' !important;">Comfortaa</h3>
+        </div>
+    </div></a>
+
+    <a href="#" onclick="setFont('Chakra Petch')"> <div class="cours file" style="--off: 0ms">
+        <span class="material-symbols-outlined">
+            text_format
+        </span>
+        <div class="cours_topData">
+            <h3 style="font-family: 'Chakra Petch' !important;">Chakra Petch</h3>
+        </div>
+    </div></a>
+
+    <a href="#" onclick="setFont('Noto Serif')"> <div class="cours file" style="--off: 0ms">
+        <span class="material-symbols-outlined">
+            text_format
+        </span>
+        <div class="cours_topData">
+            <h3 style="font-family: 'Noto Serif' !important;">Noto Serif</h3>
+        </div>
+    </div></a>
+    
+</div>
+
+<script>
+    function setFont(font) {
+        localStorage.setItem('customFont', font);
+        location.reload(true);
+    }
+</script>

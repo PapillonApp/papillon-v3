@@ -3,29 +3,24 @@ let backHref = "";
 
 let currentTitle = "";
 let currentHref = "";
+let currentMenuItem;
 
 let q = "";
 
 // changer de page
 function view(href, title, prog) {
-    $('#appContent').load("./views/" + href + ".html");
-
-    $('#menuTabName').addClass('aboutto');
+    $('#appContent').fadeOut(200);
     setTimeout(() => {
-        $('#menuTabName').removeClass('aboutto');
-        $('#menuTabName').css('display', 'none');
-        $('#menuTabName').text(title);
-        setTimeout(() => {
-            $('#menuTabName').css('display', 'block');
-        }, 50);
+        $('#appContent').load("./views/" + href + ".html");
+    $('#appContent').fadeIn(200);
     }, 200);
+
+    $('#menuTabName').text(title);
 
     $('#menuTabContent').text(``);
 
-    $('#back').addClass("hideBack");
-    setTimeout(() => {
-        $('#back').css("display", "none");
-    }, 200);
+    $('#back').css("display", "none");
+    $('#menu-btn').css("display", "block");
 
     currentHref = href;
     currentTitle = title;
@@ -33,8 +28,22 @@ function view(href, title, prog) {
     dateChanged = false;
 
     if(!prog) {
-        closeMenu()
+        setTimeout(() => {
+            closeMenu()
+        }, 50);
+
+        if(currentMenuItem) {
+            currentMenuItem.classList.remove('active');
+        }
+
+        currentMenuItem = document.getElementById("menu_" + href);
+        currentMenuItem.classList.add('active');
     }
+}
+
+// refresh
+function allRefresh() {
+    view(currentHref, currentTitle);
 }
 
 function back() {
@@ -54,6 +63,8 @@ function viewQuery(href, title, query, b1, b2, prog) {
         }, 50);
     }, 200);
 
+    $('#menu-btn').css("display", "none");
+    
     $('#menuTabContent').text(``);
     $('#back').css("display", "block");
     $('#back').removeClass("hideBack");

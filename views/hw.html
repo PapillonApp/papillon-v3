@@ -4,6 +4,7 @@
 
 <script>
     function mainView_Hw() {
+        $('#ListeDevoirs').empty();
         let half = new Date(rn);
 
         let displacement = 0;
@@ -21,13 +22,14 @@
                 window.location.href = 'login/';
             }
             progressEnd();
-
             
             let resp = JSON.parse(data.contents).data.homeworks;
 
             for(hw in resp) {
+                let classes = "";
+
                 $('#ListeDevoirs').append(`
-                    <div class="cours" style="--off: ${hw * 50}ms">
+                    <div id="hw_${resp[hw].id}" class="cours ${classes}" style="--off: ${hw * 50}ms", '${from}')">
                         <div style="--bg:${resp[hw].color}" class="coursleftBar"></div>
                         <div class="cours_data">
                             <div class="cours_topData">
@@ -47,16 +49,8 @@
                         <div class="coursleftBar"></div>
                         <div class="cours_data">
                             <div class="cours_topData">
-                                <h3>🤩 Pas de travail à faire</h3>
-                                <p>Profites-en pour me suivre sur Instagram.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="cours" style="--off: 1000ms">
-                        <div style="--bg:#fff" class="coursleftBar"></div>
-                        <div class="cours_data">
-                            <div class="cours_topData">
-                                <p>(c'est @levraicnivtwelve)</p>
+                                <h3>🥳 Pas de travail à faire</h3>
+                                <p>C'est l'ocassion de profiter de ta journée !</p>
                             </div>
                         </div>
                     </div>

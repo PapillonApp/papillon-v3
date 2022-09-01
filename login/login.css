@@ -1,0 +1,139 @@
+body {
+    margin: 0;
+    color: #fff;
+}
+
+* {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
+}
+
+#topbar {
+    background-color: #FF0082;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+}
+
+#topbar img {
+    opacity: 70%;
+    margin-bottom: 3px;
+}
+
+#topbar * {
+    margin: 0;
+    padding: 0;
+}
+
+#topbar h3 {
+    color: #fff;
+    font-size: 22px;
+}
+
+#topbar small {
+    text-align: center;
+    color: #fff;
+    opacity: 50%;
+    margin: 10px 10px 0px 10px;
+}
+
+#login {
+    display: flex;
+    flex-direction: column;
+    
+    padding: 15px;
+}
+
+#urlCustom {
+    display: none;
+}
+
+.toasty {
+    box-shadow: 0px 1px 2px #00000022 !important;
+    border-radius: 18px !important;
+    padding: 8px 18px !important;
+    width: fit-content !important;
+    max-width: calc(90vw - 36px) !important;
+}
+
+input, select {
+    -webkit-appearance: none;
+    font-size: 16px;
+    padding: 11px 15px;
+    margin-bottom: 8px;
+    border-radius: 0px;
+    border: none;
+    background-color: #f0f0f0;
+    border-bottom: 1px solid #c5c5c5;
+    border-radius: 7px;
+    box-shadow: 0px 1px 2px #00000011;
+    color: #111 !important;
+}
+
+input:focus {
+    outline: none;
+}
+
+button {
+    -webkit-appearance: none;
+    font-size: 16px;
+    padding: 11px 15px;
+    margin-bottom: 8px;
+    border-radius: 0px;
+    border: none;
+    background-color: #FF0082;
+    color: #fff;
+    border-radius: 7px;
+    box-shadow: 0px 1px 2px #00000022;
+}
+
+#login.autologin button {
+    background-color: #888;
+    pointer-events: none;
+    animation: loggingIn 1s ease-in-out infinite alternate;
+}
+
+@keyframes loggingIn {
+    0% {
+        opacity: 20%;
+    }
+    100% {
+        opacity: 70%;
+    }
+}
+
+@media screen and (prefers-color-scheme: dark) {
+    #topbar {
+        background-color: #FF0082;
+    }
+    #app {
+        background-color: #111;
+    }
+    body {
+        background-color: #111;
+    }
+
+    input, select {
+        background-color: #222;
+        border-bottom: 1px solid #333;
+        box-shadow: 0px 1px 2px #00000044;
+        color: #fff !important;
+    }
+
+    input::placeholder {
+        color: #ffffff55 !important;
+    }
+}
+
+#loginBtn.incorrect {
+    animation: incorrect 0.08s ease-out infinite alternate;
+}
+
+@keyframes incorrect {
+    0% {
+        transform: translateX(-10px);
+    }
+    100% {
+        transform: translateX(10px);
+    }
+}

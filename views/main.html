@@ -1,0 +1,183 @@
+<div id="ListeUser" class="liste">
+    <div class="cours welcome" style="--off: 0ms">
+        <img id="pfp"/>
+        <h2>Bonjour, <span id="userNameMain">a</span> !</h2>
+        <p id="otherData"></p>
+    </div>
+</div>
+
+<div class="part">
+    Prochains cours
+</div>
+
+<div id="ListeCours" class="liste">
+    
+</div>
+<div class="liste"><a href="#" onclick="view('edt', 'Emploi du temps')"><div class="cours file" style="--off: 0ms">
+    <span class="material-symbols-outlined">
+        calendar_month
+    </span>
+    <div class="cours_topData">
+        <p>Voir plus...</p>
+    </div>
+</div></a></div>
+
+<script>
+    myName = userEverything.name.split(" ")[userEverything.name.split(" ").length - 1];
+            
+    if (localStorage.getItem('customName') !== null) {
+        myName = localStorage.getItem('customName').split(" ")[0];
+    }
+
+    document.getElementById("userNameMain").innerHTML = myName;
+    
+    document.getElementById("pfp").src = userEverything.avatar;
+    document.getElementById("otherData").innerHTML = "Vous êtes en " + userEverything.studentClass.name + " à " + userEverything.establishmentsInfo[0].name + ", " + userEverything.establishmentsInfo[0].city;
+
+    // edt
+
+    if(localStorage.getItem("cache_edt") !== null){
+        // parse_Edt(JSON.parse(localStorage.getItem("cache_edt")));
+        mainView_Edt();
+    }
+    else {
+        mainView_Edt();
+    }
+
+    LooksDict = {
+        'histoire-geographie': '🌍',
+        'latin lv3': '📖',
+        'francais': '📜',
+        'anglais lv1': '🇬🇧',
+        'mathemathiques': '📈',
+        'physique-chimie': '🔬',
+        'enseignement scientifique': '🔬',
+        'svt': '🔬',
+        'sciences vie et terre': '🔬',
+        'sciences de la vie et de la terre': '🔬',
+        'sciences': '🔬',
+        'geographie': '🌍',
+        'ses': '🧑',
+        'sciences economiques et sociales': '🧑',
+        'espagnol lv2': '🇪🇸',
+        'allemand lv2': '🇩🇪',
+        'italien lv2': '🇮🇹',
+        'enseignement musical': '🎶',
+        'arts plastiques': '🎨',
+        'sport': '⚽',
+        'education physique et sportive': '🏃',
+        'enseignement moral et civique': '📖',
+        'emc': '📖',
+        'snt': '💻',
+        'sciences numeriques et technologiques': '💻',
+        'nsi': '💻',
+        'numerique et sciences de l\informatique': '💻',
+        'gestion': '📈',
+        'epi': '🏫'
+    }
+
+    function getCorrespLook(subject) {
+        let looking = Object.keys(LooksDict).filter(txt => txt.indexOf(subject) !== -1);
+        let ret = LooksDict[looking[0]]
+
+        if (ret == undefined) {
+            return "🎒";
+        }
+        else {
+            return ret;
+        }
+    }
+
+
+    function mainView_Edt() {
+        let from = rn2.toISOString().split("T")[0]
+        progressStart();
+        $.get(`https://api.allorigins.win/get?url=${encodeURIComponent(`http://206.189.96.57:35500/edt?token=${token}&from=${from}&rand=${uuidv4()}`)}`, function( data ) {
+            
+            if(JSON.parse(data.contents).error !== undefined) {
+                window.location.href = 'login/';
+                localStorage.removeItem('cache_edt');
+            }
+            else {
+                localStorage.setItem('cache_edt', JSON.stringify(data));
+            }
+            progressEnd();
+
+            parse_Edt(data);
+        });
+    }
+
+    function parse_Edt(data) {
+        $('#ListeCours').html(``);
+            
+            let resp = JSON.parse(data.contents).data.timetable;
+            console.log(resp)
+
+            if (resp !== null) {
+                resp = resp.slice(-3);
+            }
+
+            for(course in resp) {
+                let debCours = new Date(resp[course].from);
+                var offset = new Date().getTimezoneOffset();
+                debCours.setMinutes(debCours.getMinutes() + offset);
+                let heureMinDebut = debCours.getHours() + "h" + min_lead(debCours);
+
+                if(resp[course].subject == null) {
+                    resp[course].subject = resp[course].status;
+                }
+
+                if(resp[course].teacher == null) {
+                    resp[course].teacher = "Non précisé";
+                }
+
+                if(resp[course].room == null) {
+                    resp[course].room = "inconnue";
+                }
+                
+                let status = "";
+
+                if(resp[course].subject !== null) {
+                    if(resp[course].status !== null) {
+                        status = `<span class="status">${resp[course].status}</span>`
+                    }
+                }
+                
+                if(!resp[course].isCancelled) {
+                    $('#ListeCours').append(`
+                        <div class="cours" style="--off: ${course * 50}ms">
+                            <div style="--bg:${resp[course].color}" class="coursleftBar"></div>
+                            <p class="courseEmoji">${emoji}</p>
+                            <div class="cours_data">
+                                <div class="courd">
+                                    <h3>${resp[course].subject}</h3>
+                                    <p><span class="teacher">${resp[course].teacher}</span> ${status}</p>
+                                </div>
+                                <div class="cours_btmData">
+                                    <p>salle ${resp[course].room}</p>
+                                    <p class="when">${heureMinDebut}</p>
+                                </div>
+                            </div>
+                        </div>
+                    `);
+                }
+            }
+
+            if(resp.length === 0) {
+                $('#ListeCours').append(`
+                    <div class="cours" style="--off: 0ms">
+                        <div class="coursleftBar"></div>
+                        <p class="courseEmoji">😴</p>
+                        <div class="cours_data">
+                            <div class="cours_topData">
+                                <h3>😴 Aucun cours</h3>
+                                <p>Profite bien de cette journée !</p>
+                            </div>
+                        </div>
+                    </div>
+                `);
+            }
+    }
+
+    mainView_Edt()
+</script>

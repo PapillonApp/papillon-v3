@@ -7,23 +7,54 @@
         return (dt.getMinutes() < 10 ? '0' : '') + dt.getMinutes();
     }
 
+    if(localStorage.getItem("cache_edt") !== null){
+        parse_Edt(JSON.parse(localStorage.getItem("cache_edt")));
+        mainView_Edt();
+    }
+    else {
+        mainView_Edt();
+    }
+
+    function getCorrespLook(subject) {
+        let looking = Object.keys(LooksDict).filter(txt => txt.indexOf(subject) !== -1);
+        let ret = LooksDict[looking[0]]
+
+        if (ret == undefined) {
+            return "🎒";
+        }
+        else {
+            return ret;
+        }
+    }
+
     function mainView_Edt() {
         let from = rn.toISOString().split("T")[0]
         progressStart();
         $.get(`https://api.allorigins.win/get?url=${encodeURIComponent(`http://206.189.96.57:35500/edt?token=${token}&from=${from}&rand=${uuidv4()}`)}`, function( data ) {
             
-            if(JSON.parse(data.contents).message !== undefined) {
+            if(JSON.parse(data.contents).errors !== undefined) {
                 window.location.href = 'login/';
             }
             progressEnd();
 
-            $('#ListeCours').html(``);
+            localStorage.setItem('cache_edt', JSON.stringify(data));
+            parse_Edt(data);
+        });
+
+        setMenuTabContent(`du ${getRn(0)}`);
+    }
+
+    function parse_Edt(data) {
+        try{
+        $('#ListeCours').html(``);
             
             let resp = JSON.parse(data.contents).data.timetable;
             console.log(resp)
 
             for(course in resp) {
                 let debCours = new Date(resp[course].from);
+                let finCours = new Date(resp[course].to);
+
                 var offset = new Date().getTimezoneOffset();
                 debCours.setMinutes(debCours.getMinutes() + offset);
                 let heureMinDebut = debCours.getHours() + "h" + min_lead(debCours);
@@ -47,11 +78,22 @@
                         status = `<span class="status">${resp[course].status}</span>`
                     }
                 }
+
+                if(resp[course].isCancelled) {
+                    status = `<span class="status statusCancelled">Cours annulé</span>`
+                }
+
+                let simpleSubject = resp[course].subject.toLowerCase();
+                simpleSubject = simpleSubject.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+
+                let emoji = getCorrespLook(simpleSubject);
+                console.log(emoji)
                 
-                if(!resp[course].isCancelled) {
+                if(1==1) {
                     $('#ListeCours').append(`
                         <div class="cours" style="--off: ${course * 50}ms">
                             <div style="--bg:${resp[course].color}" class="coursleftBar"></div>
+                            <p class="courseEmoji">${emoji}</p>
                             <div class="cours_data">
                                 <div class="courd">
                                     <h3>${resp[course].subject}</h3>
@@ -71,6 +113,7 @@
                 $('#ListeCours').append(`
                     <div class="cours" style="--off: 0ms">
                         <div class="coursleftBar"></div>
+                        <p class="courseEmoji">😴</p>
                         <div class="cours_data">
                             <div class="cours_topData">
                                 <h3>😴 Aucun cours</h3>
@@ -80,9 +123,17 @@
                     </div>
                 `);
             }
-        });
-
-        setMenuTabContent(`du ${getRn(0)}`);
+        }
+        catch(e) {
+            Toastify({
+                text: "Something went wrong (" + e + ")",
+                gravity: "top",
+                className: "toasty",
+                position: "center",
+                style: {
+                    background: "#FF4444",
+                }
+            }).showToast();
+        }
     }
-    mainView_Edt();
 </script>
