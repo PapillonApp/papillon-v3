@@ -281,13 +281,26 @@ function animateValue(obj, start, end, duration) {
 }
 
 function average() {
-    document.getElementById("fanAverage").innerHTML = avr.toFixed(2);
-    document.getElementById("fanAverageClass").innerHTML = avrClass.toFixed(1);
-    document.getElementById("fanAverageEcart").innerHTML = (avr - avrClass).toFixed(1);
-    
-    animateValue(document.getElementById("fanAverage"), 0, avr, 3000);
+    if(!isNaN(avr)) {
+        document.getElementById("fanAverage").innerHTML = avr.toFixed(2);
+        document.getElementById("fanAverageClass").innerHTML = avrClass.toFixed(1);
+        document.getElementById("fanAverageEcart").innerHTML = (avr - avrClass).toFixed(1);
+        
+        animateValue(document.getElementById("fanAverage"), 0, avr, 3000);
 
-    document.getElementById("average").style.display = "flex";
+        document.getElementById("average").style.display = "flex";
+    }
+    else {
+        Toastify({
+            text: "Vous n'avez pas de moyenne générale.",
+            gravity: "top",
+            position: "center",
+            className: "toasty",
+            style: {
+                background: "#FF0000",
+            }
+        }).showToast();
+    }
 }
 
 function averageClose() {
