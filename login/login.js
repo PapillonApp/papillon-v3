@@ -64,6 +64,18 @@ function loginGo(auto) {
                 }).showToast();
             }
 
+            if(resp.message == "Your IP address is temporarily banned because of too many failed authentication attempts") {
+                Toastify({
+                    text: "Pronote+ est momentanément exclu de votre établissement à cause d'essais incorrects. Veuillez réessayer dans quelques minutes.",
+                    gravity: "top",
+                    position: "center",
+                    className: "toasty",
+                    style: {
+                        background: "#FF0000",
+                    }
+                }).showToast();
+            }
+
             if(resp.message == "Wrong user credentials") {
                 Toastify({
                     text: "Identifiant ou mot de passe incorrect.",
