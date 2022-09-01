@@ -1,12 +1,12 @@
-![image](https://user-images.githubusercontent.com/32978709/184417827-3d03b762-b9d5-45d6-8512-b229ba0c767d.png)
+# Papillon
+Front-end pour node-pronote / Pronote+. Made entirely in vanilla JS and can run as a PWA.
 
-Front-end pour node-pronote / Pronote+
+![image](https://user-images.githubusercontent.com/32978709/187950769-565d4e70-0e1e-4a9a-baa6-d930feebfa46.png)
 
-I think that Pronote is slow and hard to use and that Pronote+ v2 is REALLY SLOW and not that easy to use. That's when Pronote+ v3 (project name Papillon) was born.
-This is a PWA made for node-pronote and that shows all your Pronote data (except messaging and some specific tabs) on a custom UI made in vanilla JS.
+**Front-end de Pronote+ (papillon).**
 
-## Installation / Self-hosting
-Everything is already there. Just clone the repo to any web server and you can make any changes you want to Papillon, API endpoints and links are already included.
+## Démo
+Disponible sur [https://v3.pronote.plus](https://v3.pronote.plus) dans une instance isolée de ce repo, et donc potentiellement pas à jour. La version actuelle est notée dans les paramètres de la webapp.
 
-## Contributing
-Feel free to contribute to add new features you want. The code and frameworks were written with collaboration in mind.
+## Notice
+Le code est absolument honteux, non commenté, et pas optimisé, déso :/
