@@ -478,7 +478,7 @@ body.menuOpen #menuContent, body.menuOpen #appContent {
 @keyframes show {
     from {
         opacity: 0;
-        transform: translateY(0px);
+        transform: translateY(-10px);
     }
     to {
         opacity: 1;
@@ -612,7 +612,15 @@ body.menuOpen #menuContent, body.menuOpen #appContent {
     /* position: absolute; */
     right: 20px;
     font-weight: 400;
+}
+
+.when * {
     opacity: 50%;
+}
+
+.hrdeb {
+    opacity: 100%;
+    filter: brightness(10);
 }
 
 .subject {
@@ -1165,8 +1173,8 @@ a:active {
 
 .length {
     font-weight: 400;
-    margin-left: 10px;
-    opacity: 50%;
+    margin-left: 15px;
+    opacity: 25%;
 }
 
 .coursLong .courd {

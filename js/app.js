@@ -435,8 +435,8 @@ function openApp() {
 }
 
 // test
-setTimeout(() => {
+/* setTimeout(() => {
     document.getElementById("rn").value = "2021-09-02";
     document.getElementById("rn").dispatchEvent(new Event('change'));
     allRefresh()
-}, 1500);
+}, 1500); */
