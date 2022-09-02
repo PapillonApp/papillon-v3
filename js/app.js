@@ -344,10 +344,14 @@ let touchendX = 0
     
 function checkDirection() {
   if (touchendX > touchstartX) {
-    openMenu();
+    if(touchendX - touchstartX > 100) {
+        openMenu();
+    }
   }
   if (touchendX < touchstartX) {
-    closeMenuPanel();
+    if(touchstartX - touchendX > 100) {
+        closeMenuPanel();
+    }
   }
 }
 
