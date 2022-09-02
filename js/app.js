@@ -219,8 +219,6 @@ function loadPronoteData() {
             }
             $('#userAvatar').attr('src', avatar);
             $('#userModal').css('background-image', `url(${avatar})`);
-
-            openApp();
         });
 }
 
@@ -440,3 +438,5 @@ function openApp() {
     document.getElementById("rn").dispatchEvent(new Event('change'));
     allRefresh()
 }, 1500); */
+
+openApp();
