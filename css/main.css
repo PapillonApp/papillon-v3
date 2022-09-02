@@ -543,6 +543,7 @@ body.menuOpen #menuContent, body.menuOpen #appContent {
 .cours_data {
     margin-left: 12px;
     padding: 10px;
+    width: 100%;
 }
 
 .cours_data *, .courd * {
@@ -561,6 +562,10 @@ body.menuOpen #menuContent, body.menuOpen #appContent {
 
 .cours_btmData {
     margin-top: 15px;
+    display: flex !important;
+    width: calc(100% - 0px);
+    justify-content: space-between;
+    flex-wrap: nowrap;
 }
 
 .cours_topData p {
@@ -592,6 +597,10 @@ body.menuOpen #menuContent, body.menuOpen #appContent {
 .cours_btmData p {
     font-size: 14px;
     font-weight: 500;
+    margin-right: 10px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 .cours_btmData {
@@ -600,7 +609,7 @@ body.menuOpen #menuContent, body.menuOpen #appContent {
 }
 
 .when {
-    position: absolute;
+    /* position: absolute; */
     right: 20px;
     font-weight: 400;
     opacity: 50%;

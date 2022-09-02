@@ -140,6 +140,12 @@
                     }
                 }
 
+                if(resp[course].room.toLowerCase().split(" ")[0] == "salle") {
+                    let newname = resp[course].room.split(" ")
+                    newname.shift();
+                    resp[course].room = newname.join(' ');
+                }
+
                 if(1==1) {
                     $('#ListeCours').append(`
                         <div class="cours ${allClasses}" style="--off: ${course * 50}ms">
@@ -150,7 +156,7 @@
                                     <p><span class="teacher">${resp[course].teacher}</span> ${status}</p>
                                 </div>
                                 <div class="cours_btmData">
-                                    <p>salle ${resp[course].room}</p>
+                                    <p>Salle ${resp[course].room}</p>
                                     <p class="when">${heureMinDebut} à ${heureMinFin} <span class="length">${lengthString} de cours</span></p>
                                 </div>
                             </div>
