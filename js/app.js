@@ -353,14 +353,23 @@ function checkDirection() {
   }
 }
 
-document.addEventListener('touchstart', e => {
+document.getElementById('appContent').addEventListener('touchstart', e => {
   touchstartX = e.changedTouches[0].screenX
 })
 
-document.addEventListener('touchend', e => {
+document.getElementById('appContent').addEventListener('touchend', e => {
   touchendX = e.changedTouches[0].screenX
   checkDirection()
 })
+
+document.getElementById('menu').addEventListener('touchstart', e => {
+    touchstartX = e.changedTouches[0].screenX
+  })
+  
+  document.getElementById('menu').addEventListener('touchend', e => {
+    touchendX = e.changedTouches[0].screenX
+    checkDirection()
+  })
 
 // background token refresh
 function uuidv4() {
