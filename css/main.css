@@ -112,7 +112,7 @@ and (device-height : 926px)  {
 .material-symbols-outlined {
     font-variation-settings:
     'FILL' 0,
-    'wght' 300,
+    'wght' 500,
     'GRAD' 0,
     'opsz' 48
 }
@@ -327,16 +327,34 @@ and (device-height : 926px)  {
 }
 
 .time {
-    width: calc(90vw - (25px * 2));
-    padding: 15px 25px;
+    width: calc(90vw - (25px * 2) - 10px);
+    margin-left: 10px;
+
+    padding: 10px 20px;
+
+    border-radius: 10px !important;
     
     display: flex;
     align-items: center;
-    border-top: #00000022 1px solid;
+    
+    background-color: #f0f0f0;
 
     position: absolute;
-    padding-bottom: calc(env(safe-area-inset-bottom) + 21px);
-    bottom: 0;
+    bottom: calc(env(safe-area-inset-bottom) + 10px);
+}
+
+.time .change .btn span {
+    font-size: 24px;
+}
+
+#dateString {
+    font-size: 14px;
+    font-weight: 500;
+    opacity: 50%;
+    width: 42vw !important;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 .time * {
@@ -370,13 +388,13 @@ and (device-height : 926px)  {
     align-items: center;
     justify-content: center;
     border-radius: 300px;
-    margin-left: 10px;
+    margin-left: 15px;
     width: 32px;
     height: 32px;
 }
 
 .change .btn span {
-    font-size: 20px;
+    font-size: 28px;
     width: 14px;
 }
 

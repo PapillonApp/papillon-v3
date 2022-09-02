@@ -99,6 +99,18 @@ rnPicker.addEventListener("change", function(e) {
     updateRn(rnE);
 });
 
+function rnNext() {
+    rn.setDate(rn.getDate() + 1);
+    updateRn(rn);
+    updateTime();
+}
+
+function rnPrev() {
+    rn.setDate(rn.getDate() - 1);
+    updateRn(rn);
+    updateTime();
+}
+
 function updateRn(rnE) {
     console.log(rnE);
     rn = rnE;
@@ -128,6 +140,7 @@ function getRn(add, type) {
 
 function updateTime() {
     rnPicker.value = getRn(0, true)
+    document.getElementById("dateString").innerText = getRn(0, false);
 }
 
 updateTime();

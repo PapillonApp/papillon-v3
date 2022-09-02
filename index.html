@@ -51,7 +51,22 @@
                 </div>
                 <div id="timeModal" class="modal time">
                     <span class="material-symbols-outlined">calendar_month</span>
-                    <input type="date" id="rn" name="rn">
+                    <div id="dateDisplay">
+                        <p id="dateString">jeudi</p>
+                        <input type="date" id="rn" name="rn">
+                    </div>
+                    <div class="change">
+                        <a href="#" onclick="rnPrev()"><div class="btn">
+                            <span class="material-symbols-outlined">
+                                arrow_back
+                            </span>
+                        </div></a>
+                        <a href="#" onclick="rnNext()"><div class="btn">
+                            <span class="material-symbols-outlined">
+                                arrow_forward
+                            </span>
+                        </div></a>
+                    </div>
                 </div>
                 <div class="modal linkList">
                     <div class="tabLink" id="menu_main" onclick="view('main', 'Accueil')">
