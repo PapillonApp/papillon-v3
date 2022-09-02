@@ -17,7 +17,7 @@
         let from = half.toISOString().split("T")[0]
         console.log(from)
         progressStart();
-        $.get(`http://206.189.96.57:35500/hw?token=${token}&from=${from}&rand=${uuidv4()}`, function( data ) {
+        $.get(`https://ams01.pronote.plus/hw?token=${token}&from=${from}&rand=${uuidv4()}`, function( data ) {
             if(JSON.parse(data).message !== undefined) {
                 tokenRefreshBkg()
             }

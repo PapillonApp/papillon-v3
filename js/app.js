@@ -191,7 +191,7 @@ let userEverything;
 
 function loadPronoteData() {
     progressStart();
-    $.get(`http://206.189.96.57:35500/user?token=${token}&rand=${uuidv4()}`, function( data, success ) { 
+    $.get(`https://ams01.pronote.plus/user?token=${token}&rand=${uuidv4()}`, function( data, success ) { 
         
             if(JSON.parse(data).message !== undefined) {
                 tokenRefreshBkg()
@@ -397,7 +397,7 @@ function tokenRefreshBkg() {
     let authURL = auth[0];
     let authENT = auth[3];
 
-    $.get(`${encodeURIComponent(`http://206.189.96.57:35500/auth?url=${authURL}&username=${authUsername}&password=${authPasswordUnsecure}&cas=${authENT}&rand=${uuidv4()}`)}`, function( data ) {
+    $.get(`${encodeURIComponent(`https://ams01.pronote.plus/auth?url=${authURL}&username=${authUsername}&password=${authPasswordUnsecure}&cas=${authENT}&rand=${uuidv4()}`)}`, function( data ) {
         let resp = JSON.parse(data.contents);
 
         if(resp.message !== undefined) {

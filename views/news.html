@@ -8,9 +8,9 @@
         half.setDate(half.getDate() + 1);
         let from = half.toISOString().split("T")[0]
         progressStart(4);
-        $.get(`http://206.189.96.57:35500/news?token=${token}&rand=${uuidv4()}`, function( data ) {
+        $.get(`https://ams01.pronote.plus/news?token=${token}&rand=${uuidv4()}`, function( data ) {
             if(JSON.parse(data).errors !== undefined) {
-                window.location.href = 'login/';
+                refreshToken();
             }
             progressEnd();
             

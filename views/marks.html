@@ -78,7 +78,7 @@
         half.setDate(half.getDate() + 1);
         let from = half.toISOString().split("T")[0]
         progressStart();
-        $.get(`http://206.189.96.57:35500/marks?token=${token}&rand=${uuidv4()}`, function( data ) {
+        $.get(`https://ams01.pronote.plus/marks?token=${token}&rand=${uuidv4()}`, function( data ) {
             if(JSON.parse(data).errors !== undefined) {
                 tokenRefreshBkg()
             }

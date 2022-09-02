@@ -19,7 +19,7 @@
 
 <script>
     progressStart();
-    $.get(`http://206.189.96.57:35500/user?token=${token}&rand=${uuidv4()}`, function( data, success ) {     
+    $.get(`https://ams01.pronote.plus/user?token=${token}&rand=${uuidv4()}`, function( data, success ) {     
         if(JSON.parse(data).message !== undefined) {
             window.location.href = 'login/';
         }

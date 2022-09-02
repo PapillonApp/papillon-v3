@@ -18,7 +18,7 @@
     function mainView_Edt() {
         let from = rn.toISOString().split("T")[0]
         progressStart();
-        $.get(`http://206.189.96.57:35500/edt?token=${token}&from=${from}&rand=${uuidv4()}`, function( data ) {
+        $.get(`https://ams01.pronote.plus/edt?token=${token}&from=${from}&rand=${uuidv4()}`, function( data ) {
             
             if(JSON.parse(data).errors !== undefined) {
                 if(JSON.parse(data).code == 2) {

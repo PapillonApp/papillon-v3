@@ -17,7 +17,7 @@
         let from = half.toISOString().split("T")[0]
 
         progressStart();
-        $.get(`http://206.189.96.57:35500/evaluations?token=${token}`, function( data ) {
+        $.get(`https://ams01.pronote.plus/evaluations?token=${token}`, function( data ) {
             
             if(JSON.parse(data).errors !== undefined) {
                 tokenRefreshBkg()
