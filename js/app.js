@@ -191,14 +191,14 @@ let userEverything;
 
 function loadPronoteData() {
     progressStart();
-    $.get(`https://api.allorigins.win/get?url=${encodeURIComponent(`http://206.189.96.57:35500/user?token=${token}&rand=${uuidv4()}`)}`, function( data, success ) { 
-      
-            if(JSON.parse(data.contents).message !== undefined) {
+    $.get(`http://206.189.96.57:35500/user?token=${token}&rand=${uuidv4()}`, function( data, success ) { 
+        
+            if(JSON.parse(data).message !== undefined) {
                 tokenRefreshBkg()
             }
             progressEnd();
         
-            let resp = JSON.parse(data.contents).data.user;
+            let resp = JSON.parse(data).data.user;
             userEverything = resp;
     
             myNameStep = resp.name.split(" ");
@@ -386,7 +386,7 @@ function tokenRefreshBkg() {
     let authURL = auth[0];
     let authENT = auth[3];
 
-    $.get(`https://api.allorigins.win/get?url=${encodeURIComponent(`http://206.189.96.57:35500/auth?url=${authURL}&username=${authUsername}&password=${authPasswordUnsecure}&cas=${authENT}&rand=${uuidv4()}`)}`, function( data ) {
+    $.get(`${encodeURIComponent(`http://206.189.96.57:35500/auth?url=${authURL}&username=${authUsername}&password=${authPasswordUnsecure}&cas=${authENT}&rand=${uuidv4()}`)}`, function( data ) {
         let resp = JSON.parse(data.contents);
 
         if(resp.message !== undefined) {

@@ -18,10 +18,10 @@
     function mainView_Edt() {
         let from = rn.toISOString().split("T")[0]
         progressStart();
-        $.get(`https://api.allorigins.win/get?url=${encodeURIComponent(`http://206.189.96.57:35500/edt?token=${token}&from=${from}&rand=${uuidv4()}`)}`, function( data ) {
+        $.get(`http://206.189.96.57:35500/edt?token=${token}&from=${from}&rand=${uuidv4()}`, function( data ) {
             
-            if(JSON.parse(data.contents).errors !== undefined) {
-                if(JSON.parse(data.contents).code == 2) {
+            if(JSON.parse(data).errors !== undefined) {
+                if(JSON.parse(data).code == 2) {
                     Toastify({
                         text: "Vous avez envoyé trop de demandes à Pronote, veuillez patienter quelques minutes.",
                         gravity: "top",
@@ -62,7 +62,7 @@
         try{
         $('#ListeCours').html(``);
             
-            let resp = JSON.parse(data.contents).data.timetable;
+            let resp = JSON.parse(data).data.timetable;
 
             if(resp == null) {
                 if(EdtRefLimit == 0) {

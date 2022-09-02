@@ -19,13 +19,13 @@
 
 <script>
     progressStart();
-    $.get(`https://api.allorigins.win/get?url=${encodeURIComponent(`http://206.189.96.57:35500/user?token=${token}&rand=${uuidv4()}`)}`, function( data, success ) {     
-        if(JSON.parse(data.contents).message !== undefined) {
+    $.get(`http://206.189.96.57:35500/user?token=${token}&rand=${uuidv4()}`, function( data, success ) {     
+        if(JSON.parse(data).message !== undefined) {
             window.location.href = 'login/';
         }
         progressEnd();
         
-        let resp = JSON.parse(data.contents).data.user;
+        let resp = JSON.parse(data).data.user;
         console.log(resp)
 
         for(group_id in resp.groups) {

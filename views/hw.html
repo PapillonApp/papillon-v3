@@ -17,13 +17,13 @@
         let from = half.toISOString().split("T")[0]
         console.log(from)
         progressStart();
-        $.get(`https://api.allorigins.win/get?url=${encodeURIComponent(`http://206.189.96.57:35500/hw?token=${token}&from=${from}&rand=${uuidv4()}`)}`, function( data ) {
-            if(JSON.parse(data.contents).message !== undefined) {
+        $.get(`http://206.189.96.57:35500/hw?token=${token}&from=${from}&rand=${uuidv4()}`, function( data ) {
+            if(JSON.parse(data).message !== undefined) {
                 tokenRefreshBkg()
             }
             progressEnd();
             
-            let resp = JSON.parse(data.contents).data.homeworks;
+            let resp = JSON.parse(data).data.homeworks;
 
             for(hw in resp) {
                 let classes = "";

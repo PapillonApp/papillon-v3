@@ -17,9 +17,9 @@
         let from = half.toISOString().split("T")[0]
 
         progressStart();
-        $.get(`https://api.allorigins.win/get?url=${encodeURIComponent(`http://206.189.96.57:35500/evaluations?token=${token}`)}&rand=${uuidv4()}`, function( data ) {
+        $.get(`http://206.189.96.57:35500/evaluations?token=${token}`, function( data ) {
             
-            if(JSON.parse(data.contents).errors !== undefined) {
+            if(JSON.parse(data).errors !== undefined) {
                 tokenRefreshBkg()
             }
             progressEnd();
@@ -30,7 +30,7 @@
     }
 
     function parse_Evals(data) {
-        let resp = JSON.parse(data.contents).data.evaluations;
+        let resp = JSON.parse(data).data.evaluations;
             console.log(resp)
 
             $('#ListeEvals').html('');

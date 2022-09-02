@@ -16,8 +16,8 @@
         half.setDate(half.getDate() + 1);
         let from = half.toISOString().split("T")[0]
         progressStart(4);
-        $.get(`https://api.allorigins.win/get?url=${encodeURIComponent(`http://206.189.96.57:35500/files?token=${token}&rand=${uuidv4()}`)}`, function( data ) {
-            if(JSON.parse(data.contents).message !== undefined) {
+        $.get(`http://206.189.96.57:35500/files?token=${token}&rand=${uuidv4()}`, function( data ) {
+            if(JSON.parse(data).message !== undefined) {
                 window.location.href = 'login/';
             }
             progressEnd();
@@ -28,7 +28,7 @@
     }
 
     function parse_files(data) {
-        let resp = JSON.parse(data.contents).data.files;
+        let resp = JSON.parse(data).data.files;
             
             // sort by time
             resp.sort(function(a, b) {

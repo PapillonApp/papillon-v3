@@ -78,8 +78,8 @@
         half.setDate(half.getDate() + 1);
         let from = half.toISOString().split("T")[0]
         progressStart();
-        $.get(`https://api.allorigins.win/get?url=${encodeURIComponent(`http://206.189.96.57:35500/marks?token=${token}&rand=${uuidv4()}`)}`, function( data ) {
-            if(JSON.parse(data.contents).errors !== undefined) {
+        $.get(`http://206.189.96.57:35500/marks?token=${token}&rand=${uuidv4()}`, function( data ) {
+            if(JSON.parse(data).errors !== undefined) {
                 tokenRefreshBkg()
             }
             progressEnd();
@@ -92,7 +92,7 @@
         $('#ListeNotes').html('');
             allMarks = [];
         
-            let resp = JSON.parse(data.contents).data.marks.subjects;
+            let resp = JSON.parse(data).data.marks.subjects;
 
             for(id_s in resp) {
                 resp[id_s].marks.sort(function(a, b) {
