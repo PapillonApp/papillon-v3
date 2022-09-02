@@ -1153,3 +1153,17 @@ a:active {
     width: fit-content !important;
     max-width: calc(90vw - 36px) !important;
 }
+
+.length {
+    font-weight: 400;
+    margin-left: 10px;
+    opacity: 50%;
+}
+
+.coursLong .courd {
+    margin-bottom: 50px;
+}
+
+.coursEcart {
+    margin-top: 30px;
+}

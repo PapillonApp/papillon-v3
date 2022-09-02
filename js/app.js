@@ -103,12 +103,16 @@ function rnNext() {
     rn.setDate(rn.getDate() + 1);
     updateRn(rn);
     updateTime();
+    dateChanged = true;
+    dateChangedOnce = true;
 }
 
 function rnPrev() {
     rn.setDate(rn.getDate() - 1);
     updateRn(rn);
     updateTime();
+    dateChanged = true;
+    dateChangedOnce = true;
 }
 
 function updateRn(rnE) {
@@ -420,3 +424,10 @@ function openApp() {
         view('edt', 'Emploi du temps');
     }
 }
+
+// test
+setTimeout(() => {
+    document.getElementById("rn").value = "2021-09-02";
+    document.getElementById("rn").dispatchEvent(new Event('change'));
+    allRefresh()
+}, 1500);

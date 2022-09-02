@@ -46,6 +46,18 @@
         setMenuTabContent(`du ${getRn(0)}`);
     }
 
+    function getDifferenceInHours(date1, date2) {
+        const diffInMs = Math.abs(date2 - date1);
+        return diffInMs / (1000 * 60 * 60);
+    }
+
+        function getDifferenceInMinutes(date1, date2) {
+        const diffInMs = Math.abs(date2 - date1);
+        return diffInMs / (1000 * 60);
+    }
+
+    lastfinCours = 0;
+
     function parse_Edt(data) {
         try{
         $('#ListeCours').html(``);
@@ -64,9 +76,20 @@
                 let debCours = new Date(resp[course].from);
                 let finCours = new Date(resp[course].to);
 
+                curentFinCours = lastfinCours;
+                lastfinCours = finCours;
+
                 var offset = new Date().getTimezoneOffset();
                 debCours.setMinutes(debCours.getMinutes() + offset);
                 let heureMinDebut = debCours.getHours() + "h" + min_lead(debCours);
+
+                finCours.setMinutes(finCours.getMinutes() + offset);
+                let heureMinFin = finCours.getHours() + "h" + min_lead(finCours);
+
+                let diff = getDifferenceInMinutes(curentFinCours, debCours);
+                console.log(curentFinCours, debCours, diff);
+
+                let length = getDifferenceInMinutes(debCours, finCours);
 
                 if(resp[course].subject == null) {
                     resp[course].subject = resp[course].status;
@@ -95,10 +118,31 @@
                 let simpleSubject = resp[course].subject.toLowerCase();
                 simpleSubject = simpleSubject.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
 
+                let allClasses = "";
                 
+                let lengthString = (length / 60) + "h";
+
+                if (length < 60) {
+                    lengthString = length + "min";
+                }
+
+                if (length % 60 !== 0) {
+                    lengthString = (length / 60) + "h" + (length % 60) + "min";
+                }
+
+                if (length > 60) {
+                    allClasses += " coursLong";
+                }
+
+                if (diff > 0) {
+                    if(course > 0) {
+                        allClasses += " coursEcart";
+                    }
+                }
+
                 if(1==1) {
                     $('#ListeCours').append(`
-                        <div class="cours" style="--off: ${course * 50}ms">
+                        <div class="cours ${allClasses}" style="--off: ${course * 50}ms">
                             <div style="--bg:${resp[course].color}" class="coursleftBar"></div>
                             <div class="cours_data">
                                 <div class="courd">
@@ -107,7 +151,7 @@
                                 </div>
                                 <div class="cours_btmData">
                                     <p>salle ${resp[course].room}</p>
-                                    <p class="when">${heureMinDebut}</p>
+                                    <p class="when">${heureMinDebut} à ${heureMinFin} <span class="length">${lengthString} de cours</span></p>
                                 </div>
                             </div>
                         </div>
@@ -131,15 +175,7 @@
         }
         }
         catch(e) {
-            Toastify({
-                text: "Something went wrong (" + e + ")",
-                gravity: "top",
-                className: "toasty",
-                position: "center",
-                style: {
-                    background: "#FF4444",
-                }
-            }).showToast();
+            
         }
     }
 </script>
