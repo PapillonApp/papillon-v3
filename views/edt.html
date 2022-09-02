@@ -15,18 +15,6 @@
         mainView_Edt();
     }
 
-    function getCorrespLook(subject) {
-        let looking = Object.keys(LooksDict).filter(txt => txt.indexOf(subject) !== -1);
-        let ret = LooksDict[looking[0]]
-
-        if (ret == undefined) {
-            return "";
-        }
-        else {
-            return ret;
-        }
-    }
-
     function mainView_Edt() {
         let from = rn.toISOString().split("T")[0]
         progressStart();
@@ -107,8 +95,6 @@
                 let simpleSubject = resp[course].subject.toLowerCase();
                 simpleSubject = simpleSubject.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
 
-                let emoji = getCorrespLook(simpleSubject);
-                console.log(emoji)
                 
                 if(1==1) {
                     $('#ListeCours').append(`

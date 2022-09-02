@@ -96,6 +96,7 @@ rnPicker.addEventListener("change", function(e) {
     dateChangedOnce = true;
 
     updateRn(rnE);
+    document.getElementById("dateString").innerText = getRn(0, false);
 });
 
 function rnNext() {
@@ -344,7 +345,7 @@ function checkDirection() {
     openMenu();
   }
   if (touchendX < touchstartX) {
-    closeMenu();
+    closeMenuPanel();
   }
 }
 
@@ -416,41 +417,6 @@ function openApp() {
         view('update', 'Notes de mise à jour', true)
     }
     else {
-        view('main', 'Accueil');
+        view('edt', 'Emploi du temps');
     }
 }
-
-// logs
-console.log(
-    "%c"+"Papillon",
-    `
-        color: #0066ff;
-        font-size: 24px;
-        font-weight: bold;
-    `
-);
-
-console.log(
-    "%c"+"version " + version,
-    `
-        font-style: italic;
-        font-size: 14px;
-        color: #888;
-    `
-);
-
-console.log(
-    "%c"+"Cette fenêtre est réservée aux développeurs. Les informations affichées ici sont utilisés par les développeurs pour faire fonctionner Pronote+ et ne sont pas destinées à être utilisées par les utilisateurs.",
-    `
-        background: yellow;
-        color: #222;
-        font-size: 14px;
-        border-radius: 5px;
-        padding: 5px;
-        margin-top: -10px;
-        margin-bottom: 8px;
-        margin-right: 20%;
-    `
-);
-
-let EdtRefLimit = 0;
