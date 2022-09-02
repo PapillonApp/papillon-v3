@@ -54,7 +54,7 @@ and (device-height : 926px)  {
     }
 
     .time {
-        padding-bottom: calc(env(safe-area-inset-bottom) + 69px) !important;
+        margin-bottom: calc(env(safe-area-inset-bottom) + 8px) !important;
     }
 
     #appContent {
