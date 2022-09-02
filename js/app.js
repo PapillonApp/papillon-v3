@@ -89,7 +89,6 @@ let rnPicker = document.getElementById("rn");
 
 rnPicker.addEventListener("change", function(e) {
     rnPicker.value = event.target.value;
-    console.log(event.target.valueAsDate);
 
     let rnE = event.target.valueAsDate;
 
@@ -112,7 +111,6 @@ function rnPrev() {
 }
 
 function updateRn(rnE) {
-    console.log(rnE);
     rn = rnE;
 }
 
@@ -167,7 +165,7 @@ function logout() {
 }
 
 function refreshToken() {
-    window.location.href = 'login/';
+    tokenRefreshBkg();
 }
 
 function update() {
@@ -191,7 +189,7 @@ function loadPronoteData() {
     $.get(`https://api.allorigins.win/get?url=${encodeURIComponent(`http://206.189.96.57:35500/user?token=${token}&rand=${uuidv4()}`)}`, function( data, success ) { 
       
             if(JSON.parse(data.contents).message !== undefined) {
-                window.location.href = 'login/';
+                tokenRefreshBkg()
             }
             progressEnd();
         
@@ -256,7 +254,7 @@ function changePic() {
 }
 
 document.getElementById("userAvatar").onerror = function() {
-    window.location.href = 'login/';
+    // window.location.href = 'login/';
 };
 
 // text
@@ -359,6 +357,53 @@ document.addEventListener('touchend', e => {
   checkDirection()
 })
 
+// background token refresh
+function uuidv4() {
+    return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+      (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+    );
+}
+
+function tokenRefreshBkg() {
+    Toastify({
+        text: "Reconnexion à Pronote en arrière-plan...",
+        gravity: "top",
+        position: "center",
+        className: "toasty",
+        style: {
+            background: "#0066FF",
+        }
+    }).showToast();
+
+    let auth = JSON.parse(localStorage.getItem('authData'));
+    let authUsername = auth[1];
+    let authPasswordUnsecure = atob(auth[2]);
+    let authURL = auth[0];
+    let authENT = auth[3];
+
+    $.get(`https://api.allorigins.win/get?url=${encodeURIComponent(`http://206.189.96.57:35500/auth?url=${authURL}&username=${authUsername}&password=${authPasswordUnsecure}&cas=${authENT}&rand=${uuidv4()}`)}`, function( data ) {
+        let resp = JSON.parse(data.contents);
+
+        if(resp.message !== undefined) {
+            if(resp.message == "Your IP address is temporarily banned because of too many failed authentication attempts") {
+                Toastify({
+                    text: "Pronote+ est momentanément exclu de votre établissement à cause d'essais incorrects. Veuillez réessayer dans quelques minutes.",
+                    gravity: "top",
+                    position: "center",
+                    className: "toasty",
+                    style: {
+                        background: "#FF0000",
+                    }
+                }).showToast();
+            }
+        }
+        else if(resp.token !== undefined) {           
+            localStorage.setItem('authToken', resp.token);
+            allRefresh();
+        }
+    });
+}
+
 // show edt first 
 var latestVersion = localStorage.getItem('latestVersion')
 
@@ -374,3 +419,38 @@ function openApp() {
         view('main', 'Accueil');
     }
 }
+
+// logs
+console.log(
+    "%c"+"Papillon",
+    `
+        color: #0066ff;
+        font-size: 24px;
+        font-weight: bold;
+    `
+);
+
+console.log(
+    "%c"+"version " + version,
+    `
+        font-style: italic;
+        font-size: 14px;
+        color: #888;
+    `
+);
+
+console.log(
+    "%c"+"Cette fenêtre est réservée aux développeurs. Les informations affichées ici sont utilisés par les développeurs pour faire fonctionner Pronote+ et ne sont pas destinées à être utilisées par les utilisateurs.",
+    `
+        background: yellow;
+        color: #222;
+        font-size: 14px;
+        border-radius: 5px;
+        padding: 5px;
+        margin-top: -10px;
+        margin-bottom: 8px;
+        margin-right: 20%;
+    `
+);
+
+let EdtRefLimit = 0;

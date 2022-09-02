@@ -19,7 +19,7 @@
         progressStart();
         $.get(`https://api.allorigins.win/get?url=${encodeURIComponent(`http://206.189.96.57:35500/hw?token=${token}&from=${from}&rand=${uuidv4()}`)}`, function( data ) {
             if(JSON.parse(data.contents).message !== undefined) {
-                window.location.href = 'login/';
+                tokenRefreshBkg()
             }
             progressEnd();
             

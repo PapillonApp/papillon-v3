@@ -45,7 +45,7 @@
                     }).showToast();
                 }
                 else {
-                    window.location.href = 'login/';
+                    tokenRefreshBkg()
                     localStorage.removeItem('cache_edt');
                 }
             }
@@ -63,7 +63,14 @@
         $('#ListeCours').html(``);
             
             let resp = JSON.parse(data.contents).data.timetable;
-            console.log(resp)
+
+            if(resp == null) {
+                if(EdtRefLimit == 0) {
+                    EdtRefLimit = 1;
+                    tokenRefreshBkg();
+                }
+            }
+            else {
 
             for(course in resp) {
                 let debCours = new Date(resp[course].from);
@@ -135,6 +142,7 @@
                     </div>
                 `);
             }
+        }
         }
         catch(e) {
             Toastify({
