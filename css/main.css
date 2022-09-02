@@ -11,7 +11,7 @@ body {
     background: #F9F9F9;
     margin: 0;
     --font: system-ui;
-    overflow: hidden;
+    overflow: visible;
 }
 
 input[type="date"]::-webkit-inner-spin-button,
@@ -88,6 +88,10 @@ and (device-height : 926px)  {
     right: 0;
 
     z-index: 999999999;
+}
+
+body.menuOpen #menuContent, body.menuOpen #appContent {
+    margin-left: 90vw !important;
 }
 
 #progressBar {

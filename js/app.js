@@ -336,6 +336,29 @@ const ptr = PullToRefresh.init({
     }
 });
 
+// swipe detection
+
+let touchstartX = 0
+let touchendX = 0
+    
+function checkDirection() {
+  if (touchendX > touchstartX) {
+    openMenu();
+  }
+  if (touchendX < touchstartX) {
+    closeMenu();
+  }
+}
+
+document.addEventListener('touchstart', e => {
+  touchstartX = e.changedTouches[0].screenX
+})
+
+document.addEventListener('touchend', e => {
+  touchendX = e.changedTouches[0].screenX
+  checkDirection()
+})
+
 // show edt first 
 var latestVersion = localStorage.getItem('latestVersion')
 
