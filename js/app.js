@@ -380,9 +380,20 @@ function uuidv4() {
     );
 }
 
+tries = 0;
+let triesReset;
+
 function tokenRefreshBkg() {
+    clearInterval(triesReset);
+
+    let toastText = "Reconnexion à Pronote en arrière-plan...";
+
+    if (tries > 0) {
+        toastText = "Reconnexion à Pronote en arrière-plan... (essai " + (tries + 1) + "/3)";
+    }
+
     Toastify({
-        text: "Reconnexion à Pronote en arrière-plan...",
+        text: toastText,
         gravity: "top",
         position: "center",
         className: "toasty",
@@ -397,8 +408,10 @@ function tokenRefreshBkg() {
     let authURL = auth[0];
     let authENT = auth[3];
 
-    $.get(`${encodeURIComponent(`https://ams01.pronote.plus/auth?url=${authURL}&username=${authUsername}&password=${authPasswordUnsecure}&cas=${authENT}&rand=${uuidv4()}`)}`, function( data ) {
-        let resp = JSON.parse(data.contents);
+    $.get(`https://ams01.pronote.plus/auth?url=${authURL}&username=${authUsername}&password=${authPasswordUnsecure}&cas=${authENT}&rand=${uuidv4()}`, function( data ) {
+        let resp = JSON.parse(data);
+
+        tries++;
 
         if(resp.message !== undefined) {
             if(resp.message == "Your IP address is temporarily banned because of too many failed authentication attempts") {
@@ -417,6 +430,15 @@ function tokenRefreshBkg() {
             localStorage.setItem('authToken', resp.token);
             allRefresh();
         }
+
+        if (tries > 2) {
+            // redirect to /login
+            window.location.href = "/login";
+        }
+
+        triesReset = setInterval(function() {
+            tries = 0;
+        }, 60000);
     });
 }
 
