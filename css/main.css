@@ -498,8 +498,8 @@ body.menuOpen #menuContent, body.menuOpen #appContent {
     position: relative;
     overflow: hidden !important;
 
-    /* opacity: 0; */
-    /* animation: show 0.3s var(--off) forwards cubic-bezier(0,0,0,1); */
+    opacity: 0;
+    animation: show 0.3s var(--off) forwards cubic-bezier(0,0,0,1);
 }
 
 .courseEmoji { 
