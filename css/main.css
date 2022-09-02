@@ -565,7 +565,7 @@ body.menuOpen #menuContent, body.menuOpen #appContent {
     display: flex !important;
     width: calc(100% - 0px);
     justify-content: space-between;
-    flex-wrap: nowrap;
+    flex-shrink: shrink;
 }
 
 .cours_topData p {
@@ -601,17 +601,18 @@ body.menuOpen #menuContent, body.menuOpen #appContent {
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
+    min-width: 0;
 }
 
-.cours_btmData {
-    display: flex;
-    align-items: center;
+.cours_btmData p:not(.when) {
+    max-width: 32vw;
 }
 
 .when {
     /* position: absolute; */
     right: 20px;
     font-weight: 400;
+    min-width: fit-content !important;
 }
 
 .when * {

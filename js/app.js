@@ -421,7 +421,7 @@ function tokenRefreshBkg() {
 // show edt first 
 var latestVersion = localStorage.getItem('latestVersion')
 
-const version = "3.4.2 beta";
+const version = "3.4.3 stable";
 const release = '3.4';
 
 function openApp() {
