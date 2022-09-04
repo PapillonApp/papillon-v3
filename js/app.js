@@ -448,8 +448,8 @@ function tokenRefreshBkg() {
 // show edt first 
 var latestVersion = localStorage.getItem('latestVersion')
 
-const version = "3.4.5 stable";
-const release = '3.4.5';
+const version = "3.5 stable";
+const release = '3.5';
 
 // if (release !== latestVersion) {
 
