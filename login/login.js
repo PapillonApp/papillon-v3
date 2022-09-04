@@ -252,3 +252,24 @@ if (localStorage.getItem("authData") !== null) {
         loginGo(true)
     }, 200);
 }
+
+// Change la couleur de la statusbar selon le darkmode
+let metaThemeColor = document.querySelector("meta[name=theme-color]");
+
+function apply_theme_color() {
+    let themeColor = getComputedStyle(document.documentElement).getPropertyValue('--theme-color');
+    metaThemeColor.setAttribute("content", themeColor);
+}
+
+apply_theme_color();
+
+// Vérifie toutes les 400ms si le darkmode est activé
+window
+    .matchMedia("(prefers-color-scheme: dark)")
+    .addEventListener("change", function(e) {
+        apply_theme_color();
+    });
+
+setInterval(function() {
+    apply_theme_color();
+}, 400)

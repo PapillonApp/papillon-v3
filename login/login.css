@@ -157,3 +157,39 @@ button {
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+
+:root {
+    --theme-color: #ffffff;
+}
+
+@media screen and (prefers-color-scheme: dark) {
+    :root {
+        --theme-color: #151515;
+    }
+
+    body {
+        background-color: #151515;
+    }
+
+    * {
+        color: #fff;
+    }
+
+    .loginOptions .option {
+        background-color: #222;
+    }
+
+    input {
+        color: #fff;
+        background: none;
+        border-color: #ffffff11;
+    }
+
+    .menuNav {
+        border-bottom: 1px solid #ffffff15;
+    }
+
+    .foundURLPrompt {
+        border: 1px solid #ffffff11;
+    }
+}
