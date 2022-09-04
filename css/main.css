@@ -571,7 +571,8 @@ body.menuOpen #appContent {
 }
 
 .cours_btmData p:not(.when) {
-    max-width: 32vw;
+    max-width: 30vw;
+    overflow: hidden;
 }
 
 .when {
