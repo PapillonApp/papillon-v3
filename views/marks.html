@@ -1,31 +1,3 @@
-<div id="average">
-    <div class="close" onclick="averageClose()">
-        <span class="material-symbols-outlined">
-            close
-        </span>
-    </div>
-
-    <div class="text">
-        <div class="mainMoyenne">
-            <p>Votre moyenne<br>générale est de</p>
-            <h3><span id="fanAverage" class="fan">-1.00</span><sm>/20</sm></h3>
-        </div>
-        <hr>
-        <div class="other">
-            <div class="otherInner">
-                <p>Classe</p>
-                <h4><span class="fan" id="fanAverageClass">-1.00</span><sm>/20</sm></h4>
-            </div>
-            <div class="otherInner">
-                <p>Écart</p>
-                <h4><span class="fan" id="fanAverageEcart">0.00</span><sm>pts</sm></h4>
-            </div>
-        </div>
-    </div>
-
-    <canvas id="averageCanvas"></canvas>
-</div>
-
 <div id="ListeOptions" class="liste">
     <a href="#" onclick="changeOrder()"><div class="cours file" style="--off: 0ms">
         <span class="material-symbols-outlined">
@@ -34,15 +6,6 @@
         <div class="cours_topData">
             <h3>Changer l'ordre</h3>
             <p>Passer en affichage chronologique</p>
-        </div>
-    </div></a>
-    <a href="#" onclick="average()"><div class="cours file" style="--off: 0ms">
-        <span class="material-symbols-outlined">
-            speed
-        </span>
-        <div class="cours_topData">
-            <h3>Moyenne générale</h3>
-            <p>Afficher l'animation de la moyenne</p>
         </div>
     </div></a>
 </div>
@@ -186,7 +149,11 @@
 
             avr = averageStudent;
             avrClass = averageStudentClass;
-    }
+
+            if(!isNaN(averageStudent)) {
+                setMenuTabContent(`Moyenne générale : ${averageStudent.toFixed(2)}<small>/20</small>`);
+            }
+        }
 
     function order_Chrono() {
         allMarks.sort(function(a, b) {
