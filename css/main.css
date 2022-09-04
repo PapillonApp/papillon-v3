@@ -306,7 +306,7 @@ body.menuOpen #appContent {
     border-radius: 10px !important;
     display: flex;
     align-items: center;
-    background-color: #f0f0f0;
+    background-color: #0066ff15;
     position: absolute;
     bottom: calc(env(safe-area-inset-bottom) + 10px);
 }
@@ -746,7 +746,13 @@ a:active {
         background: #151515;
     }
     .time {
-        background-color: #222 !important;
+        background-color: #6da7ff15 !important;
+    }
+    .changeInMenu {
+        background: #222 !important;
+    }
+    .changeInMenu a {
+        color: #999 !important;
     }
     .time span,
     .time input {
@@ -1134,14 +1140,18 @@ a:active {
 }
 
 .changeInMenu {
-    height: 60px;
+    margin-top: 10px;
+    height: 40px;
     right: 3vw;
     position: absolute;
     display: flex;
     align-items: center;
     top: 0;
+    border-radius: 300px;
+    background-color: #0066ff15;
 }
 
 .changeInMenu a {
     margin: 10px;
+    color: #0066ff
 }
