@@ -5,7 +5,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&display=swap');
 body {
-    height: 100vh;
     background: #F9F9F9;
     margin: 0;
     --font: system-ui;
