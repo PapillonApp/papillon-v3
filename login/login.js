@@ -12,6 +12,8 @@ function loginGo(auto) {
         nextStep("#autologin");
     }
 
+    document.getElementById("mainLoginBtn").innerHTML = "Connexion en cours...";
+
     let url = currentURL;
     let username = document.getElementById("username").value;
     let password = document.getElementById("password").value;
@@ -22,6 +24,7 @@ function loginGo(auto) {
         if(resp.code == 3) {
             localStorage.removeItem("token");
             localStorage.removeItem("authData");
+            document.getElementById("mainLoginBtn").innerHTML = "Se connecter";
         }
         else if(resp.message !== undefined) {
 
