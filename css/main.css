@@ -4,8 +4,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&display=swap');
-
-
 body {
     height: 100vh;
     background: #F9F9F9;
@@ -31,32 +29,18 @@ body * {
     --bg: #00000010;
 }
 
-@media only screen
-and (min-device-width: 414px)
-and (min-device-height: 896px)
-and (-webkit-device-pixel-ratio: 2)
-and (orientation: portrait), only screen
-and (min-device-width: 375px)
-and (min-device-height: 812px)
-and (-webkit-device-pixel-ratio: 2)
-and (orientation: portrait), only screen 
-and (device-width : 414px) 
-and (device-height : 896px) 
-and (-webkit-device-pixel-ratio : 3), only screen 
-and (device-width : 390px) 
-and (device-height : 844px), only screen 
-and (device-width : 390px) 
-and (device-height : 844px), only screen 
-and (device-width : 428px) 
-and (device-height : 926px)  {
-    :root {
+@media only screen and (min-device-width: 414px) and (min-device-height: 896px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait),
+only screen and (min-device-width: 375px) and (min-device-height: 812px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait),
+only screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3),
+only screen and (device-width: 390px) and (device-height: 844px),
+only screen and (device-width: 390px) and (device-height: 844px),
+only screen and (device-width: 428px) and (device-height: 926px) {
+     :root {
         --safe-space-top: 0px;
     }
-
     .time {
         margin-bottom: calc(env(safe-area-inset-bottom) + 8px) !important;
     }
-
     #appContent {
         height: calc(100vh - 110px - env(safe-area-inset-bottom)) !important;
     }
@@ -71,26 +55,22 @@ and (device-height : 926px)  {
 
 #menuContent {
     height: 56px;
-
     display: flex;
     align-items: center;
     justify-content: flex-start;
-
     background: #FFFFFF;
     border-top: 1px solid rgba(0, 0, 0, 0.1);
     padding-bottom: calc(var(--safe-space) + 4px);
-
     padding-left: 20px;
-
     position: fixed;
     bottom: 0;
     left: 0;
     right: 0;
-
     z-index: 999999999;
 }
 
-body.menuOpen #menuContent, body.menuOpen #appContent {
+body.menuOpen #menuContent,
+body.menuOpen #appContent {
     margin-left: 90vw !important;
 }
 
@@ -114,11 +94,7 @@ body.menuOpen #menuContent, body.menuOpen #appContent {
 }
 
 .material-symbols-outlined {
-    font-variation-settings:
-    'FILL' 0,
-    'wght' 500,
-    'GRAD' 0,
-    'opsz' 48
+    font-variation-settings: 'FILL' 0, 'wght' 500, 'GRAD' 0, 'opsz' 48
 }
 
 .menuIcon {
@@ -143,11 +119,11 @@ body.menuOpen #menuContent, body.menuOpen #appContent {
 
 #menuTabName {
     font-weight: 600;
-    animation: menuTabName 0.5s forwards cubic-bezier(0,0,0,1);
+    animation: menuTabName 0.5s forwards cubic-bezier(0, 0, 0, 1);
 }
 
 .aboutto {
-    animation: aboutto 0.2s forwards cubic-bezier(1,0,1,1) !important;
+    animation: aboutto 0.2s forwards cubic-bezier(1, 0, 1, 1) !important;
 }
 
 @keyframes aboutto {
@@ -179,7 +155,7 @@ body.menuOpen #menuContent, body.menuOpen #appContent {
 #menuTabContent {
     opacity: 0;
     margin-bottom: -20px;
-    animation: menuTabContent 0.5s 0.12s forwards cubic-bezier(.48,0,.1,.99);
+    animation: menuTabContent 0.5s 0.12s forwards cubic-bezier(.48, 0, .1, .99);
 }
 
 @keyframes menuTabContent {
@@ -204,14 +180,12 @@ body.menuOpen #menuContent, body.menuOpen #appContent {
     align-items: center;
     padding-bottom: var(--safe-space);
     z-index: 9999999999999999999999;
-
     display: none;
-
-    animation: menu 0.3s forwards cubic-bezier(0,0,0,1);
+    animation: menu 0.3s forwards cubic-bezier(0, 0, 0, 1);
 }
 
 #menu.close {
-    animation: menuClose 0.15s forwards cubic-bezier(1,0,0,1);
+    animation: menuClose 0.15s forwards cubic-bezier(1, 0, 0, 1);
 }
 
 #menuTabs {
@@ -221,7 +195,7 @@ body.menuOpen #menuContent, body.menuOpen #appContent {
     left: 0;
     height: 100%;
     background: #fff;
-    animation: menuTabs 0.3s forwards cubic-bezier(0,0,0,1);
+    animation: menuTabs 0.3s forwards cubic-bezier(0, 0, 0, 1);
     pointer-events: all;
 }
 
@@ -274,8 +248,7 @@ body.menuOpen #menuContent, body.menuOpen #appContent {
     background: #FFFFFF;
     border-radius: 15px;
     width: 90vw;
-
-    animation: modal 0.3s forwards cubic-bezier(0,0,0,1);
+    animation: modal 0.3s forwards cubic-bezier(0, 0, 0, 1);
 }
 
 @keyframes modal {
@@ -312,11 +285,7 @@ body.menuOpen #menuContent, body.menuOpen #appContent {
 }
 
 .tabLink.active .material-symbols-outlined {
-    font-variation-settings:
-    'FILL' 1,
-    'wght' 400,
-    'GRAD' 0,
-    'opsz' 48
+    font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 48
 }
 
 .tabLink span {
@@ -333,16 +302,11 @@ body.menuOpen #menuContent, body.menuOpen #appContent {
 .time {
     width: calc(90vw - (25px * 2) - 10px);
     margin-left: 10px;
-
     padding: 10px 20px;
-
     border-radius: 10px !important;
-    
     display: flex;
     align-items: center;
-    
     background-color: #f0f0f0;
-
     position: absolute;
     bottom: calc(env(safe-area-inset-bottom) + 10px);
 }
@@ -473,8 +437,6 @@ body.menuOpen #menuContent, body.menuOpen #appContent {
     padding: 0px 20px;
 }
 
-
-
 @keyframes show {
     from {
         opacity: 0;
@@ -488,21 +450,18 @@ body.menuOpen #menuContent, body.menuOpen #appContent {
 
 .cours {
     background-color: #ffffff;
-
     box-shadow: 0px 1px 2px #00000010;
-
     width: 100%;
     border-radius: 7px;
     display: flex;
     margin: 10px 0px;
     position: relative;
     overflow: hidden !important;
-
     opacity: 0;
-    animation: show 0.3s var(--off) forwards cubic-bezier(0,0,0,1);
+    animation: show 0.3s var(--off) forwards cubic-bezier(0, 0, 0, 1);
 }
 
-.courseEmoji { 
+.courseEmoji {
     position: absolute;
     right: -15px;
     top: -70px;
@@ -526,7 +485,6 @@ body.menuOpen #menuContent, body.menuOpen #appContent {
     top: 0;
     bottom: 0;
     left: 0;
-
     border-top-left-radius: 8px;
     border-bottom-left-radius: 8px;
 }
@@ -546,7 +504,8 @@ body.menuOpen #menuContent, body.menuOpen #appContent {
     width: 100%;
 }
 
-.cours_data *, .courd * {
+.cours_data *,
+.courd * {
     margin: 0;
 }
 
@@ -626,16 +585,15 @@ body.menuOpen #menuContent, body.menuOpen #appContent {
 
 .subject {
     background-color: #fff;
-    box-shadow: 0 1px 1px 0 rgba(0,0,0,0.14), 0 2px 1px -1px rgba(0,0,0,0.12), 0 1px 3px 0 rgba(0,0,0,0.20);
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12), 0 1px 3px 0 rgba(0, 0, 0, 0.20);
     width: 90vw;
     border-radius: 8px;
     margin: 10px 0px;
     position: relative;
     overflow: hidden;
     padding-bottom: 5px;
-
     opacity: 0;
-    animation: show 0.3s var(--off) forwards cubic-bezier(0,0,0,1);
+    animation: show 0.3s var(--off) forwards cubic-bezier(0, 0, 0, 1);
 }
 
 .subject * {
@@ -643,12 +601,12 @@ body.menuOpen #menuContent, body.menuOpen #appContent {
 }
 
 .subjectName {
-    background: linear-gradient(0deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.3) 100%), var(--bg);
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.3) 100%), var(--bg);
     width: 100%;
     padding: 12.5px 20px;
     display: flex;
     margin-bottom: 5px;
-    box-shadow: 0 1px 1px 0 rgba(0,0,0,0.14), 0 2px 1px -1px rgba(0,0,0,0.12), 0 1px 3px 0 rgba(0,0,0,0.20);
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12), 0 1px 3px 0 rgba(0, 0, 0, 0.20);
 }
 
 .subjectName p {
@@ -765,78 +723,66 @@ a:active {
     opacity: 50%;
 }
 
+
 /* dark mode */
+
 @media screen and (prefers-color-scheme: dark) {
     body {
         background: #111;
     }
-
     #loading {
         border: 3px solid #6da7ff10;
         border-top-color: #6da7ff;
     }
-
     #iOS-cover {
         background: #15192055;
     }
-
     #menuContent {
         background: #151515;
         border-top: 1px solid rgba(255, 255, 255, 0.1);
         color: #fff;
     }
-
     #menuTabs {
         background: #151515;
     }
-
     .time {
         background-color: #222 !important;
     }
-
-    .time span, .time input {
+    .time span,
+    .time input {
         color: #6da7ff !important;
     }
-    
-    :root {
+     :root {
         --theme-color: #111;
         --bg: #ffffff12;
     }
-
     .cours {
         background-color: #222;
         box-shadow: 0px 1px 3px #00000050;
         color: #fff;
     }
-
     .cours.done {
         background-color: #6da7ff10;
         color: #6da7ff !important;
     }
-
     .subject {
         background-color: #1C212B;
         color: #fff;
     }
-
     .modal {
         background: #151515;
         color: #fff;
     }
-
     .tabLink {
         /* border-bottom: 1px solid #ffffff10; */
     }
-
     .tabLink.active {
         background: #6da7ff10 !important;
         color: #6da7ff !important;
     }
-
     .part {
         color: #ffffff55 !important;
     }
-
     .mark {
         background: #181d25;
         color: #fff;
@@ -866,7 +812,7 @@ a:active {
     font-weight: 500;
     font-size: 14px;
     letter-spacing: 1px;
-    animation: show 0.3s forwards cubic-bezier(0,0,0,1);
+    animation: show 0.3s forwards cubic-bezier(0, 0, 0, 1);
 }
 
 .frprt {
@@ -943,6 +889,7 @@ a:active {
     opacity: 50%;
 }
 
+
 /* loading */
 
 #loadingContainer {
@@ -964,14 +911,19 @@ a:active {
     border-top-color: #0066ff;
     animation: spin 1s ease-in-out infinite;
     -webkit-animation: spin 1s ease-in-out infinite;
-  }
-  
-  @keyframes spin {
-    to { -webkit-transform: rotate(360deg); }
-  }
-  @-webkit-keyframes spin {
-    to { -webkit-transform: rotate(360deg); }
-  }
+}
+
+@keyframes spin {
+    to {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@-webkit-keyframes spin {
+    to {
+        -webkit-transform: rotate(360deg);
+    }
+}
 
 #average {
     position: fixed;
@@ -1026,21 +978,18 @@ a:active {
     letter-spacing: 3px;
     font-weight: 200;
     text-transform: uppercase;
-
-    background: linear-gradient(0deg, rgba(255,255,255,0.29735644257703087) 0%, rgba(212,229,255,1) 100%);
+    background: linear-gradient(0deg, rgba(255, 255, 255, 0.29735644257703087) 0%, rgba(212, 229, 255, 1) 100%);
     -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+    -webkit-text-fill-color: transparent;
 }
 
 #average .mainMoyenne h3 {
     font-size: 72px;
     letter-spacing: -0.5px;
-
-    background: linear-gradient(0deg, rgba(255,255,255,0.29735644257703087) 0%, rgba(212,229,255,1) 100%);
+    background: linear-gradient(0deg, rgba(255, 255, 255, 0.29735644257703087) 0%, rgba(212, 229, 255, 1) 100%);
     -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-
-    text-shadow: 0px 0px 10px rgba(212,229,255,0.8), 0px 0px 60px rgba(212,229,255,1);
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0px 0px 10px rgba(212, 229, 255, 0.8), 0px 0px 60px rgba(212, 229, 255, 1);
     margin-top: 0px;
 }
 
@@ -1050,10 +999,9 @@ a:active {
 }
 
 #average .text hr {
-    border-color: rgba(212,229,255);
-    box-shadow: 0px 0px 10px rgba(212,229,255,0.8);
+    border-color: rgba(212, 229, 255);
+    box-shadow: 0px 0px 10px rgba(212, 229, 255, 0.8);
     margin-top: 0px;
-
     width: 0;
     opacity: 0;
     animation: averageHR 1s 3s ease-in-out forwards;
@@ -1104,10 +1052,9 @@ a:active {
     letter-spacing: 2px;
     font-weight: 300;
     text-transform: uppercase;
-
-    background: linear-gradient(0deg, rgba(255,255,255,0.29735644257703087) 0%, rgba(212,229,255,1) 100%);
+    background: linear-gradient(0deg, rgba(255, 255, 255, 0.29735644257703087) 0%, rgba(212, 229, 255, 1) 100%);
     -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+    -webkit-text-fill-color: transparent;
 }
 
 #average .otherInner h4 {
@@ -1116,10 +1063,9 @@ a:active {
     font-weight: 300;
     text-transform: uppercase;
     margin-top: 0px;
-
-    background: linear-gradient(0deg, rgba(255,255,255,0.29735644257703087) 0%, rgba(212,229,255,1) 100%);
+    background: linear-gradient(0deg, rgba(255, 255, 255, 0.29735644257703087) 0%, rgba(212, 229, 255, 1) 100%);
     -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+    -webkit-text-fill-color: transparent;
 }
 
 #average .otherInner h4 sm {
@@ -1155,6 +1101,7 @@ a:active {
     }
 }
 
+
 /* .toasty {
     box-shadow: 0px 1px 2px #00000022 !important;
     border-radius: 7px !important;
@@ -1184,4 +1131,17 @@ a:active {
 
 .coursEcart {
     margin-top: 30px;
+}
+
+.changeInMenu {
+    height: 60px;
+    right: 3vw;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    top: 0;
+}
+
+.changeInMenu a {
+    margin: 10px;
 }
