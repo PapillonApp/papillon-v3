@@ -401,16 +401,6 @@ function tokenRefreshBkg() {
         toastText = "Reconnexion à Pronote en arrière-plan... (essai " + (tries + 1) + "/3)";
     }
 
-    Toastify({
-        text: toastText,
-        gravity: "top",
-        position: "center",
-        className: "toasty",
-        style: {
-            background: "#0066FF",
-        }
-    }).showToast();
-
     let auth = JSON.parse(localStorage.getItem('authData'));
     let authUsername = auth[1];
     let authPasswordUnsecure = atob(auth[2]);
@@ -453,11 +443,13 @@ function tokenRefreshBkg() {
 // show edt first 
 var latestVersion = localStorage.getItem('latestVersion')
 
-const version = "3.4.3 stable";
-const release = '3.4';
+const version = "3.4.5 stable";
+const release = '3.4.5';
+
+// if (release !== latestVersion) {
 
 function openApp() {
-    if (release !== latestVersion) {
+    if (1 === 3) {
         localStorage.setItem('latestVersion', release);
         view('update', 'Notes de mise à jour', true)
     } else {

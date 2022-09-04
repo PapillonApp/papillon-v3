@@ -1,7 +1,7 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
 
         <script src="../js/jquery.js"></script>
 
@@ -9,7 +9,7 @@
         <!-- import manifest -->
         <link rel="manifest" href="../manifest.webmanifest">
 
-        <meta name="theme-color" content="#FF0082">
+        <meta name="theme-color" content="#fff">
 
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
         <script src="login.js"></script>
@@ -17,58 +17,153 @@
 
         <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
         <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+        <style>
+            .material-symbols-outlined {
+              font-variation-settings:
+              'FILL' 0,
+              'wght' 400,
+              'GRAD' 0,
+              'opsz' 48
+            }
+        </style>
     </head>
     <body>
-        <div id="topbar">
-            <img class="logo" src="educonnect.svg">
-            <h3>Se connecter à Pronote+</h3>
-            <small>Cette page n'est pas affilliée à EduConnect ou à un ENT officiel de l'éducation nationale.</small>
+        <div class="loginStep" id="mainStep">
+            <div class="welcomeScreen">
+                <h1>Bienvenue sur Pronote+</h1>
+                <p>L'app de vie scolaire qui va simplifier votre organisation numérique.</p>
+
+                <div class="loginOptions">
+
+                    <div class="option" onclick="step_stepQR()">
+                        <span class="material-symbols-outlined">
+                            qr_code_2
+                        </span>
+                        <div>
+                            <h3>Se connecter avec un QR-Code</h3>
+                            <p>Scanner le QR code de connexion mobile Pronote</p>
+                        </div>
+                    </div>
+                    <div class="option" onclick="step_setURL()">
+                        <span class="material-symbols-outlined">
+                            link
+                        </span>
+                        <div>
+                            <h3>Se connecter avec une URL</h3>
+                            <p>Entrez l'URL de votre établissement sur Pronote</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <div id="login" class="">
-            <input id="username" type="text" placeholder="Nom d'utilisateur (prénom.nom)">
-            <input id="password" type="password" placeholder="Mot de passe">
-
-            <select id="ent" placeholder="Choisir un ENT" value="toutatice">
-                <option value="toutatice">Toutatice</option>
-                <option value="monbureaunumerique-educonnect">Mon Bureau Numérique</option>
-                <option value="parisclassenumerique">Paris Classe Numerique</option>
-                <option value="moncollege-essonne">Mon collège Essonne</option>
-                <option value="iledefrance">Île de France</option>
-                <option value="portail-famille">Portail Famille</option>
-                <option value="somme">Somme</option>
-                <option value="seine-et-marne">Seine-et-Marne</option>
-                <option value="lyceeconnecte">Lycee Connecte</option>
-                <option value="laclasse">La Classe</option>
-                <option value="hdf">Hauts-de-France</option>
-                <option value="haute-garonne">Haute-Garonne</option>
-                <option value="agora06">Agora 06</option>
-                <option value="ac-clermont">Académie de Clermont-Ferrand</option>
-                <option value="ac-orleans-tours">Académie d'Orléans-Tours</option>
-                <option value="none">Aucun ENT</option>
-            </select>
-            <select onChange="checkURL()" placeholder="Choisir un ENT" id="login_url" value="https://0350053t.pronote.toutatice.fr/pronote/">
-                <option value="https://0350053t.pronote.toutatice.fr/pronote/">Lycée Bertrand d'Argentré (Vitré)</option>
-                <option value="https://0352009u.pronote.toutatice.fr/pronote/">Lycée Victor-et-Hélène-Basch (Rennes)</option>
-                <option value="https://0350030t.pronote.toutatice.fr/pronote/">Lycée Polyvalent Pierre Mendès France (Rennes)</option>
-                <option value="https://0352304p.pronote.toutatice.fr/pronote/">Lycée Sévigné (Cesson-Sévigné)</option>
-                <option value="https://0753047e.index-education.net/pronote/">Collège la Grange aux Belles (Paris)</option>
-                <option value="https://0352448w.pronote.toutatice.fr/pronote/">Collège P.O.Malherbe (Chateaubourg)</option>
-                <option value="https://0351053e.pronote.toutatice.fr/pronote/">Collège Jean-Monnet (Janzé)</option>
-                <option value="https://3500002a.index-education.net/pronote/">Lycée Lyautey (Casablanca)</option>
-                <option value="https://0922615t.index-education.net/pronote/">Lycée Lucie Aubrac (Courbevoie)</option>
-                <option value="https://0572022n.index-education.net/pronote/">Lycée Polyvalent Félix Mayer (Creutzwald)</option>
-                <option value="https://0511926s.index-education.net/pronote/">Lycée Marc Chagall (Reims)</option>
-                <option value="https://0350709f.pronote.toutatice.fr/pronote/">Lycée La Champagne (Vitré)</option>
-                <option value="https://0630018c.index-education.net/pronote/">Lycée Blaise Pacal (Clermont-Ferrand)</option>
-                <option value="https://demo.index-education.net/pronote/">Collège de démonstration</option>
-                <option value="other">Autre (mettre ma propre URL Pronote)</option>
-            </select>
-            <input id="urlCustom" type="url" placeholder="URL Pronote personnalisée">
-
-            <button id="loginBtn" onclick="loginGo()">Se connecter</button>
-
-            <p style="margin-top: 10px; text-align:center; opacity: 50%;">Dans le cas ou vous avez des codes EduConnect et/ou ENT à la fois, entrez vos codes ENT.</p>
+        <div class="loginStep" id="stepQR">
+            <div class="menuNav">
+                <span class="material-symbols-outlined" onclick="nextStep('#mainStep');">
+                    arrow_back
+                </span>
+                <div>
+                    <p>Scanner un code QR</p>
+                </div>
+            </div>
+            <div id="reader" width="100%"></div>
         </div>
+
+        <div class="loginStep" id="checkQR">
+            <div class="menuNav">
+                <span class="material-symbols-outlined" onclick="step_stepQR()">
+                    arrow_back
+                </span>
+                <div>
+                    <p>Vérifier l'établissement</p>
+                </div>
+            </div>
+            <div class="etabCheck">
+                <div class="foundURLPrompt">
+                    <small>URL Pronote</small>
+                    <p id="foundURL"></p>
+                </div>
+                <div class="foundURLPrompt">
+                    <small>ENT</small>
+                    <p id="foundENT"></p>
+                    <p class="help" onclick="step_setENT();">Ce n'est pas ça ?</p>
+                </div>
+                <div class="loginOptions">
+                    <div class="option" onclick="step_login()">
+                        <span class="material-symbols-outlined">
+                            login
+                        </span>
+                        <div>
+                            <h3>Se connecter sur cet établissement</h3>
+                            <p>Utilisez votre mot de passe d'accès habituel à Pronote.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="loginStep" id="setENT">
+            <div class="menuNav">
+                <span class="material-symbols-outlined" onclick="step_stepQR()">
+                    arrow_back
+                </span>
+                <div>
+                    <p>Sélectionner votre ENT</p>
+                </div>
+            </div>
+            <div class="etabCheck">
+                <div class="loginOptions" id="entList">
+
+                </div>
+            </div>
+        </div>
+
+        <div class="loginStep" id="loginFull">
+            <div class="menuNav">
+                <span class="material-symbols-outlined" onclick="reopenCheck()">
+                    arrow_back
+                </span>
+                <div>
+                    <p>Se connecter</p>
+                </div>
+            </div>
+            <div class="etabCheck">
+                <input type="text" placeholder="Identifiant" id="username"><br>
+                <input type="password" placeholder="Mot de passe" id="password"><br>
+                <button onclick="loginGo(false)">Se connecter</button>
+            </div>
+        </div>
+
+        <div class="loginStep" id="loginURL">
+            <div class="menuNav">
+                <span class="material-symbols-outlined" onclick="reopenCheck()">
+                    arrow_back
+                </span>
+                <div>
+                    <p>Entrer une URL</p>
+                </div>
+            </div>
+            <div class="etabCheck">
+                <input type="url" placeholder="URL Pronote (****.index-education.net)" id="url"><br>
+                <button onclick="setURLLogin()">Soumettre</button>
+            </div>
+        </div>
+
+        <div class="loginStep" id="autologin">
+            <div class="menuNav">
+                <span class="material-symbols-outlined" onclick="nextStep('#mainStep');">
+                    arrow_back
+                </span>
+                <div>
+                    <p>Connexion automatique</p>
+                </div>
+            </div>
+            <div class="etabCheck">
+                Reconnexion automatique en cours...
+            </div>
+        </div>
+
+        <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
     </body>
 </html>
