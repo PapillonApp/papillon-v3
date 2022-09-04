@@ -540,6 +540,13 @@ body.menuOpen #appContent {
     opacity: 50%;
 }
 
+.cours_topData .hwContent {
+    width: 90%;
+    overflow: hidden;
+    overflow-wrap: break-word;
+    margin-top: 5px;
+}
+
 .teacher {
     opacity: 40% !important;
 }

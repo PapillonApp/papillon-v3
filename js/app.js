@@ -426,6 +426,7 @@ function tokenRefreshBkg() {
             }
         } else if (resp.token !== undefined) {
             localStorage.setItem('authToken', resp.token);
+            token = resp.token;
             allRefresh();
         }
 
