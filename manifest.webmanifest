@@ -2,7 +2,7 @@
     "name": "Pronote+",
     "start_url": "/",
     "display": "standalone",
-    "scope": "/",
+    "scope": "/*",
     "orientation": "portrait",
     "lang": "fr-FR"
 }
