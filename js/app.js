@@ -219,6 +219,10 @@ function loadPronoteData() {
         $('#userName').text(myName);
         $('#userClass').text(resp.studentClass.name + " – " + resp.establishmentsInfo[0].name);
 
+        if(userEverything.avatar == null) {
+            avatar = "/assets/default.png";
+        }
+
         avatar = resp.avatar;
         if (localStorage.getItem('customPic') !== null) {
             avatar = localStorage.getItem('customPic');
