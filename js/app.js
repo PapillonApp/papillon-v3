@@ -1,10 +1,11 @@
-// PWA
+// Vérifie qu'on tourne en tant que PWA
 let standalone = false;
 
 if (window.matchMedia('(display-mode: standalone)').matches) {
     standalone = true;
 }
 
+// Paramètres nécéssaires pour Chrome sur Android (jsp ce que c'est tbh)
 let deferredPrompt;
 window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
@@ -16,11 +17,12 @@ if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/js/sw.js');
 };
 
-// theme
+// Vérifie qu'une font custom n'est pas appliquée
 if (localStorage.getItem('customFont') !== null) {
     $('body').css('--font', localStorage.getItem('customFont'));
 }
 
+// Change la couleur de la statusbar selon le darkmode
 let metaThemeColor = document.querySelector("meta[name=theme-color]");
 
 function apply_theme_color() {
@@ -30,6 +32,7 @@ function apply_theme_color() {
 
 apply_theme_color();
 
+// Vérifie toutes les 400ms si le darkmode est activé
 window
     .matchMedia("(prefers-color-scheme: dark)")
     .addEventListener("change", function(e) {
@@ -40,12 +43,13 @@ setInterval(function() {
     apply_theme_color();
 }, 400)
 
-// marks
+// Déclaration de la variable des notes
 let allMarks = [];
 
-// progress
+// Barre de progression
 let progressInterval;
 
+// Démarre le chargement de la page
 function progressStart(speed) {
     if (speed == undefined) {
         speed = 8;
@@ -64,11 +68,13 @@ function progressStart(speed) {
     }, 500);
 }
 
+// Change la valeur de la barre de progression
 function progressChange(value) {
     clearInterval(progressInterval);
     $("#progressBarFill").css("width", value + "%");
 }
 
+// Termine + cache la barre de progression
 function progressEnd() {
     clearInterval(progressInterval);
     $("#progressBarFill").css("width", "100%");
@@ -80,18 +86,23 @@ function progressEnd() {
     }, 600);
 }
 
-// date change
+// Manipulation de la date et du temps
+// Déclaration des timestamps
 let rn = new Date();
 let rn2 = new Date();
 
+// Variables qui définissent si la date à été changée
 let dateChanged = false;
 let dateChangedOnce = false;
 
+// Dictionnaire des noms de jours et de mois
 let days = ["dimanche", "lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi"];
 let months = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"];
 
+// #rn ou rnpicker est la référence du calendrier dans le menu
 let rnPicker = document.getElementById("rn");
 
+// Changer la date de la variable rn quand elle change dans le menu
 rnPicker.addEventListener("change", function(e) {
     rnPicker.value = event.target.value;
 
@@ -104,6 +115,7 @@ rnPicker.addEventListener("change", function(e) {
     document.getElementById("dateString").innerText = getRn(0, false);
 });
 
+// Bouton suivant (pour la date)
 function rnNext(a) {
     rn.setDate(rn.getDate() + 1);
     updateRn(rn);
@@ -116,6 +128,7 @@ function rnNext(a) {
     }
 }
 
+// Bouton précédent (pour la date)
 function rnPrev(a) {
     rn.setDate(rn.getDate() - 1);
     updateRn(rn);
@@ -128,15 +141,18 @@ function rnPrev(a) {
     }
 }
 
+// ça, je sais plus mais c'est utile
 function updateRn(rnE) {
     rn = rnE;
 }
 
+// Fonction pour ajouter les 0 devant les nombres
 function pad(num, places) {
     var zero = places - num.toString().length + 1;
     return Array(+(zero > 0 && zero)).join("0") + num;
 }
 
+// Fonction qui retourne la date en une phrase
 function getRn(add, type) {
     workRn = rn;
     workRn.setDate(workRn.getDate() + add);
@@ -153,41 +169,49 @@ function getRn(add, type) {
     }
 }
 
+// Fonction qui affiche la date dans l'interface
 function updateTime() {
     rnPicker.value = getRn(0, true)
     document.getElementById("dateString").innerText = getRn(0, false);
 }
 
+// Affiche la date actuelle dans l'interface
 updateTime();
 
 // login
 let token;
 
+// Vérifie si on est connecté
 if (localStorage.getItem('authData') === null) {
+    // Si non, se connecter
     window.location.href = 'login/';
 } else {
     token = localStorage.getItem('authToken');
     try {
+        // Charge les données de l'utilisateur
         loadPronoteData();
     } catch (e) {
         alert("ERREUR [PronotePlusBetaError] : contactez @levraicnivtwelve sur insta si cette erreur persiste");
     }
 }
 
+// Déconnexion
 function logout() {
     localStorage.clear();
     window.location.href = 'login/';
 }
 
+// Fonction qui recharge les données de l'utilisateur
 function refreshToken() {
     tokenRefreshBkg();
 }
 
+// Vide le cache
 function update() {
     location.reload(true);
 }
 
-// load
+// Charge les données de l'utilisateur
 let myName = "";
 let avatar = "";
 
@@ -203,26 +227,32 @@ function loadPronoteData() {
     progressStart();
     $.get(`https://ams01.pronote.plus/user?token=${token}&rand=${uuidv4()}`, function(data, success) {
 
+        // Si la requête fail, rafrachir le token
         if (JSON.parse(data).message !== undefined) {
             tokenRefreshBkg()
         }
         progressEnd();
 
+        // Décode le JSON depuis l'API
         let resp = JSON.parse(data).data.user;
         userEverything = resp;
 
+        // Récupère le prénom à partir des données de l'utilisateur
         myNameStep = resp.name.split(" ");
         lastName = myNameStep.shift();
         firstName = myNameStep[0];
         myName = firstName + " " + lastName;
 
+        // Si l'utilisateur à changé de nom, on le met à jour
         if (localStorage.getItem('customName') !== null) {
             myName = localStorage.getItem('customName');
         }
 
+        // Remplis l'interface
         $('#userName').text(myName);
         $('#userClass').text(resp.studentClass.name + " – " + resp.establishmentsInfo[0].name);
 
+        // Si il n'y a pas d'avatar, mettre un placeholder
         if(userEverything.avatar == null) {
             avatar = "/assets/default.png";
         }
@@ -236,6 +266,7 @@ function loadPronoteData() {
     });
 }
 
+// Change le nom de l'utilisateur
 function changeName() {
     let newName = prompt("Entrez votre nouveau nom", myName);
     if (newName !== null) {
@@ -249,6 +280,7 @@ function changeName() {
     });
 }
 
+// Changer l'avatar de l'utilisateur (non utilisé)
 function changePic() {
     var newPicInput = document.createElement('input');
     newPicInput.type = 'file';
@@ -270,11 +302,7 @@ function changePic() {
     }
 }
 
-document.getElementById("userAvatar").onerror = function() {
-    // window.location.href = 'login/';
-};
-
-// text
+// Changer le sous-titre de la page
 function setMenuTabContent(text) {
     $('#menuTabContent').css('display', 'none');
     setTimeout(() => {
@@ -283,6 +311,7 @@ function setMenuTabContent(text) {
     $('#menuTabContent').text(text);
 }
 
+// Formatte le texte pour l'HTML
 function escapeHtml(text) {
     return text
         .replace(/&/g, "&amp;")
@@ -292,9 +321,11 @@ function escapeHtml(text) {
         .replace(/'/g, "&#039;");
 }
 
+// Déclaration moyenne et moyenne de classe
 let avr;
 let avrClass;
 
+// Anime un nombre
 function animateValue(obj, start, end, duration) {
     let startTimestamp = null;
     const step = (timestamp) => {
@@ -308,6 +339,7 @@ function animateValue(obj, start, end, duration) {
     window.requestAnimationFrame(step);
 }
 
+// Affiche l'UI de la moyene (non utilisé)
 function average() {
     if (!isNaN(avr)) {
         document.getElementById("fanAverage").innerHTML = avr.toFixed(2);
@@ -330,10 +362,14 @@ function average() {
     }
 }
 
+// Ferme cette même UI
 function averageClose() {
     document.getElementById("average").style.display = "none";
 }
 
+
+
+// Tirer pour actualiser
 const ptr = PullToRefresh.init({
     mainElement: '#appContent',
     triggerElement: '#appContent',
@@ -350,17 +386,19 @@ const ptr = PullToRefresh.init({
     }
 });
 
-// swipe detection
-
+// Détecte les swipe pour ouvrir le menu
 let touchstartX = 0
 let touchendX = 0
 
 function checkDirection() {
+    // ->
     if (touchendX > touchstartX) {
         if (touchendX - touchstartX > 100) {
             openMenu();
         }
     }
+
+    // <-
     if (touchendX < touchstartX) {
         if (touchstartX - touchendX > 100) {
             closeMenuPanel();
@@ -368,6 +406,7 @@ function checkDirection() {
     }
 }
 
+// enregistre les swipes dans les vues
 document.getElementById('appContent').addEventListener('touchstart', e => {
     touchstartX = e.changedTouches[0].screenX
 })
@@ -377,6 +416,7 @@ document.getElementById('appContent').addEventListener('touchend', e => {
     checkDirection()
 })
 
+// enregistre les swipes dans le menu
 document.getElementById('menu').addEventListener('touchstart', e => {
     touchstartX = e.changedTouches[0].screenX
 })
@@ -393,6 +433,7 @@ function uuidv4() {
     );
 }
 
+// Limite de 3 essais de connexion pour éviter de se faire ratelimit
 tries = 0;
 let triesReset;
 
@@ -405,6 +446,7 @@ function tokenRefreshBkg() {
         toastText = "Reconnexion à Pronote en arrière-plan... (essai " + (tries + 1) + "/3)";
     }
 
+    // Récupère les données de login
     let auth = JSON.parse(localStorage.getItem('authData'));
     let authUsername = auth[1];
     let authPasswordUnsecure = atob(auth[2]);
@@ -417,6 +459,7 @@ function tokenRefreshBkg() {
         tries++;
 
         if (resp.message !== undefined) {
+            // Et là on a réussi à quand même se faire ratelimit, yay !
             if (resp.message == "Your IP address is temporarily banned because of too many failed authentication attempts") {
                 Toastify({
                     text: "Pronote+ est momentanément exclu de votre établissement à cause d'essais incorrects. Veuillez réessayer dans quelques minutes.",
@@ -435,29 +478,34 @@ function tokenRefreshBkg() {
         }
 
         if (tries > 2) {
-            // redirect to /login
+            // Login normal si trop d'essais
             window.location.href = "/login";
         }
 
+        // Reset des essais après 1 minute
         triesReset = setInterval(function() {
             tries = 0;
         }, 60000);
     });
 }
 
-// show edt first 
+// Récupère la dernière version ouverte
 var latestVersion = localStorage.getItem('latestVersion')
 
+// Version de l'app
 const version = "3.5 stable";
 const release = '3.5';
 
 // if (release !== latestVersion) {
 
+// Fonction d'ouverture de l'app
 function openApp() {
     if (1 === 3) {
+        // Changelog (pas utilisé pour le moment)
         localStorage.setItem('latestVersion', release);
         view('update', 'Notes de mise à jour', true)
     } else {
+        // Ouvre l'emploi du temps
         view('edt', 'Emploi du temps');
     }
     dateString = document.getElementById("dateString").innerText
@@ -484,4 +532,5 @@ function openApp() {
     allRefresh()
 }, 1500); */
 
+// Lance cette fonction au chargement de la page
 openApp();
