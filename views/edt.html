@@ -146,10 +146,11 @@
                     resp[course].room = newname.join(' ');
                 }
 
+
                 if(1==1) {
                     $('#ListeCours').append(`
-                        <div class="cours ${allClasses}" style="--off: ${course * 50}ms">
-                            <div style="--bg:${resp[course].color}" class="coursleftBar"></div>
+                        <div class="cours ${allClasses}" style="--off: ${course * 50}ms; --bg:${resp[course].color};">
+                            <div class="coursleftBar"></div>
                             <div class="cours_data">
                                 <div class="courd">
                                     <h3>${resp[course].subject}</h3>
