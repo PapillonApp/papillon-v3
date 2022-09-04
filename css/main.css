@@ -485,7 +485,7 @@ body.menuOpen #appContent {
 }
 
 .coursleftBar {
-    background: var(--bg);
+    background: linear-gradient(180deg, #ffffff99 0%, #FFFFFF00 100%), var(--bg);
     width: 5px;
     height: 100%;
     position: absolute;
