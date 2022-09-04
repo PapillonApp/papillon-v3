@@ -24,9 +24,10 @@ function loginGo(auto) {
         if(resp.code == 3) {
             localStorage.removeItem("token");
             localStorage.removeItem("authData");
-            document.getElementById("mainLoginBtn").innerHTML = "Se connecter";
         }
+
         else if(resp.message !== undefined) {
+            document.getElementById("mainLoginBtn").innerHTML = "Se connecter";
 
             if(resp.message == "The instance is closed, try again later") {
                 Toastify({
@@ -39,8 +40,7 @@ function loginGo(auto) {
                     }
                 }).showToast();
             }
-
-            if(resp.message == "Your IP address is temporarily banned because of too many failed authentication attempts") {
+            else if(resp.message == "Your IP address is temporarily banned because of too many failed authentication attempts") {
                 Toastify({
                     text: "Pronote+ est momentanément exclu de votre établissement à cause d'essais incorrects. Veuillez réessayer dans quelques minutes.",
                     gravity: "top",
@@ -51,8 +51,7 @@ function loginGo(auto) {
                     }
                 }).showToast();
             }
-
-            if(resp.message == "Wrong user credentials") {
+            else if(resp.message == "Wrong user credentials") {
                 Toastify({
                     text: "Identifiant ou mot de passe incorrect.",
                     gravity: "top",
@@ -63,10 +62,20 @@ function loginGo(auto) {
                     }
                 }).showToast();
             }
-
-            if(resp.message == "Missing 'url', or 'username', or 'password', or header 'Content-Type: application/json'") {
+            else if(resp.message == "Missing 'url', or 'username', or 'password', or header 'Content-Type: application/json'") {
                 Toastify({
                     text: "Veuillez remplir tous les champs.",
+                    gravity: "top",
+                    position: "center",
+                    className: "toasty",
+                    style: {
+                        background: "#FF0000",
+                    }
+                }).showToast();
+            }
+            else {
+                Toastify({
+                    text: resp.message,
                     gravity: "top",
                     position: "center",
                     className: "toasty",
