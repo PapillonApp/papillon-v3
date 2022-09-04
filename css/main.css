@@ -146,10 +146,14 @@ body.menuOpen #appContent {
 
 #menuData * {
     margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 #menuData {
     margin-left: 20px;
+    width: calc(100% - 175px);
 }
 
 #menuTabContent {
@@ -306,7 +310,7 @@ body.menuOpen #appContent {
     border-radius: 10px !important;
     display: flex;
     align-items: center;
-    background-color: #0066ff15;
+    background-color: #0066ff22;
     position: absolute;
     bottom: calc(env(safe-area-inset-bottom) + 10px);
 }
@@ -751,10 +755,10 @@ a:active {
         background-color: #6da7ff15 !important;
     }
     .changeInMenu {
-        background: #222 !important;
+        border-color: #ffffff22 !important;
     }
     .changeInMenu a {
-        color: #999 !important;
+        color: #fff !important;
     }
     .hrdeb {
         background-color: #ffffff15;
@@ -1154,10 +1158,10 @@ a:active {
     align-items: center;
     top: 0;
     border-radius: 300px;
-    background-color: #0066ff15;
+    border: 1px solid #00000022;
 }
 
 .changeInMenu a {
     margin: 10px;
-    color: #0066ff
+    color: #000000;
 }
