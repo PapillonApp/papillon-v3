@@ -105,3 +105,25 @@ dist
 
 # Other
 .idea/
+
+## twa
+build.gradle
+gradle.properties
+gradlew
+gradlew.bat
+gradle/
+.gradle/
+local.properties
+app/
+build/
+gradle/wrapper/gradle-wrapper.jar
+gradle/wrapper/gradle-wrapper.properties
+android.keystore
+android/
+app-release-bundle.aab
+app-release-signed.apk
+app-release-signed.apk.idsig
+app-release-unsigned-aligned.apk
+manifest-checksum.txt
+settings.gradle
+store_icon.png

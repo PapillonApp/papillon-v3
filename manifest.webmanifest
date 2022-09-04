@@ -1,8 +1,21 @@
 {
     "name": "Pronote+",
-    "start_url": "/",
+    "start_url": "https://v3.pronote.plus",
     "display": "standalone",
-    "scope": "/*",
+    "theme_color": "#000000",
+    "background_color": "#2BA873",
     "orientation": "portrait",
-    "lang": "fr-FR"
+    "lang": "fr-FR",
+    "icons": [
+        {
+          "src": "./android-192.png",
+          "type": "image/png",
+          "sizes": "192x192"
+        },
+        {
+          "src": "./android-512.png",
+          "type": "image/png",
+          "sizes": "512x512"
+        }
+    ]
 }
