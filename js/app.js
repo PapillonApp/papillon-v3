@@ -104,24 +104,28 @@ rnPicker.addEventListener("change", function(e) {
     document.getElementById("dateString").innerText = getRn(0, false);
 });
 
-function rnNext() {
+function rnNext(a) {
     rn.setDate(rn.getDate() + 1);
     updateRn(rn);
     updateTime();
     dateChanged = true;
     dateChangedOnce = true;
     // closeMenuPanel()
-    allRefresh();
+    if(a == true) {
+        allRefresh();
+    }
 }
 
-function rnPrev() {
+function rnPrev(a) {
     rn.setDate(rn.getDate() - 1);
     updateRn(rn);
     updateTime();
     dateChanged = true;
     dateChangedOnce = true;
     // closeMenuPanel()
-    allRefresh();
+    if(a == true) {
+        allRefresh();
+    }
 }
 
 function updateRn(rnE) {
