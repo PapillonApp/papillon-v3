@@ -558,7 +558,6 @@ body.menuOpen #appContent {
     font-weight: 500;
     margin-right: 10px;
     text-overflow: ellipsis;
-    overflow: hidden;
     white-space: nowrap;
     min-width: 0;
 }
@@ -580,7 +579,10 @@ body.menuOpen #appContent {
 
 .hrdeb {
     opacity: 100%;
-    filter: brightness(10);
+    background-color: #00000015;
+    color: #000;
+    padding: 1px 8px;
+    border-radius: 300px;
 }
 
 .subject {
@@ -753,6 +755,10 @@ a:active {
     }
     .changeInMenu a {
         color: #999 !important;
+    }
+    .hrdeb {
+        background-color: #ffffff15;
+        color: #fff;
     }
     .time span,
     .time input {
