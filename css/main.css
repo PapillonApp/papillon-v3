@@ -5,7 +5,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&display=swap');
 body {
-    background: #F9F9F9;
+    background: #fff;
     margin: 0;
     --font: system-ui;
     overflow: visible;
@@ -24,7 +24,7 @@ body * {
 :root {
     --safe-space: env(safe-area-inset-bottom);
     --safe-space-top: 10px;
-    --theme-color: #f9f9f9;
+    --theme-color: #fff;
     --bg: #00000010;
 }
 
@@ -46,10 +46,12 @@ only screen and (device-width: 428px) and (device-height: 926px) {
 }
 
 #appContent {
-    padding-top: var(--safe-space-top);
+    padding-top: calc(var(--safe-space-top) + 10px);
     height: calc(100vh - (61px + (var(--safe-space) + var(--safe-space-top))));
     overflow-y: scroll;
     z-index: 9;
+    position: absolute;
+    top: 57px;
 }
 
 #menuContent {
@@ -58,11 +60,10 @@ only screen and (device-width: 428px) and (device-height: 926px) {
     align-items: center;
     justify-content: flex-start;
     background: #FFFFFF;
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
-    padding-bottom: calc(var(--safe-space) + 4px);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     padding-left: 20px;
     position: fixed;
-    bottom: 0;
+    top: 0;
     left: 0;
     right: 0;
     z-index: 999999999;
@@ -756,7 +757,7 @@ a:active {
     }
     #menuContent {
         background: #151515;
-        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         color: #fff;
     }
     #menuTabs {
@@ -780,7 +781,7 @@ a:active {
         color: #6da7ff !important;
     }
      :root {
-        --theme-color: #111;
+        --theme-color: #151515;
         --bg: #ffffff12;
     }
     .cours {
@@ -1161,7 +1162,7 @@ a:active {
 }
 
 .changeInMenu {
-    margin-top: 10px;
+    margin-top: 7px;
     height: 40px;
     right: 3vw;
     position: absolute;
