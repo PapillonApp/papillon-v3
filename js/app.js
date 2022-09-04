@@ -5,9 +5,14 @@ if (window.matchMedia('(display-mode: standalone)').matches) {
     standalone = true;
 }
 
-let deferredPrompt;window.addEventListener('beforeinstallprompt', (e) => {    e.preventDefault();   deferredPrompt = e;    showInstallPromotion();});
+let deferredPrompt;
+window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    showInstallPromotion();
+});
 
-if('serviceWorker' in navigator) {
+if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/js/sw.js');
 };
 
@@ -26,13 +31,13 @@ function apply_theme_color() {
 apply_theme_color();
 
 window
-.matchMedia("(prefers-color-scheme: dark)")
-.addEventListener("change", function (e) {
-    apply_theme_color();
-});
+    .matchMedia("(prefers-color-scheme: dark)")
+    .addEventListener("change", function(e) {
+        apply_theme_color();
+    });
 
 setInterval(function() {
-        apply_theme_color();
+    apply_theme_color();
 }, 400)
 
 // marks
@@ -42,26 +47,26 @@ let allMarks = [];
 let progressInterval;
 
 function progressStart(speed) {
-    if(speed == undefined) {
+    if (speed == undefined) {
         speed = 8;
     }
-    
+
     clearInterval(progressInterval);
     $("#progressBarFill").css("opacity", "100%");
     $("#progressBarFill").css("width", "10%");
 
     current = 10;
     progressInterval = setInterval(() => {
-        if(current < 80) {
+        if (current < 80) {
             current += speed;
-            $("#progressBarFill").css("width", current+"%");
+            $("#progressBarFill").css("width", current + "%");
         }
     }, 500);
 }
 
 function progressChange(value) {
     clearInterval(progressInterval);
-    $("#progressBarFill").css("width", value+"%");
+    $("#progressBarFill").css("width", value + "%");
 }
 
 function progressEnd() {
@@ -105,6 +110,7 @@ function rnNext() {
     updateTime();
     dateChanged = true;
     dateChangedOnce = true;
+    closeMenuPanel()
 }
 
 function rnPrev() {
@@ -113,6 +119,7 @@ function rnPrev() {
     updateTime();
     dateChanged = true;
     dateChangedOnce = true;
+    closeMenuPanel()
 }
 
 function updateRn(rnE) {
@@ -133,10 +140,9 @@ function getRn(add, type) {
     let date = workRn.getDate();
     let year = workRn.getFullYear();
 
-    if(type == true) {
+    if (type == true) {
         return `${year}-${pad((workRn.getMonth() + 1), 2)}-${pad(date, 2)}`
-    }
-    else {
+    } else {
         return `${day} ${date} ${month} ${year}`;
     }
 }
@@ -153,13 +159,11 @@ let token;
 
 if (localStorage.getItem('authData') === null) {
     window.location.href = 'login/';
-}
-else {
+} else {
     token = localStorage.getItem('authToken');
-    try{
+    try {
         loadPronoteData();
-    }
-    catch(e) {
+    } catch (e) {
         alert("ERREUR [PronotePlusBetaError] : contactez @levraicnivtwelve sur insta si cette erreur persiste");
     }
 }
@@ -182,8 +186,8 @@ let myName = "";
 let avatar = "";
 
 function uuidv4() {
-    return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
-      (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+    return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c =>
+        (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
     );
 }
 
@@ -191,47 +195,47 @@ let userEverything;
 
 function loadPronoteData() {
     progressStart();
-    $.get(`https://ams01.pronote.plus/user?token=${token}&rand=${uuidv4()}`, function( data, success ) { 
-        
-            if(JSON.parse(data).message !== undefined) {
-                tokenRefreshBkg()
-            }
-            progressEnd();
-        
-            let resp = JSON.parse(data).data.user;
-            userEverything = resp;
-    
-            myNameStep = resp.name.split(" ");
-            lastName = myNameStep.shift();
-            firstName = myNameStep[0];
-            myName = firstName + " " + lastName;
-            
-            if (localStorage.getItem('customName') !== null) {
-                myName = localStorage.getItem('customName');
-            }
-    
-            $('#userName').text(myName);
-            $('#userClass').text(resp.studentClass.name + " – " + resp.establishmentsInfo[0].name);
-            
-            avatar = resp.avatar;
-            if (localStorage.getItem('customPic') !== null) {
-                avatar = localStorage.getItem('customPic');
-            }
-            $('#userAvatar').attr('src', avatar);
-            $('#userModal').css('background-image', `url(${avatar})`);
-        });
+    $.get(`https://ams01.pronote.plus/user?token=${token}&rand=${uuidv4()}`, function(data, success) {
+
+        if (JSON.parse(data).message !== undefined) {
+            tokenRefreshBkg()
+        }
+        progressEnd();
+
+        let resp = JSON.parse(data).data.user;
+        userEverything = resp;
+
+        myNameStep = resp.name.split(" ");
+        lastName = myNameStep.shift();
+        firstName = myNameStep[0];
+        myName = firstName + " " + lastName;
+
+        if (localStorage.getItem('customName') !== null) {
+            myName = localStorage.getItem('customName');
+        }
+
+        $('#userName').text(myName);
+        $('#userClass').text(resp.studentClass.name + " – " + resp.establishmentsInfo[0].name);
+
+        avatar = resp.avatar;
+        if (localStorage.getItem('customPic') !== null) {
+            avatar = localStorage.getItem('customPic');
+        }
+        $('#userAvatar').attr('src', avatar);
+        $('#userModal').css('background-image', `url(${avatar})`);
+    });
 }
 
 function changeName() {
     let newName = prompt("Entrez votre nouveau nom", myName);
-    if(newName !== null) {
+    if (newName !== null) {
         localStorage.setItem('customName', newName);
         setTimeout(() => {
             update()
         }, 500);
     }
     mixpanel.track('Nom changé', {
-      'source': "PronotePlus",
+        'source': "PronotePlus",
     });
 }
 
@@ -239,8 +243,8 @@ function changePic() {
     var newPicInput = document.createElement('input');
     newPicInput.type = 'file';
     newPicInput.click();
-    newPicInput.onchange = e => { 
-        let file = e.target.files[0]; 
+    newPicInput.onchange = e => {
+        let file = e.target.files[0];
 
         let reader = new FileReader();
         let pic = reader.readAsDataURL(file);
@@ -284,27 +288,26 @@ let avrClass;
 function animateValue(obj, start, end, duration) {
     let startTimestamp = null;
     const step = (timestamp) => {
-      if (!startTimestamp) startTimestamp = timestamp;
-      const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-      obj.innerHTML = (progress * (end - start) + start).toFixed(2);
-      if (progress < 1) {
-        window.requestAnimationFrame(step);
-      }
+        if (!startTimestamp) startTimestamp = timestamp;
+        const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+        obj.innerHTML = (progress * (end - start) + start).toFixed(2);
+        if (progress < 1) {
+            window.requestAnimationFrame(step);
+        }
     };
     window.requestAnimationFrame(step);
 }
 
 function average() {
-    if(!isNaN(avr)) {
+    if (!isNaN(avr)) {
         document.getElementById("fanAverage").innerHTML = avr.toFixed(2);
         document.getElementById("fanAverageClass").innerHTML = avrClass.toFixed(1);
         document.getElementById("fanAverageEcart").innerHTML = (avr - avrClass).toFixed(1);
-        
+
         animateValue(document.getElementById("fanAverage"), 0, avr, 3000);
 
         document.getElementById("average").style.display = "flex";
-    }
-    else {
+    } else {
         Toastify({
             text: "Vous n'avez pas de moyenne générale.",
             gravity: "top",
@@ -323,7 +326,7 @@ function averageClose() {
 
 const ptr = PullToRefresh.init({
     mainElement: '#appContent',
-    triggerElement : '#appContent',
+    triggerElement: '#appContent',
     instructionsPullToRefresh: 'Glissez pour actualiser',
     instructionsReleaseToRefresh: 'Relâchez pour actualiser',
     instructionsRefreshing: 'Obtention des données...',
@@ -341,42 +344,42 @@ const ptr = PullToRefresh.init({
 
 let touchstartX = 0
 let touchendX = 0
-    
+
 function checkDirection() {
-  if (touchendX > touchstartX) {
-    if(touchendX - touchstartX > 100) {
-        openMenu();
+    if (touchendX > touchstartX) {
+        if (touchendX - touchstartX > 100) {
+            openMenu();
+        }
     }
-  }
-  if (touchendX < touchstartX) {
-    if(touchstartX - touchendX > 100) {
-        closeMenuPanel();
+    if (touchendX < touchstartX) {
+        if (touchstartX - touchendX > 100) {
+            closeMenuPanel();
+        }
     }
-  }
 }
 
 document.getElementById('appContent').addEventListener('touchstart', e => {
-  touchstartX = e.changedTouches[0].screenX
+    touchstartX = e.changedTouches[0].screenX
 })
 
 document.getElementById('appContent').addEventListener('touchend', e => {
-  touchendX = e.changedTouches[0].screenX
-  checkDirection()
+    touchendX = e.changedTouches[0].screenX
+    checkDirection()
 })
 
 document.getElementById('menu').addEventListener('touchstart', e => {
     touchstartX = e.changedTouches[0].screenX
-  })
-  
-  document.getElementById('menu').addEventListener('touchend', e => {
+})
+
+document.getElementById('menu').addEventListener('touchend', e => {
     touchendX = e.changedTouches[0].screenX
     checkDirection()
-  })
+})
 
 // background token refresh
 function uuidv4() {
-    return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
-      (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+    return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c =>
+        (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
     );
 }
 
@@ -408,13 +411,13 @@ function tokenRefreshBkg() {
     let authURL = auth[0];
     let authENT = auth[3];
 
-    $.get(`https://ams01.pronote.plus/auth?url=${authURL}&username=${authUsername}&password=${authPasswordUnsecure}&cas=${authENT}&rand=${uuidv4()}`, function( data ) {
+    $.get(`https://ams01.pronote.plus/auth?url=${authURL}&username=${authUsername}&password=${authPasswordUnsecure}&cas=${authENT}&rand=${uuidv4()}`, function(data) {
         let resp = JSON.parse(data);
 
         tries++;
 
-        if(resp.message !== undefined) {
-            if(resp.message == "Your IP address is temporarily banned because of too many failed authentication attempts") {
+        if (resp.message !== undefined) {
+            if (resp.message == "Your IP address is temporarily banned because of too many failed authentication attempts") {
                 Toastify({
                     text: "Pronote+ est momentanément exclu de votre établissement à cause d'essais incorrects. Veuillez réessayer dans quelques minutes.",
                     gravity: "top",
@@ -425,8 +428,7 @@ function tokenRefreshBkg() {
                     }
                 }).showToast();
             }
-        }
-        else if(resp.token !== undefined) {           
+        } else if (resp.token !== undefined) {
             localStorage.setItem('authToken', resp.token);
             allRefresh();
         }
@@ -449,12 +451,21 @@ const version = "3.4.3 stable";
 const release = '3.4';
 
 function openApp() {
-    if(release !== latestVersion) {
+    if (release !== latestVersion) {
         localStorage.setItem('latestVersion', release);
         view('update', 'Notes de mise à jour', true)
-    }
-    else {
+    } else {
         view('edt', 'Emploi du temps');
+    }
+    dateString = document.getElementById("dateString").innerText
+    buttonNext = document.getElementById("rnNext")
+    if (dateString.includes("dimanche")) {
+        // avance de 1 jour
+        buttonNext.click()
+    } else if (dateString.includes("samedi")) {
+        //avance de 2 jours
+        buttonNext.click()
+        buttonNext.click()
     }
 }
 
