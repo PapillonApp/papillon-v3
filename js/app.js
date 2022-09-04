@@ -465,9 +465,14 @@ function openApp() {
         // avance de 1 jour
         buttonNext.click()
     } else if (dateString.includes("samedi")) {
-        //avance de 2 jours
-        buttonNext.click()
-        buttonNext.click()
+        // requête pour checker si y'a cours le samedi
+        $.get(`https://ams01.pronote.plus/edt?token=${token}&from=${from}&rand=${uuidv4()}`, function( data ) {
+            if(JSON.parse(data).data.timetable === null) {
+                // avance de 2 jours
+                buttonNext.click()
+                buttonNext.click()
+            }
+        });
     }
 }
 
