@@ -781,10 +781,10 @@ a:active {
     }
      :root {
         --theme-color: #111;
-        --bg: #ffffff12;
+        --bg: #ffffff99;
     }
     .cours {
-        background: linear-gradient(180deg, #222222ef 0%, #222222ef 100%), var(--bg);
+        background: linear-gradient(180deg, #111111ef 0%, #111111ef 100%), var(--bg);
         box-shadow: 0px 1px 3px #00000050;
         color: #fff;
     }
@@ -1175,4 +1175,77 @@ a:active {
 .changeInMenu a {
     margin: 10px;
     color: #000000;
+}
+
+/* desktop */
+
+@media only screen and (min-width: 800px) {
+    #menu, #menu * {
+        animation: none !important;
+    }
+
+    #menu {
+        display: block !important;
+        width: 400px !important;
+        box-shadow: 1px 0px 2px #00000032;
+    }
+
+    #menuTabs {
+        width: 400px !important;
+    }
+
+    .modal {
+        width: 400px !important;
+    }
+    
+    #userModalOver {
+        width: calc(400px - 35px) !important;
+    }
+
+    #timeModal {
+        width: calc(400px - 65px) !important;
+    }
+
+    #appContent, #menuContent {
+        width: calc(100% - 400px) !important;
+        margin-left: 400px !important;
+    }
+
+    #menu-btn {
+        display: none !important;
+    }
+
+    #menuData {
+        margin-left: 0 !important;
+    }
+
+    .changeInMenu {
+        display: none !important;
+    }
+
+    #menuContent {
+        top: 0;
+        bottom: auto;
+        border-top: none !important;
+        box-shadow: 0px 1px 2px #00000032;
+    }
+
+    #appContent {
+        margin-top: 60px;
+    }
+
+    .cours:hover {
+        opacity: 70% !important;
+    }
+
+    .tabLink:hover {
+        background: #00000011;
+        cursor: pointer;
+    }
+
+    @media screen and (prefers-color-scheme: dark) {
+        .tabLink:hover {
+            background: #ffffff11;
+        }
+    }
 }
