@@ -267,6 +267,10 @@ body.menuOpen #appContent {
 .linkList {
     display: block;
     margin-top: -15px;
+
+    height: calc(100% - 232px);
+    overflow: scroll;
+    padding-bottom: 10px;
 }
 
 .tabLink {
