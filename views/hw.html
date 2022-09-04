@@ -5,17 +5,9 @@
 <script>
     function mainView_Hw() {
         $('#ListeDevoirs').empty();
-        let half = new Date(rn);
-
-        let displacement = 0;
-        if(dateChangedOnce === true) {
-            displacement = -1;
-        }
-
-        half.setDate(half.getDate() + displacement);
-        console.log(half)
-        let from = half.toISOString().split("T")[0]
-        console.log(from)
+        
+        let from = rn.toISOString().split("T")[0]
+        console.log(rn, from)
         progressStart();
         $.get(`https://ams01.pronote.plus/hw?token=${token}&from=${from}&rand=${uuidv4()}`, function( data ) {
             if(JSON.parse(data).message !== undefined) {
@@ -58,10 +50,7 @@
             }
         });
 
-        setMenuTabContent(`pour le ${getRn(1)}`);
-        if(dateChangedOnce === true) {
-            setMenuTabContent(`pour le ${getRn(0)}`);
-        }
+        setMenuTabContent(`pour le ${getRn(0)}`);
     }
     mainView_Hw();
 </script>
