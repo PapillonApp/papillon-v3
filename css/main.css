@@ -281,11 +281,13 @@ body.menuOpen #appContent {
     padding: 13px 0px;
     margin: 0px 0px;
     margin-bottom: 0px;
+    border-left: 2px solid #00000000;
 }
 
 .tabLink.active {
     background-color: #0066ff20;
     color: #0066ff !important;
+    border-left: 2px solid #0066ff !important;
 }
 
 .tabLink:active {
@@ -486,7 +488,7 @@ body.menuOpen #appContent {
 }
 
 .coursleftBar {
-    background: linear-gradient(180deg, #ffffff99 0%, #FFFFFF00 100%), var(--bg);
+    background: var(--bg);
     width: 5px;
     height: 100%;
     position: absolute;
@@ -785,7 +787,7 @@ a:active {
         --bg: #ffffff99;
     }
     .cours {
-        background: linear-gradient(180deg, #111111ef 0%, #111111ef 100%), var(--bg);
+        background: linear-gradient(180deg, #111111da 0%, #111111da 100%), var(--bg);
         box-shadow: 0px 1px 3px #00000050;
         color: #fff;
     }
@@ -807,6 +809,7 @@ a:active {
     .tabLink.active {
         background: #6da7ff10 !important;
         color: #6da7ff !important;
+        border-color: #6da7ff;
     }
     .part {
         color: #ffffff55 !important;
