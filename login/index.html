@@ -54,6 +54,15 @@
                             <p>Entrez l'URL de votre établissement sur Pronote</p>
                         </div>
                     </div>
+                    <div class="option" onclick="step_findEtab()">
+                        <span class="material-symbols-outlined">
+                            school
+                        </span>
+                        <div>
+                            <h3>Établissements pré-enregistrés</h3>
+                            <p>Trouvez votre établissement parmi une liste d'établissements connus.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -72,7 +81,7 @@
 
         <div class="loginStep" id="checkQR">
             <div class="menuNav">
-                <span class="material-symbols-outlined" onclick="step_stepQR()">
+                <span class="material-symbols-outlined" onclick="step_setURL()">
                     arrow_back
                 </span>
                 <div>
@@ -105,7 +114,7 @@
 
         <div class="loginStep" id="setENT">
             <div class="menuNav">
-                <span class="material-symbols-outlined" onclick="step_stepQR()">
+                <span class="material-symbols-outlined" onclick="step_setURL()">
                     arrow_back
                 </span>
                 <div>
@@ -114,6 +123,22 @@
             </div>
             <div class="etabCheck">
                 <div class="loginOptions" id="entList">
+
+                </div>
+            </div>
+        </div>
+
+        <div class="loginStep" id="setEtab">
+            <div class="menuNav">
+                <span class="material-symbols-outlined" onclick="step_setURL()">
+                    arrow_back
+                </span>
+                <div>
+                    <p>Sélectionnez votre établissement</p>
+                </div>
+            </div>
+            <div class="etabCheck">
+                <div class="loginOptions" id="etabList">
 
                 </div>
             </div>
@@ -137,7 +162,7 @@
 
         <div class="loginStep" id="loginURL">
             <div class="menuNav">
-                <span class="material-symbols-outlined" onclick="reopenCheck()">
+                <span class="material-symbols-outlined" onclick="nextStep('#mainStep');">
                     arrow_back
                 </span>
                 <div>

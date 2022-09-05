@@ -223,6 +223,32 @@ function step_setENT() {
     });
 }
 
+function step_findEtab() {
+    nextStep("#setEtab")
+    $("#etabList").html("");
+
+    let allENT;
+    $.get("etab_list.json", function( data ) {
+        allENT = data;
+
+        for(ent in allENT) {
+            let entData = allENT[ent];
+
+            $("#etabList").append(`
+                <div class="option" onclick="step_checkURL('${entData.url}')">
+                    <span class="material-symbols-outlined">
+                        school
+                    </span>
+                    <div>
+                        <h3>${entData.name}</h3>
+                        <p>${entData.city}</p>
+                    </div>
+                </div>
+            `);
+        }
+    });
+}
+
 function step_setURL() {
     nextStep("#loginURL");
 }
