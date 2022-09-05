@@ -493,7 +493,7 @@ function tokenRefreshBkg() {
 var latestVersion = localStorage.getItem('latestVersion')
 
 // Version de l'app
-const version = "3.5 stable";
+const version = "3.5.1 stable";
 const release = '3.5';
 
 // if (release !== latestVersion) {
