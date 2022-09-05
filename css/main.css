@@ -315,7 +315,7 @@ body.menuOpen #appContent {
     align-items: center;
     background-color: #0066ff22;
     position: absolute;
-    bottom: calc(env(safe-area-inset-bottom) + 10px);
+    bottom: calc(env(safe-area-inset-bottom) + 30px);
 }
 
 .time .change .btn span {
