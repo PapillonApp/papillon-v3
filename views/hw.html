@@ -3,11 +3,17 @@
 </div>
 
 <script>
+    let addedHW = 0;
+
     function mainView_Hw() {
         $('#ListeDevoirs').empty();
         
         let from = rn.toISOString().split("T")[0]
-        console.log(rn, from)
+
+        let dayNames = ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"];
+        let dayName = dayNames[rn.getDay()];
+        $('#ListeDevoirs').append(`<div class="devoirDay fst">${dayName}</div>`); 
+
         progressStart();
         $.get(`https://ams01.pronote.plus/hw?token=${token}&from=${from}&rand=${uuidv4()}`, function( data ) {
             if(JSON.parse(data).message !== undefined) {
@@ -48,9 +54,74 @@
                     </div>
                 `);
             }
+
+            addedHW++;
+            if(addedHW < 5) {
+                mainView_Hw_Add(addedHW)
+            }
         });
 
         setMenuTabContent(`pour le ${getRn(0)}`);
     }
+
     mainView_Hw();
+
+    function mainView_Hw_Add(days) {   
+        let rnAdd = new Date(rn);
+        rnAdd.setDate(rnAdd.getDate() + days);
+        let from = rnAdd.toISOString().split("T")[0]
+
+        let dayNames = ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"];
+        let dayName = dayNames[rnAdd.getDay()];
+        $('#ListeDevoirs').append(`<div class="devoirDay">${dayName}</div>`);    
+
+        progressStart();
+        $.get(`https://ams01.pronote.plus/hw?token=${token}&from=${from}&rand=${uuidv4()}`, function( data ) {
+            if(JSON.parse(data).message !== undefined) {
+                tokenRefreshBkg()
+            }
+            progressEnd();
+            
+            let resp = JSON.parse(data).data.homeworks;
+
+            for(hw in resp) {
+                let classes = "";
+
+                $('#ListeDevoirs').append(`
+                    <div id="hw_${resp[hw].id}" class="cours ${classes}" style="--off: ${hw * 50}ms", '${from}')">
+                        <div style="--bg:${resp[hw].color}" class="coursleftBar"></div>
+                        <div class="cours_data">
+                            <div class="cours_topData">
+                                <p>${resp[hw].subject}</p>
+                                <div class="content hwContent">
+                                    ${resp[hw].htmlDescription}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `);
+            }
+
+            if(resp.length === 0) {
+                $('#ListeDevoirs').append(`
+                    <div class="cours" style="--off: 0ms">
+                        <div class="coursleftBar"></div>
+                        <div class="cours_data">
+                            <div class="cours_topData">
+                                <h3>🥳 Pas de travail à faire</h3>
+                                <p>C'est l'ocassion de profiter de ta journée !</p>
+                            </div>
+                        </div>
+                    </div>
+                `);
+            }
+
+            addedHW++;
+            if(addedHW < 5) {
+                mainView_Hw_Add(addedHW)
+            }
+        });
+
+        setMenuTabContent(`pour le ${getRn(0)}`);
+    }
 </script>

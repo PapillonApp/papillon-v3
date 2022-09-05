@@ -1253,3 +1253,28 @@ a:active {
         }
     }
 }
+
+.devoirDay {
+    margin-top: 40px;
+    margin-bottom: 15px;
+    font-size: 14px;
+    letter-spacing: 2px;
+    font-weight: 500;
+    opacity: 50%;
+    text-transform: uppercase;
+    background-color: #00000011;
+    width: fit-content;
+    padding: 5px 10px;
+    border-radius: 300px;
+}
+
+.devoirDay.fst {
+    margin-top: 10px !important;
+}
+
+@media screen and (prefers-color-scheme: dark) {
+    .devoirDay {
+        color: #fff !important;
+        background-color: #ffffff11 !important;
+    }
+}
