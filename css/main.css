@@ -809,7 +809,7 @@ a:active {
     .tabLink.active {
         background: #6da7ff10 !important;
         color: #6da7ff !important;
-        border-color: #6da7ff;
+        border-color: #6da7ff !important;
     }
     .part {
         color: #ffffff55 !important;
