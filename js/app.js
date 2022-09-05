@@ -252,13 +252,43 @@ function loadPronoteData() {
         }
 
         avatar = resp.avatar;
+
+        // appliquer la pdp de l'utilisateur
         if (localStorage.getItem('customPic') !== null) {
             avatar = localStorage.getItem('customPic');
         }
+
         $('#userAvatar').attr('src', avatar);
         $('#userModal').css('background-image', `url(${avatar})`);
     });
 }
+
+// pour passer dans le storage
+function compressImage(src, newX) {
+    return new Promise((res, rej) => {
+        const img = new Image();
+
+        img.src = src;
+        img.onload = () => {
+            let oriWidth = img.naturalWidth;
+            let oriHeight = img.naturalHeight;
+
+            let ratio = oriWidth / oriHeight;
+
+            let newWidth = newX;
+            let newHeight = newWidth / ratio;
+
+            const elem = document.createElement('canvas');
+            elem.width = newWidth;
+            elem.height = newHeight;
+            const ctx = elem.getContext('2d');
+            ctx.drawImage(img, 0, 0, newWidth, newHeight);
+            const data = ctx.canvas.toDataURL();
+            res(data);
+      }
+      img.onerror = error => rej(error);
+    })
+  }
 
 // Change le nom de l'utilisateur
 function changeName() {
@@ -274,7 +304,7 @@ function changeName() {
     });
 }
 
-// Changer l'avatar de l'utilisateur (non utilisé)
+// Changer l'avatar de l'utilisateur
 function changePic() {
     var newPicInput = document.createElement('input');
     newPicInput.type = 'file';
@@ -285,10 +315,12 @@ function changePic() {
         let reader = new FileReader();
         let pic = reader.readAsDataURL(file);
 
-        reader.addEventListener('load', (e) => {
+        reader.addEventListener('load', async (e) => {
             const data = e.target.result;
-            alert(data);
-            localStorage.setItem('customPic', data);
+            let downscaled = await compressImage(data, 200); 
+
+            localStorage.setItem('customPic', downscaled);
+
             setTimeout(() => {
                 update()
             }, 500);
@@ -487,14 +519,14 @@ function tokenRefreshBkg() {
 var latestVersion = localStorage.getItem('latestVersion')
 
 // Version de l'app
-const version = "3.5.1 stable";
+const version = "3.5.2 stable";
 const release = '3.5';
 
 // if (release !== latestVersion) {
 
 // Fonction d'ouverture de l'app
 function openApp() {
-    if (1 === 3) {
+    if (release !== latestVersion) {
         // Changelog (pas utilisé pour le moment)
         localStorage.setItem('latestVersion', release);
         view('update', 'Notes de mise à jour', true)
