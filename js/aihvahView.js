@@ -27,6 +27,13 @@ function view(href, title, prog) {
 
     dateChanged = false;
 
+    if(href == "edt" || href == "hw") {
+        $('.changeInMenu').fadeIn(200);
+    }
+    else {
+        $('.changeInMenu').fadeOut(200);
+    }
+
     if(!prog) {
         setTimeout(() => {
             closeMenu()
@@ -62,6 +69,13 @@ function viewQuery(href, title, query, b1, b2, prog) {
             $('#menuTabName').css('display', 'block');
         }, 50);
     }, 200);
+
+    if(href == "edt" || href == "hw") {
+        $('.changeInMenu').fadeIn(200);
+    }
+    else {
+        $('.changeInMenu').fadeOut(200);
+    }
 
     $('#menu-btn').css("display", "none");
     
