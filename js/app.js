@@ -122,10 +122,7 @@ function rnNext(a) {
     updateTime();
     dateChanged = true;
     dateChangedOnce = true;
-    // closeMenuPanel()
-    if(a == true) {
-        allRefresh();
-    }
+    allRefresh();
 }
 
 // Bouton précédent (pour la date)
@@ -135,10 +132,7 @@ function rnPrev(a) {
     updateTime();
     dateChanged = true;
     dateChangedOnce = true;
-    // closeMenuPanel()
-    if(a == true) {
-        allRefresh();
-    }
+    allRefresh();
 }
 
 // ça, je sais plus mais c'est utile

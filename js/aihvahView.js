@@ -50,7 +50,7 @@ function view(href, title, prog) {
 
 // refresh
 function allRefresh() {
-    view(currentHref, currentTitle);
+    view(currentHref, currentTitle, true);
 }
 
 function back() {
