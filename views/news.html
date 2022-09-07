@@ -8,13 +8,16 @@
         half.setDate(half.getDate() + 1);
         let from = half.toISOString().split("T")[0]
         progressStart(4);
-        $.get(`https://ams01.pronote.plus/news?token=${token}&rand=${uuidv4()}`, function( data ) {
-            if(JSON.parse(data).errors !== undefined) {
+
+        fetch(`https://ams01.pronote.plus/news?token=${token}`)
+        .then((resp) => resp.json())
+        .then(function(data) { 
+            if(data.errors !== undefined) {
                 refreshToken();
             }
             progressEnd();
             
-            let resp = JSON.parse(data).data.infos;
+            let resp = data.data.infos;
 
             if (resp !== null) {
 

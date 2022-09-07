@@ -7,21 +7,18 @@
         return (dt.getMinutes() < 10 ? '0' : '') + dt.getMinutes();
     }
 
-    if(localStorage.getItem("cache_edt") !== null){
-        // parse_Edt(JSON.parse(localStorage.getItem("cache_edt")));
-        mainView_Edt();
-    }
-    else {
-        mainView_Edt();
-    }
+    mainView_Edt();  
 
     function mainView_Edt() {
         let from = rn.toISOString().split("T")[0]
         progressStart();
-        $.get(`https://ams01.pronote.plus/edt?token=${token}&from=${from}&rand=${uuidv4()}`, function( data ) {
+        
+        fetch(`https://ams01.pronote.plus/edt?token=${token}&from=${from}`)
+        .then((resp) => resp.json())
+        .then(function(data) {
             
-            if(JSON.parse(data).errors !== undefined) {
-                if(JSON.parse(data).code == 2) {
+            if(data.errors !== undefined) {
+                if(data.code == 2) {
                     Toastify({
                         text: "Vous avez envoyé trop de demandes à Pronote, veuillez patienter quelques minutes.",
                         gravity: "top",
@@ -62,7 +59,7 @@
         try{
         $('#ListeCours').html(``);
             
-            let resp = JSON.parse(data).data.timetable;
+            let resp = data.data.timetable;
 
             if(resp == null) {
                 if(EdtRefLimit == 0) {

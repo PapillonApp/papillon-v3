@@ -14,7 +14,7 @@ window.addEventListener('beforeinstallprompt', (e) => {
 });
 
 if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/js/sw.js');
+    navigator.serviceWorker.register('/papillonWorker.js');
 };
 
 // Vérifie qu'une font custom n'est pas appliquée
@@ -219,16 +219,18 @@ let userEverything;
 
 function loadPronoteData() {
     progressStart();
-    $.get(`https://ams01.pronote.plus/user?token=${token}&rand=${uuidv4()}`, function(data, success) {
-
+    fetch(`https://ams01.pronote.plus/user?token=${token}`)
+        .then((resp) => resp.json())
+        .then(function(data) {
+        
         // Si la requête fail, rafrachir le token
-        if (JSON.parse(data).message !== undefined) {
+        if (data.message !== undefined) {
             tokenRefreshBkg()
         }
         progressEnd();
 
         // Décode le JSON depuis l'API
-        let resp = JSON.parse(data).data.user;
+        let resp = data.data.user;
         userEverything = resp;
 
         // Récupère le prénom à partir des données de l'utilisateur
@@ -479,8 +481,10 @@ function tokenRefreshBkg() {
     let authURL = auth[0];
     let authENT = auth[3];
 
-    $.get(`https://ams01.pronote.plus/auth?url=${authURL}&username=${authUsername}&password=${authPasswordUnsecure}&cas=${authENT}&rand=${uuidv4()}`, function(data) {
-        let resp = JSON.parse(data);
+    fetch(`https://ams01.pronote.plus/auth?url=${authURL}&username=${authUsername}&password=${authPasswordUnsecure}&cas=${authENT}`)
+    .then((resp) => resp.json())
+    .then(function(data) {
+    let resp = data;
 
         tries++;
 
@@ -541,8 +545,10 @@ function openApp() {
         buttonNext.click()
     } else if (dateString.includes("samedi")) {
         // requête pour checker si y'a cours le samedi
-        $.get(`https://ams01.pronote.plus/edt?token=${token}&from=${from}&rand=${uuidv4()}`, function( data ) {
-            if(JSON.parse(data).data.timetable === null) {
+        fetch(`https://ams01.pronote.plus/edt?token=${token}&from=${from}`)
+        .then((resp) => resp.json())
+        .then(function(data) {
+            if(data.data.timetable === null) {
                 // avance de 2 jours
                 buttonNext.click()
                 buttonNext.click()
