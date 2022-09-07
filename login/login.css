@@ -193,3 +193,12 @@ button {
         border: 1px solid #ffffff11;
     }
 }
+
+@media screen and (max-height: 650px) {
+    .welcomeScreen h1 {
+        margin-top: 0px;
+        font-size: 32px;
+        line-height: 32px;
+        width: 80vw;
+    }
+}
