@@ -84,12 +84,12 @@
         fetch(`https://ams01.pronote.plus/hw?token=${token}&from=${from}`)
         .then((resp) => resp.json())
         .then(function(data) { 
-            if(JSON.parse(data).message !== undefined) {
+            if(data.message !== undefined) {
                 tokenRefreshBkg()
             }
             progressEnd();
             
-            let resp = JSON.parse(data).data.homeworks;
+            let resp = data.data.homeworks;
 
             for(hw in resp) {
                 let classes = "";
