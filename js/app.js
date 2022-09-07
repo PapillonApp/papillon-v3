@@ -10,7 +10,6 @@ let deferredPrompt;
 window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
     deferredPrompt = e;
-    showInstallPromotion();
 });
 
 if ('serviceWorker' in navigator) {
@@ -90,6 +89,8 @@ function progressEnd() {
 // Déclaration des timestamps
 let rn = new Date();
 let rn2 = new Date();
+
+let cachedEdtOnce = false;
 
 // Variables qui définissent si la date à été changée
 let dateChanged = false;
