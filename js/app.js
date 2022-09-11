@@ -13,7 +13,9 @@ window.addEventListener('beforeinstallprompt', (e) => {
 });
 
 if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/papillonWorker.js');
+    if (location.host !== "127.0.0.1:5500") {
+        navigator.serviceWorker.register('/papillonWorker.js');
+    }
 };
 
 // Vérifie qu'une font custom n'est pas appliquée

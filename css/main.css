@@ -1288,3 +1288,31 @@ a:active {
         background-color: #ffffff11 !important;
     }
 }
+
+.edtSkeleton {
+    height: 99px;
+    display: block;
+    opacity: 1;
+    background-color: #00000015;
+    box-shadow: none !important;
+    animation: edtSkeleton 1s var(--posDel) infinite;
+    opacity: 0;
+}
+
+@media screen and (prefers-color-scheme: dark) {
+    .edtSkeleton {
+        background-color: #ffffff15 !important;
+    }
+}
+
+@keyframes edtSkeleton {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
