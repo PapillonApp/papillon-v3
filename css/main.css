@@ -1292,27 +1292,28 @@ a:active {
 .edtSkeleton {
     height: 99px;
     display: block;
-    opacity: 1;
-    background-color: #00000015;
-    box-shadow: none !important;
-    animation: edtSkeleton 1s var(--posDel) infinite;
+    opacity: 1 !important;
+
+    background: linear-gradient(45deg, #00000010 35%, #00000005 50%, #00000010 65%);
+    background-size: 600% 600%;
+
     opacity: 0;
+
+    animation: skeleton 1.5s var(--posDel) infinite;
 }
 
 @media screen and (prefers-color-scheme: dark) {
     .edtSkeleton {
-        background-color: #ffffff15 !important;
+        background: linear-gradient(45deg, #ffffff15 35%, #ffffff25 50%, #ffffff15 65%);
+        background-size: 600% 600%;
     }
 }
 
-@keyframes edtSkeleton {
+@keyframes skeleton {
     0% {
-        opacity: 0;
-    }
-    50% {
-        opacity: 1;
+        background-position:0% 0%;
     }
     100% {
-        opacity: 0;
+        background-position:100% 100%;
     }
 }

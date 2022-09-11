@@ -2,14 +2,14 @@
     Absences
 </div>
 <div id="ListeAbsences" class="liste">
-
+    <div class="cours edtSkeleton" style="--posDel: 0ms;"></div>
 </div>
 
 <div class="part">
     Retards
 </div>
 <div id="ListeRetards" class="liste">
-
+    <div class="cours edtSkeleton" style="--posDel: 100ms;"></div>
 </div>
 
 <script>
@@ -18,12 +18,17 @@
         half.setDate(half.getDate() + 1);
         let from = half.toISOString().split("T")[0]
 
-        $.get(`https://ams01.pronote.plus/absences?token=${token}&rand=${uuidv4()}`, function( data ) {
-            if(JSON.parse(data).message !== undefined) {
+        fetch(`https://ams01.pronote.plus/absences?token=${token}`)
+        .then((resp) => resp.json())
+        .then(function(data) {
+            setTimeout(() => {
+            if(data.message !== undefined) {
                 window.location.href = 'login/';
             }
+
+            console.log(data)
             
-            let resp = JSON.parse(data).data.absences;
+            resp = data.data.absences;
             console.log(resp)
             
             for(absence_id in resp.absences) {
@@ -48,6 +53,20 @@
                             <h3>${absence.reason}</h3>
                             <p>du ${from} au ${to}</p>
                             <small>${absence.hours} heures manquée(s)</small>
+                        </div>
+                    </div>
+                `);
+            }
+
+            if(resp.absences.length == 0) {
+                $('#ListeAbsences').append(`
+                    <div class="cours file" style="--off: 0ms">
+                        <span class="material-symbols-outlined">
+                            person_off
+                        </span>
+                        <div>
+                            <h3>Pas d'absences</h3>
+                            <p>Bravo pour ton assuiduité !</p>
                         </div>
                     </div>
                 `);
@@ -78,6 +97,21 @@
                 `);
             }
         });
+
+        if(resp.delays.length == 0) {
+                $('#ListeRetards').append(`
+                    <div class="cours file" style="--off: 0ms">
+                        <span class="material-symbols-outlined">
+                            person_off
+                        </span>
+                        <div>
+                            <h3>Pas de retards</h3>
+                            <p>Bravo pour ton assuiduité !</p>
+                        </div>
+                    </div>
+                `);
+            }
+        }, 200);
     }
     mainView_abs();
 </script>
