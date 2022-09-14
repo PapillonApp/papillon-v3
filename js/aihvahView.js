@@ -28,10 +28,10 @@ function view(href, title, prog) {
     dateChanged = false;
 
     if(href == "edt" || href == "hw") {
-        $('.changeInMenu').fadeIn(200);
+        $('body').removeClass("useless");
     }
     else {
-        $('.changeInMenu').fadeOut(200);
+        $('body').addClass("useless");
     }
 
     if(!prog) {
@@ -71,10 +71,10 @@ function viewQuery(href, title, query, b1, b2, prog) {
     }, 200);
 
     if(href == "edt" || href == "hw") {
-        $('.changeInMenu').fadeIn(200);
+        $('body').removeClass("useless");
     }
     else {
-        $('.changeInMenu').fadeOut(200);
+        $('body').addClass("useless");
     }
 
     $('#menu-btn').css("display", "none");
@@ -85,8 +85,11 @@ function viewQuery(href, title, query, b1, b2, prog) {
 
     q = query;
 
-    backTitle = b1;
-    backHref = b2;
+    backTitle = currentTitle;
+    backHref = currentHref;
+
+    currentTitle = title;
+    currentHref = href;
 
     if(!prog) {
         closeMenu()
@@ -94,7 +97,7 @@ function viewQuery(href, title, query, b1, b2, prog) {
 }
 
 function back() {
-    view(backTitle, backHref);
+    view(backHref, backTitle);
 }
 
 function openMenu() {

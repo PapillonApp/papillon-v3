@@ -39,8 +39,6 @@
             localStorage.setItem('cache_edt', JSON.stringify(data));
             parse_Edt(data);
         });
-
-        setMenuTabContent(`du ${getRn(0)}`);
     }
 
     function getDifferenceInHours(date1, date2) {
@@ -67,6 +65,14 @@
             }
             else {
                 $('#ListeCours').html(``);
+
+                let nbCours = resp.length;
+                setMenuTabContent(nbCours + " cours pour cette journée");
+
+                if(nbCours == 0) {
+                    setMenuTabContent("Pas de cours pour cette journée");
+                }
+
             for(course in resp) {
                 let debCours = new Date(resp[course].from);
                 let finCours = new Date(resp[course].to);
@@ -147,8 +153,8 @@
                             <div class="coursleftBar"></div>
                             <div class="cours_data">
                                 <div class="courd">
-                                    <h3>${resp[course].subject}</h3>
-                                    <p><span class="teacher">${resp[course].teacher}</span> ${status}</p>
+                                    <h3>${resp[course].subject} ${status}</h3>
+                                    <p><span class="teacher">${resp[course].teacher}</span></p>
                                 </div>
                                 <div class="cours_btmData">
                                     <p>Salle ${resp[course].room}</p>

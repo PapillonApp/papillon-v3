@@ -30,37 +30,8 @@
 <body>
     <div id="menu">
         <div id="menuTabs">
-            <div id="userModal" class="modal user">
-                <div id="userModalOver">
-                    <img id="userAvatar">
-                    <div class="userInfo">
-                        <p id="userName"></p>
-                        <p id="userClass"></p>
-                    </div>
-                </div>
-            </div>
-            <div id="timeModal" class="modal time">
-                <span class="material-symbols-outlined">calendar_month</span>
-                <div id="dateDisplay">
-                    <p id="dateString">jeudi</p>
-                    <input type="date" id="rn" name="rn">
-                </div>
-                <div class="change">
-                    <a href="#" id="rnPrev" onclick="rnPrev()">
-                        <div class="btn">
-                            <span class="material-symbols-outlined">
-                                arrow_back
-                            </span>
-                        </div>
-                    </a>
-                    <a href="#" id="rnNext" onclick="rnNext()">
-                        <div class="btn">
-                            <span class="material-symbols-outlined">
-                                arrow_forward
-                            </span>
-                        </div>
-                    </a>
-                </div>
+            <div id="pronoteIdent">
+                <img src="./assets/LogoElement.svg">
             </div>
             <div class="modal linkList">
                 <div class="tabLink" id="menu_edt" onclick="view('edt', 'Emploi du temps')">
@@ -91,10 +62,6 @@
                     <span class="material-symbols-outlined">person_off</span>
                     <p>Absences & retards</p>
                 </div>
-                <div class="tabLink" id="menu_user" onclick="view('user', 'Paramètres')">
-                    <span class="material-symbols-outlined">settings</span>
-                    <p>Paramètres</p>
-                </div>
             </div>
         </div>
         <div id="closePan" onclick="closeMenuPanel()">
@@ -102,40 +69,54 @@
         </div>
     </div>
     </div>
-    <div id="appContent">
 
-    </div>
-    <div id="menuContent">
-        <div id="progressBar">
-            <div id="progressBarFill">
-            </div>
-        </div>
+    <div id="navContent">
         <span id="menu-btn" onclick="openMenu();" class="material-symbols-outlined menu-btn">
-                menu
-            </span>
+            menu
+        </span>
         <span onclick="back();" id="back" class="material-symbols-outlined menu-btn menu-btn-back">
                 arrow_back
-            </span>
+        </span>
+
         <div id="menuData">
             <p id="menuTabName"></p>
             <p id="menuTabContent"></p>
         </div>
-        <div class="changeInMenu">
-            <a href="#" id="rnPrev" onclick="rnPrev(true)">
-                <div class="btn">
-                    <span class="material-symbols-outlined">
-                        arrow_back
-                    </span>
-                </div>
-            </a>
-            <a href="#" id="rnNext" onclick="rnNext(true)">
-                <div class="btn">
-                    <span class="material-symbols-outlined">
-                        arrow_forward
-                    </span>
-                </div>
-            </a>
+
+        <img src="" id="profileAvatar" onclick="viewQuery('profile', 'Mon profil', '')">
+
+        <div id="progressBar">
+            <div id="progressBarFill">
+            </div>
         </div>
+    </div>
+    <div id="appContent">
+
+    </div>
+
+    <div id="menuContent">
+        <a href="#" class="naviBtn" id="rnPrev" onclick="rnPrev(true)">
+            <div class="btn">
+                <span class="material-symbols-outlined">
+                    arrow_back
+                </span>
+            </div>
+        </a>
+
+        <div class="daysRoll" id="daysRoll">
+            <p id="yesterdayName" class="dayName yesterday">Aujourd'hui</p>
+            <label id="todayName" for="rn" onclick="openRnPicker()" class="dayName today">Aujourd'hui</label>
+            <input type="date" id="rn" name="rn">
+            <p id="tomorrowName" class="dayName tomorrow">Aujourd'hui</p>
+        </div>
+
+        <a href="#" class="naviBtn" id="rnNext" onclick="rnNext(true)">
+            <div class="btn">
+                <span class="material-symbols-outlined">
+                    arrow_forward
+                </span>
+            </div>
+        </a>
     </div>
 
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>

@@ -16,6 +16,9 @@ if ('serviceWorker' in navigator) {
     if (location.host !== "127.0.0.1:5500") {
         navigator.serviceWorker.register('/papillonWorker.js');
     }
+    else {
+        navigator.serviceWorker.register('/papillonWorkerDev.js');
+    }
 };
 
 // Vérifie qu'une font custom n'est pas appliquée
@@ -115,27 +118,47 @@ rnPicker.addEventListener("change", function(e) {
     dateChangedOnce = true;
 
     updateRn(rnE);
-    document.getElementById("dateString").innerText = getRn(0, false);
+    updateTime();
+
+    allRefresh();
 });
+
+function openRnPicker() {
+    document.getElementById("rn").showPicker();
+}
 
 // Bouton suivant (pour la date)
 function rnNext(a) {
-    rn.setDate(rn.getDate() + 1);
-    updateRn(rn);
-    updateTime();
-    dateChanged = true;
-    dateChangedOnce = true;
-    allRefresh();
+    $(".daysRoll").addClass("daysRollTmrw");
+    setTimeout(() => {
+        rn.setDate(rn.getDate() + 1);
+        updateRn(rn);
+        updateTime();
+        dateChanged = true;
+        dateChangedOnce = true;
+        allRefresh();
+
+        setTimeout(() => {
+            $(".daysRoll").removeClass("daysRollTmrw");
+        }, 300);
+    }, 300);
 }
 
 // Bouton précédent (pour la date)
 function rnPrev(a) {
-    rn.setDate(rn.getDate() - 1);
-    updateRn(rn);
-    updateTime();
-    dateChanged = true;
-    dateChangedOnce = true;
-    allRefresh();
+    $(".daysRoll").addClass("daysRollYstrdy");
+    setTimeout(() => {
+        rn.setDate(rn.getDate() - 1);
+        updateRn(rn);
+        updateTime();
+        dateChanged = true;
+        dateChangedOnce = true;
+        allRefresh();
+
+        setTimeout(() => {
+            $(".daysRoll").removeClass("daysRollYstrdy");
+        }, 300);
+    }, 300);
 }
 
 // ça, je sais plus mais c'est utile
@@ -166,10 +189,30 @@ function getRn(add, type) {
     }
 }
 
+function getRnSmall(date2) {
+    let day = days[date2.getDay()];
+    let month = months[date2.getMonth()];
+    let date = date2.getDate();
+    let year = date2.getFullYear();
+
+    return `${day} ${date} ${month}`;
+}
+
 // Fonction qui affiche la date dans l'interface
 function updateTime() {
     rnPicker.value = getRn(0, true)
-    document.getElementById("dateString").innerText = getRn(0, false);
+
+    let yesterdayDate = new Date();
+    yesterdayDate.setDate(rn.getDate())
+    yesterdayDate.setDate(yesterdayDate.getDate() - 1);
+
+    let tomorrowDate = new Date();
+    tomorrowDate.setDate(rn.getDate())
+    tomorrowDate.setDate(tomorrowDate.getDate() + 1);
+
+    document.getElementById("todayName").innerText = getRnSmall(rn);
+    document.getElementById("yesterdayName").innerText = getRnSmall(yesterdayDate);
+    document.getElementById("tomorrowName").innerText = getRnSmall(tomorrowDate);
 }
 
 // Affiche la date actuelle dans l'interface
@@ -263,8 +306,7 @@ function loadPronoteData() {
             avatar = localStorage.getItem('customPic');
         }
 
-        $('#userAvatar').attr('src', avatar);
-        $('#userModal').css('background-image', `url(${avatar})`);
+        $('#profileAvatar').attr('src', avatar);
     });
 }
 
@@ -398,8 +440,6 @@ function averageClose() {
     document.getElementById("average").style.display = "none";
 }
 
-
-
 // Tirer pour actualiser
 const ptr = PullToRefresh.init({
     mainElement: '#appContent',
@@ -421,6 +461,9 @@ const ptr = PullToRefresh.init({
 let touchstartX = 0
 let touchendX = 0
 
+let touchstartX2 = 0
+let touchendX2 = 0
+
 function checkDirection() {
     // ->
     if (touchendX > touchstartX) {
@@ -433,6 +476,22 @@ function checkDirection() {
     if (touchendX < touchstartX) {
         if (touchstartX - touchendX > 100) {
             closeMenuPanel();
+        }
+    }
+}
+
+function checkDirection2() {
+    // ->
+    if (touchendX2 > touchstartX2) {
+        if (touchendX2 - touchstartX2 > 20) {
+            rnPrev();
+        }
+    }
+
+    // <-
+    if (touchendX2 < touchstartX2) {
+        if (touchstartX2 - touchendX2 > 20) {
+            rnNext();
         }
     }
 }
@@ -455,6 +514,16 @@ document.getElementById('menu').addEventListener('touchstart', e => {
 document.getElementById('menu').addEventListener('touchend', e => {
     touchendX = e.changedTouches[0].screenX
     checkDirection()
+})
+
+// enregistre les swipes dans le daysRoll
+document.getElementById('daysRoll').addEventListener('touchstart', e => {
+    touchstartX2 = e.changedTouches[0].screenX
+})
+
+document.getElementById('daysRoll').addEventListener('touchend', e => {
+    touchendX2 = e.changedTouches[0].screenX
+    checkDirection2()
 })
 
 // background token refresh
@@ -526,8 +595,8 @@ function tokenRefreshBkg() {
 var latestVersion = localStorage.getItem('latestVersion')
 
 // Version de l'app
-const version = "3.5.2 stable";
-const release = '3.5';
+const version = "3.6 stable";
+const release = '3.6';
 
 // if (release !== latestVersion) {
 
@@ -536,16 +605,16 @@ function openApp() {
     if (release !== latestVersion) {
         // Changelog (pas utilisé pour le moment)
         localStorage.setItem('latestVersion', release);
-        view('update', 'Notes de mise à jour', true)
+        // view('update', 'Notes de mise à jour', true)
     } else {
         // Ouvre l'emploi du temps
         view('edt', 'Emploi du temps');
     }
-    dateString = document.getElementById("dateString").innerText
+    dateString = document.getElementById("todayName").innerText
     buttonNext = document.getElementById("rnNext")
     if (dateString.includes("dimanche")) {
         // avance de 1 jour
-        buttonNext.click()
+        rnNext()
     } else if (dateString.includes("samedi")) {
         // requête pour checker si y'a cours le samedi
         fetch(`https://ams01.pronote.plus/edt?token=${token}&from=${from}`)
@@ -553,19 +622,12 @@ function openApp() {
         .then(function(data) {
             if(data.data.timetable === null) {
                 // avance de 2 jours
-                buttonNext.click()
-                buttonNext.click()
+                rnNext()
+                rnNext()
             }
         });
     }
 }
-
-// test
-/* setTimeout(() => {
-    document.getElementById("rn").value = "2021-09-02";
-    document.getElementById("rn").dispatchEvent(new Event('change'));
-    allRefresh()
-}, 1500); */
 
 // Lance cette fonction au chargement de la page
 openApp();
