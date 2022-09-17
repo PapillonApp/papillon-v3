@@ -336,6 +336,19 @@ body.menuOpen #appContent {
     width: calc(100% - 175px);
 }
 
+@supports not (-webkit-touch-callout: none) {
+    #menuData {
+        align-items: flex-start !important;
+        position: absolute;
+        left: 72px;
+    }
+
+    #menuData p {
+        text-align: left !important;
+        align-items: flex-start !important;
+    }
+}
+
 #menuTabContent {
     opacity: 0.5;
     font-weight: 400;
@@ -470,7 +483,7 @@ body.menuOpen #appContent {
     display: block;
     margin-top: 52px;
 
-    height: calc(100% - 232px);
+    height: calc(100% - 52px);
     overflow: scroll;
     padding-bottom: 10px;
 }
@@ -953,6 +966,9 @@ a:active {
     }
     #pronoteIdent {
         background-color: #19191A;
+    }
+    #pronoteIdent img {
+        filter: invert(1);
     }
     #menuContent {
         background: #19191A;
