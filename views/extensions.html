@@ -1,0 +1,130 @@
+<div id="ListeUser" class="liste">
+    <div class="part">
+        Extensions installées
+    </div>
+
+    <div id="installedExtensionsList"></div>
+
+    <div class="part">
+        Extensions disponibles
+    </div>
+
+    <div id="newExtensionsList"></div>
+
+    <div class="part">
+        Options
+    </div>
+
+    <div class="cours file" style="--off: 0ms">
+        <span class="material-symbols-outlined">
+            error
+        </span>
+        <div class="cours_topData">
+            <h3>Installer une extension personnalisée</h3>
+            <p>Indiquez une URL d'extension.</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    // liste les extensions
+    for(ext in installedExtensions) {
+        extension = installedExtensions[ext];
+
+        if(extension.icon == undefined) {
+            extension.icon = "extension";
+        }
+
+        $("#installedExtensionsList").append(`
+            <a href="#"><div class="cours file" style="--off: 0ms">
+                <span class="material-symbols-outlined">
+                    ${extension.icon}
+                </span>
+                <div class="cours_topData">
+                    <h3>${extension.name}</h3>
+                    <p>${extension.description}</p>
+                    <small>crée par ${extension.authorDisplayName}</small>
+                    <div class="cours_actions">
+                        <button onclick="uninstallExtension(${ext})">Désinstaller</button>
+                    </div>
+                </div>
+            </div></a>
+        `);
+    }
+
+    // si y'en a aucune installée
+    if(installedExtensions.length == 0) {
+        $("#installedExtensionsList").append(`
+            <div class="cours file" style="--off: 0ms">
+                <span class="material-symbols-outlined">
+                    error
+                </span>
+                <div class="cours_topData">
+                    <h3>Aucune extension installée</h3>
+                    <p>Vous n'avez pas encore installé d'extension.</p>
+                </div>
+            </div>
+        `);
+    }
+
+    // désinstalle une extension
+    function uninstallExtension(id) {
+        installedExtensions.splice(id, 1);
+        localStorage.setItem("extensions", JSON.stringify(installedExtensions));
+        location.reload();
+    }
+
+    // installe une extension
+    function installExtension(url, auto) {
+        if(auto) {
+            installedExtensions.push(url);
+            localStorage.setItem("extensions", JSON.stringify(installedExtensions));
+            location.reload();
+        }
+        else {
+            if(confirm("Vous êtes sur le point d'installer une extension. Celle ci pourrait accéder à vos données. Voulez-vous continuer ?")) {
+                installedExtensions.push(url);
+                localStorage.setItem("extensions", JSON.stringify(installedExtensions));
+                location.reload();
+            }
+        }
+    }
+
+    availableExtensions = [];
+
+    // affiche la liste des extensions disponibles
+    fetch("https://raw.githubusercontent.com/ecnivtwelve/Papillon/main/extensions/repo.json")
+    .then(response => response.json())
+    .then(data => {
+        for(newExtension in data) {
+            url = data[newExtension] + "/papillonManifest.json";
+            urlNoManifest = data[newExtension];
+            fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                availableExtensions.push(data);
+
+                if(data.icon == undefined) {
+                    data.icon = "extension";
+                }
+
+
+                $("#newExtensionsList").append(`
+                <a href="#"><div class="cours file" style="--off: 0ms">
+                    <span class="material-symbols-outlined">
+                        ${data.icon}
+                    </span>
+                    <div class="cours_topData">
+                        <h3>${data.name}</h3>
+                        <p>${data.description}</p>
+                        <small>crée par ${data.authorDisplayName}</small>
+                        <div class="cours_actions">
+                            <button onclick="installExtension('${urlNoManifest}', true)">Installer</button>
+                        </div>
+                    </div>
+                </div></a>
+            `);
+            });
+        }
+    });
+</script>

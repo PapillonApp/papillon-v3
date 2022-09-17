@@ -48,6 +48,47 @@ function view(href, title, prog) {
     }
 }
 
+// open extension tab
+function viewExt(href, title, prog) {
+    $('#appContent').fadeOut(200);
+    setTimeout(() => {
+        $('#appContent').load(href);
+    $('#appContent').fadeIn(200);
+    }, 200);
+
+    $('#menuTabName').text(title);
+
+    $('#menuTabContent').text(``);
+
+    $('#back').css("display", "none");
+    $('#menu-btn').css("display", "block");
+
+    currentHref = href;
+    currentTitle = title;
+
+    dateChanged = false;
+
+    if(href == "edt" || href == "hw") {
+        $('body').removeClass("useless");
+    }
+    else {
+        $('body').addClass("useless");
+    }
+
+    if(!prog) {
+        setTimeout(() => {
+            closeMenu()
+        }, 50);
+
+        if(currentMenuItem) {
+            currentMenuItem.classList.remove('active');
+        }
+
+        currentMenuItem = document.getElementById("menu_" + href);
+        currentMenuItem.classList.add('active');
+    }
+}
+
 // refresh
 function allRefresh() {
     view(currentHref, currentTitle, true);

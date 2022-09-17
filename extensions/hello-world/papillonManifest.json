@@ -1,0 +1,19 @@
+{
+    "name": "Hello World",
+    "author": "ecnivtwelve",
+    "authorDisplayName": "Vincent Linise",
+    "description": "Pour faire un Hello World",
+    "icon": "front_hand",
+    "javascript": [
+        "helloworld.js"
+    ],
+    "css": [],
+    "tabs": [
+        {
+            "name": "Hello World",
+            "icon": "front_hand",
+            "path": "ecnivtwelve.hellworld",
+            "html": "helloworld.html"
+        }
+    ]
+}

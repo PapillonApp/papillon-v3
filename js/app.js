@@ -591,12 +591,61 @@ function tokenRefreshBkg() {
     });
 }
 
+// extensions
+let installedExtensions = [];
+
+// parse extensions
+let exts = JSON.parse(localStorage.getItem('extensions'));
+for(ext in exts) {
+    extension = exts[ext];
+    let manifest = extension + "/papillonManifest.json";
+
+    fetch(manifest)
+    .then((resp) => resp.json())
+    .then(function(data) {
+        // add manifest to installedExtensions
+        installedExtensions.push(data);
+
+        // fetch js and then install it
+        for(jsId in data.javascript) {
+            let extensionJSPath = extension + "/" + data.javascript[jsId];
+            // insert script
+            let script = document.createElement('script');
+            script.src = extensionJSPath;
+            document.head.appendChild(script);
+        }
+
+        // fetch css and then install it
+        for(cssId in data.css) {
+            let extensionCSSPath = extension + "/" + data.css[cssId];
+            // insert css
+            let css = document.createElement('link');
+            css.rel = "stylesheet";
+            css.href = extensionCSSPath;
+            document.head.appendChild(css);
+        }
+
+        // add tabs
+        for(tabId in data.tabs) {
+            let tab = data.tabs[tabId];
+            console.log(tab);
+
+            $("#tabsPageList").append(`
+                <div class="tabLink" id="menu_${extension}/${tab.html}" onclick="viewExt('${extension}/${tab.html}', '${tab.name}')">
+                    <span class="material-symbols-outlined">${tab.icon}</span>
+                    <p>${tab.name}</p>
+                </div>
+            `);
+        }
+    });
+}
+
 // Récupère la dernière version ouverte
 var latestVersion = localStorage.getItem('latestVersion')
 
 // Version de l'app
-const version = "3.6 stable";
-const release = '3.6';
+const version = "3.7 stable";
+const release = '3.7';
 
 // if (release !== latestVersion) {
 
