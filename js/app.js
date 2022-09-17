@@ -654,7 +654,7 @@ function openApp() {
     if (release !== latestVersion) {
         // Changelog (pas utilisé pour le moment)
         localStorage.setItem('latestVersion', release);
-        // view('update', 'Notes de mise à jour', true)
+        view('update', 'Notes de mise à jour', true)
     } else {
         // Ouvre l'emploi du temps
         view('edt', 'Emploi du temps');
