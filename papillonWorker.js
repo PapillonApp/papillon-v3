@@ -21,7 +21,7 @@ const RUNTIME = 'runtime';
 const PRECACHE_URLS = [
     'index.html',
     '/',
-    '/css/main.css',
+    '/css/style.css',
     '/js/app.js',
     'papillonWorker.js',
     '/views/about.html',
