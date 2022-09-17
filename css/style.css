@@ -1583,7 +1583,7 @@ a:active {
 .loadingCours {
     --bg: #0066ff;
     opacity: 0;
-    animation: loadingCours 0.1s 1s forwards;
+    animation: loadingCours 0.1s 0.5s forwards;
 }
 
 @keyframes loadingCours {
