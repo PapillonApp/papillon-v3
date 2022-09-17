@@ -33,6 +33,20 @@
             
             resp = data.data.absences;
             console.log(resp)
+
+            if(resp == null) {
+                $('#ListeAbsences').append(`
+                    <div class="cours file" style="--off: 0ms">
+                        <span class="material-symbols-outlined">
+                            person_off
+                        </span>
+                        <div>
+                            <h3>Pas d'absences</h3>
+                            <p>Bravo pour ton assiduité !</p>
+                        </div>
+                    </div>
+                `);
+            }
             
             for(absence_id in resp.absences) {
                 let absence = resp.absences[absence_id];

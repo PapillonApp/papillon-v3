@@ -13,7 +13,9 @@
         .then((resp) => resp.json())
         .then(function(data) { 
             if(data.errors !== undefined) {
-                refreshToken();
+                if(data.errors[0].message !== "infos.infos is not iterable") {
+                    window.location.href = 'login/';
+                }
             }
             progressEnd();
             

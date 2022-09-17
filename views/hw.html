@@ -1,16 +1,38 @@
 <div id="ListeDevoirs" class="liste">
-    <div class="cours edtSkeleton" style="--posDel: 0ms;"></div>
-    <div class="cours edtSkeleton" style="--posDel: 100ms;"></div>
-    <div class="cours edtSkeleton" style="--posDel: 200ms;"></div>
-    <div class="cours edtSkeleton" style="--posDel: 300ms;"></div>
-    <div class="cours edtSkeleton" style="--posDel: 400ms;"></div>
+    <div id="ListeCours" class="liste">
+        <div class="cours loadingCours" style="--off: 0ms">
+            <div class="coursleftBar"></div>
+            <div class="cours_data">
+                <div class="cours_topData">
+                    <h3>Chargement en cours...</h3>
+                    <p>Récupération des devoirs</p>
+                    <div class="loadingCoursBar">
+                        <div class="loadingCoursBarFill"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script>
     addedHW = 0;
 
     function mainView_Hw() {
-        $('#ListeDevoirs').empty();
+        $('#ListeDevoirs').html(`
+        <div class="cours loadingCours" style="--off: 0ms">
+            <div class="coursleftBar"></div>
+            <div class="cours_data">
+                <div class="cours_topData">
+                    <h3>Chargement en cours...</h3>
+                    <p>Récupération des devoirs</p>
+                    <div class="loadingCoursBar">
+                        <div class="loadingCoursBarFill"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        `);
 
         let newRn = new Date(rn)
         newRn.setDate(newRn.getDate())
@@ -25,6 +47,7 @@
         fetch(`https://ams01.pronote.plus/hw?token=${token}&from=${from}`)
         .then((resp) => resp.json())
         .then(function(data) { 
+            $('#ListeDevoirs').empty();
 
             if(data.message !== undefined) {
                 tokenRefreshBkg()

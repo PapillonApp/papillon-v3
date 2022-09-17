@@ -10,7 +10,18 @@
     </div></a>
 </div>
 <div id="ListeNotes" class="liste">
-
+    <div class="cours loadingCours" style="--off: 0ms">
+        <div class="coursleftBar"></div>
+        <div class="cours_data">
+            <div class="cours_topData">
+                <h3>Chargement en cours...</h3>
+                <p>Récupération des notes</p>
+                <div class="loadingCoursBar">
+                    <div class="loadingCoursBarFill"></div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script src="js/average.js"></script>
@@ -56,6 +67,23 @@
             allMarks = [];
         
             let resp = JSON.parse(data).data.marks.subjects;
+            if(resp.length == 0) {
+                $('#ListeNotes').append(`
+                    <div class="subject" style="--off: 0ms;--bg: #0066ff;">
+                        <div class="subjectName">
+                            <p>Information</p>
+                        </div>
+                        <div class="subjectInner">
+                            <a href="#"><div class="mark" style="--off: ${50}ms">
+                                <div class="markName">
+                                    <p>Aucune note publiée.</p>
+                                </div>
+                            </div></a>
+                        </div>
+                    </div>
+                `);
+            }
+            else {
 
             for(id_s in resp) {
                 resp[id_s].marks.sort(function(a, b) {
@@ -78,9 +106,8 @@
                     <div class="subject" style="--off: ${id_s * 50}ms;--bg:${subject.color}">
                         <div class="subjectName">
                             <p>${subject.name}</p>
-                            <p2>${subject.averages.student.toFixed(2)}<small>/20</small></p2>
                         </div>
-                        <div class="subjectInner" id="marks_${id_s}"></div>
+                        <div class="subjectInner"></div>
                     </div>
                 `);
 
@@ -154,6 +181,7 @@
                 setMenuTabContent(`Moyenne générale : ${averageStudent.toFixed(2)}<small>/20</small>`);
             }
         }
+    }
 
     function order_Chrono() {
         allMarks.sort(function(a, b) {

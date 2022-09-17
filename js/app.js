@@ -17,7 +17,7 @@ if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('/papillonWorker.js');
     }
     else {
-        navigator.serviceWorker.register('/papillonWorkerDev.js');
+        // navigator.serviceWorker.register('/papillonWorkerDev.js');
     }
 };
 
@@ -576,7 +576,7 @@ function tokenRefreshBkg() {
         } else if (resp.token !== undefined) {
             localStorage.setItem('authToken', resp.token);
             token = resp.token;
-            allRefresh();
+            location.reload();
         }
 
         if (tries > 2) {
@@ -617,10 +617,10 @@ function openApp() {
         rnNext()
     } else if (dateString.includes("samedi")) {
         // requête pour checker si y'a cours le samedi
-        fetch(`https://ams01.pronote.plus/edt?token=${token}&from=${from}`)
+        fetch(`https://ams01.pronote.plus/edt?token=${token}`)
         .then((resp) => resp.json())
         .then(function(data) {
-            if(data.data.timetable === null) {
+            if(data.data.timetable.length == 0) {
                 // avance de 2 jours
                 rnNext()
                 rnNext()

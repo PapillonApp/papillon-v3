@@ -30,10 +30,28 @@
     }
 
     function parse_Evals(data) {
-        let resp = JSON.parse(data).data.evaluations;
+            let resp = JSON.parse(data).data.evaluations;
             console.log(resp)
 
             $('#ListeEvals').html('');
+
+            if(resp.length == 0) {
+                $('#ListeEvals').append(`
+                    <div class="subject" style="--off: 0ms;--bg:#0066ff">
+                        <div class="subjectName" style="--bg:#0066ff">
+                            <p>Information</p>
+                        </div>
+                        <div class="subjectInner">
+                            <div class="mark" style="--off: 0ms">
+                                <div class="markName">
+                                    <p>Aucune compétence.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `);
+            }
+            else {
 
             for(id_s in resp) {
                 subject = resp[id_s];
@@ -100,6 +118,7 @@
                         `)
                     }
                 }
+            }
             }
     }
 </script>

@@ -370,11 +370,11 @@ body.menuOpen #appContent {
     padding-bottom: var(--safe-space);
     z-index: 9999999999999999999999;
     display: none;
-    animation: menu 0.3s forwards cubic-bezier(0, 0, 0, 1);
+    animation: menu 0.1s forwards cubic-bezier(0, 0, 0, 1);
 }
 
 #menu.close {
-    animation: menuClose 0.15s forwards cubic-bezier(1, 0, 0, 1);
+    animation: menuClose 0.05s forwards cubic-bezier(1, 0, 0, 1);
 }
 
 #pronoteIdent {
@@ -627,7 +627,7 @@ body.menuOpen #appContent {
 }
 
 .liste {
-    padding: 0px 15px;
+    padding: 0px 10px;
     padding-top: 5px;
 }
 
@@ -796,9 +796,9 @@ body.menuOpen #appContent {
 .subject {
     background-color: #fff;
     box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12), 0 1px 3px 0 rgba(0, 0, 0, 0.20);
-    width: 90vw;
+    width: 100%;
     border-radius: 8px;
-    margin: 10px 0px;
+    margin: px 0px;
     position: relative;
     overflow: hidden;
     padding-bottom: 5px;
@@ -1562,4 +1562,40 @@ a:active {
     margin-top: 2px;
     opacity: 50%;
     max-width: 90vw;
+}
+
+.loadingCours {
+    --bg: #0066ff;
+}
+
+.loadingCoursBar {
+    width: 100%;
+    height: 4px;
+    border-radius: 0px;
+    background: #00000011;
+    margin-top: 10px;
+    overflow: hidden !important;
+}
+
+.loadingCoursBarFill {
+    width: 10%;
+    height: 100%;
+    background-color: #0066ff;
+    border-radius: 0px;
+    
+    animation: loadingCoursBarFill 1s infinite;
+}
+
+@keyframes loadingCoursBarFill {
+    0% {
+        width: 10%;
+        transform: translateX(-90vw);
+    }
+    50% {
+        width: 80%;
+    }
+    100% {
+        width: 50%;
+        transform: translateX(90vw);
+    }
 }
