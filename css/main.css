@@ -627,7 +627,7 @@ body.menuOpen #appContent {
 }
 
 .liste {
-    padding: 0px 10px;
+    padding: 0px 15px;
     padding-top: 5px;
 }
 
@@ -1597,5 +1597,17 @@ a:active {
     100% {
         width: 50%;
         transform: translateX(90vw);
+    }
+}
+
+@media screen and (prefers-color-scheme: dark) {
+    .loadingCours {
+        --bg: #6da7ff;
+    }
+    .loadingCoursBar {
+        background: #ffffff11;
+    }
+    .loadingCoursBarFill {
+        background-color: #6da7ff;
     }
 }
