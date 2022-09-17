@@ -1582,6 +1582,17 @@ a:active {
 
 .loadingCours {
     --bg: #0066ff;
+    opacity: 0;
+    animation: loadingCours 0.1s 1s forwards;
+}
+
+@keyframes loadingCours {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
 }
 
 .loadingCoursBar {
