@@ -1,3 +1,4 @@
+<!-- <div> affichant la liste de cours -->
 <div id="ListeCours" class="liste">
     <div class="cours loadingCours" style="--off: 0ms">
         <div class="coursleftBar"></div>
@@ -14,6 +15,7 @@
 </div>
 
 <script>
+    // fonction permettant d'ajouter les 0 devant les heures et les minutes
     function min_lead(dt) { 
         return (dt.getMinutes() < 10 ? '0' : '') + dt.getMinutes();
     }
@@ -23,15 +25,20 @@
     }, 100);
 
     function mainView_Edt() {
+        // assignation de l'heure dans la variable from
         let from = rn.toISOString().split("T")[0]
+        // démarrage de la progressbar de chargement
         progressStart();
         
+        // fetch des serveurs pour obtenir l'emploi du temps avec le token et la date
         fetch(`https://ams01.pronote.plus/edt?token=${token}&from=${from}`)
         .then((resp) => resp.json())
         .then(function(data) {
             
+            // gestion des erreurs
             if(data.errors !== undefined) {
                 if(data.code == 2) {
+                    // ratelimit
                     Toastify({
                         text: "Vous avez envoyé trop de demandes à Pronote, veuillez patienter quelques minutes.",
                         gravity: "top",
@@ -43,67 +50,91 @@
                     }).showToast();
                 }
                 else {
+                    // si erreur inconnue -> vide le cache de l'edt
                     tokenRefreshBkg()
                     localStorage.removeItem('cache_edt');
                 }
             }
+            // termie le chargement
             progressEnd();
 
+            // si réussi -> enregistre le cache de l'edt
             localStorage.setItem('cache_edt', JSON.stringify(data));
+            // affiche graphiquement les données de l'edt
             parse_Edt(data);
         });
     }
 
+    // fonctions qui calculent les différences entre 2 dates
+        // en heures
     function getDifferenceInHours(date1, date2) {
         const diffInMs = Math.abs(date2 - date1);
         return diffInMs / (1000 * 60 * 60);
     }
 
-        function getDifferenceInMinutes(date1, date2) {
+        // en minutes
+    function getDifferenceInMinutes(date1, date2) {
         const diffInMs = Math.abs(date2 - date1);
         return diffInMs / (1000 * 60);
     }
 
+    // variable (jsp a quoi elle sert déja)
     lastfinCours = 0;
 
+    // fonction qui affiche les données d'edt
     function parse_Edt(data) {
         try{          
+            // json parsé -> resp
             let resp = data.data.timetable;
 
             if(resp == null) {
+                // si il n'y a pas de cours aujourd'hui
                 if(EdtRefLimit == 0) {
+                    // catch de bugs
                     EdtRefLimit = 1;
                     tokenRefreshBkg();
                 }
             }
             else {
+                // vide la liste actuelle de cours
                 $('#ListeCours').html(``);
 
+                // donne le nombre de cours dans length + les affiche en sous-titre
                 let nbCours = resp.length;
                 setMenuTabContent(nbCours + " cours pour cette journée");
 
+                // si y'a pas de cours (0 cours)
                 if(nbCours == 0) {
+                    // affiche en sous-titre
                     setMenuTabContent("Pas de cours pour cette journée");
                 }
 
+            // loop pour chaque cours
             for(course in resp) {
+                // garde en mémoire le début et la fin du cours
                 let debCours = new Date(resp[course].from);
                 let finCours = new Date(resp[course].to);
 
+                // je sais plus ça
                 curentFinCours = lastfinCours;
                 lastfinCours = finCours;
 
+                // règle l'heure avec le fuseau horaire car Pronote est en retard jsp pourquoi
                 var offset = new Date().getTimezoneOffset();
                 debCours.setMinutes(debCours.getMinutes() + offset);
                 let heureMinDebut = debCours.getHours() + "h" + min_lead(debCours);
 
+                // je sais plus non plus
                 finCours.setMinutes(finCours.getMinutes() + offset);
                 let heureMinFin = finCours.getHours() + "h" + min_lead(finCours);
 
+                // calcule si le cours est long
                 let diff = getDifferenceInMinutes(curentFinCours, debCours);
 
+                // calcule le temps de cours
                 let length = getDifferenceInMinutes(debCours, finCours);
 
+                // remplacements de texte si jamais : variables vides
                 if(resp[course].subject == null) {
                     resp[course].subject = resp[course].status;
                 }
@@ -116,6 +147,7 @@
                     resp[course].room = "inconnue";
                 }
                 
+                // status si c'est un cours avec un état particulier
                 let status = "";
 
                 if(resp[course].subject !== null) {
@@ -124,35 +156,44 @@
                     }
                 }
 
+                // si le cours est annulé, ajoute un status en conséquence
                 if(resp[course].isCancelled) {
                     status = `<span class="status statusCancelled">Cours annulé</span>`
                 }
 
+                // wtf c'est quoi ça ????
                 let simpleSubject = resp[course].subject.toLowerCase();
                 simpleSubject = simpleSubject.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
 
+                // liste de tous les cours (?)
                 let allClasses = "";
                 
+                // string pour la durée du cours
                 let lengthString = (length / 60) + "h";
 
+                // passage en minutes si c'est moins de 1h
                 if (length < 60) {
                     lengthString = length + "min";
                 }
 
+                // ajout des heures ET des minutes si ca dure plus d'1h
                 if (length % 60 !== 0) {
                     lengthString = (length / 60) + "h" + (length % 60) + "min";
                 }
 
+                // si c'est un cours de plus de 1h, il est long
                 if (length > 60) {
                     allClasses += " coursLong";
                 }
 
+                // si le cours a 20min d'écart avec le précédent, il est "écarté"
                 if (diff > 20) {
                     if(course > 0) {
                         allClasses += " coursEcart";
                     }
                 }
 
+                // si y'a déja "salle" dans a salle, l'éffacer
                 if(resp[course].room.toLowerCase().split(" ")[0] == "salle") {
                     let newname = resp[course].room.split(" ")
                     newname.shift();
@@ -160,6 +201,7 @@
                 }
 
 
+                // si 1=1, afficher le cours -> tt le temps afficher le cours
                 if(1==1) {
                     $('#ListeCours').append(`
                         <div class="cours realCours ${allClasses} colored" style="--off: ${course * 50}ms; --bg:${resp[course].color};">
@@ -179,6 +221,7 @@
                 }
             }
 
+            // si y'a pas de cours, afficher un message
             if(resp.length === 0) {
                 $('#ListeCours').append(`
                     <div class="cours" style="--off: 0ms">
@@ -195,7 +238,7 @@
         }
         }
         catch(e) {
-            
+            // pour éviter les crashs de la webapp
         }
     }
 </script>

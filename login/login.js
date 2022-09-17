@@ -93,6 +93,18 @@ function loginGo(auto) {
 
             window.location.href = "../index.html";
         }
+        else {
+            document.getElementById("mainLoginBtn").innerHTML = "Se connecter";
+            Toastify({
+                text: "Une erreur s'est produite :/ (" + resp.message + ")",
+                gravity: "top",
+                position: "center",
+                className: "toasty",
+                style: {
+                    background: "#FF0000",
+                }
+            }).showToast();
+        }
     });
 }
 
