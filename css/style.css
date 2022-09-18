@@ -11,6 +11,13 @@ body {
     overflow: visible;
 }
 
+html,
+body {
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+}
+
 input[type="date"]::-webkit-inner-spin-button,
 input[type="date"]::-webkit-calendar-picker-indicator {
     display: none;
@@ -693,15 +700,26 @@ body.menuOpen #appContent {
 }
 
 .coursleftBar {
-    background: var(--bg);
-    width: 5px;
+    background: none;
+    width: 20px;
     height: 100%;
     position: absolute;
     top: 0;
     bottom: 0;
     left: 0;
-    border-top-left-radius: 8px;
-    border-bottom-left-radius: 8px;
+    border-top-left-radius: 12px;
+    border-bottom-left-radius: 12px;
+    overflow: hidden;
+}
+
+.coursleftBar:after {
+    content: "";
+    width: 5px;
+    height: 100%;
+    background: var(--bg);
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
 @keyframes coursLeftBar {
