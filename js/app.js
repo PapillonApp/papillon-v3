@@ -237,7 +237,15 @@ if (localStorage.getItem('authData') === null) {
         // Charge les données de l'utilisateur
         loadPronoteData();
     } catch (e) {
-        alert("ERREUR [PronotePlusBetaError] : contactez @levraicnivtwelve sur insta si cette erreur persiste");
+        Toastify({
+            text: "Une erreur grave s'est produite.",
+            gravity: "top",
+            position: "center",
+            className: "toasty",
+            style: {
+                background: "#FF0000",
+            }
+        }).showToast();
     }
 }
 
@@ -313,6 +321,27 @@ function loadPronoteData() {
         }
 
         $('#profileAvatar').attr('src', avatar);
+    });
+}
+
+document.getElementById("profileAvatar").addEventListener("error", () => {
+    $('#profileAvatar').attr('src', "/assets/default.png");
+});
+
+// envoie des requêtes à GraphQL directement
+function fetchQL(query, callback) {
+    fetch(`https://ams01.pronote.plus/query?token=${token}&schema=${query}`)
+    .then((resp) => resp.json())
+    .then(function(data) {
+        callback(data.data);
+    });
+}
+
+function inlineQL(query, callback) {
+    fetch(`https://ams01.pronote.plus/query?token=${token}&schema=${query}`)
+    .then((resp) => resp.json())
+    .then(function(data) {
+        return data.data;
     });
 }
 

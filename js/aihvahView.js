@@ -99,7 +99,15 @@ function back() {
 }
 
 function viewQuery(href, title, query, b1, b2, prog) {
-    $('#appContent').load("./views/" + href + ".html");
+    $('#appContent').fadeOut(200);
+    setTimeout(() => {
+        $('#appContent').load("./views/" + href + ".html");
+    $('#appContent').fadeIn(200);
+    }, 200);
+
+    setTimeout(() => {
+        $('#pronoteApp').removeClass("openLayer");
+    }, 200);
     
     $('#menuTabName').addClass('aboutto');
     setTimeout(() => {
@@ -118,11 +126,14 @@ function viewQuery(href, title, query, b1, b2, prog) {
         $('body').addClass("useless");
     }
 
-    $('#menu-btn').css("display", "none");
+    $('#menu-btn').fadeOut(100);
     
     $('#menuTabContent').text(``);
-    $('#back').css("display", "block");
-    $('#back').removeClass("hideBack");
+    
+    setTimeout(() => {
+        $('#back').fadeIn(100);
+        $('#back').removeClass("hideBack");
+    }, 100);
 
     q = query;
 
