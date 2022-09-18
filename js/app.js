@@ -136,7 +136,10 @@ function rnNext(a) {
         updateTime();
         dateChanged = true;
         dateChangedOnce = true;
-        allRefresh();
+
+        if(a == true) {
+            allRefresh();
+        }
 
         setTimeout(() => {
             $(".daysRoll").removeClass("daysRollTmrw");
@@ -153,7 +156,10 @@ function rnPrev(a) {
         updateTime();
         dateChanged = true;
         dateChangedOnce = true;
-        allRefresh();
+        
+        if(a == true) {
+            allRefresh();
+        }
 
         setTimeout(() => {
             $(".daysRoll").removeClass("daysRollYstrdy");
@@ -663,7 +669,7 @@ function openApp() {
     buttonNext = document.getElementById("rnNext")
     if (dateString.includes("dimanche")) {
         // avance de 1 jour
-        rnNext()
+        rnNext(false)
     } else if (dateString.includes("samedi")) {
         // requête pour checker si y'a cours le samedi
         fetch(`https://ams01.pronote.plus/edt?token=${token}`)
@@ -671,8 +677,8 @@ function openApp() {
         .then(function(data) {
             if(data.data.timetable.length == 0) {
                 // avance de 2 jours
-                rnNext()
-                rnNext()
+                rnNext(false)
+                rnNext(false)
             }
         });
     }
