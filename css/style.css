@@ -347,6 +347,10 @@ body.menuOpen #appContent {
         text-align: left !important;
         align-items: flex-start !important;
     }
+
+    .material-symbols-outlined {
+        font-variation-settings: 'FILL' 1, 'wght' 500, 'GRAD' 200, 'opsz' 48 !important;
+    }
 }
 
 #menuTabContent {
@@ -659,7 +663,7 @@ body.menuOpen #appContent {
     background: #fff !important;
     box-shadow: 0px 1px 2px #00000010;
     width: 100%;
-    border-radius: 10px;
+    border-radius: 12px;
     display: flex;
     margin: 10px 0px;
     position: relative;
@@ -721,12 +725,12 @@ body.menuOpen #appContent {
 }
 
 .courd h3 {
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 700;
 }
 
 .cours .teacher {
-    font-size: 15px;
+    font-size: 16px;
     font-weight: 500;
 }
 
@@ -905,10 +909,11 @@ body.menuOpen #appContent {
 .file {
     padding: 10px 15px;
     width: calc(100% - 30px);
+    align-items: center;
 }
 
 .file span {
-    margin-right: 10px;
+    margin-right: 12px;
 }
 
 .file p {
