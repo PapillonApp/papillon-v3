@@ -51,7 +51,15 @@
                 }
                 else {
                     // si erreur inconnue -> vide le cache de l'edt
-                    tokenRefreshBkg()
+                    Toastify({
+                        text: "Erreur inconnue. (" + data.errors + ")",
+                        gravity: "top",
+                        position: "center",
+                        className: "toasty",
+                        style: {
+                            background: "#FF0000",
+                        }
+                    }).showToast();
                     localStorage.removeItem('cache_edt');
                 }
             }
