@@ -828,6 +828,55 @@ body.menuOpen #appContent {
     border-radius: 300px;
 }
 
+@supports not (-webkit-touch-callout: none) {
+    .cours {
+        background: #fff !important;
+        box-shadow: 0 1px 1px 0 rgba(0,0,0,0.14), 0 2px 1px -1px rgba(0,0,0,0.12), 0 1px 3px 0 rgba(0,0,0,0.20);
+        border-radius: 7px;
+        margin: 10px 0px;
+        animation: show 0.3s var(--off) forwards cubic-bezier(0, 0, 0, 1);
+    }
+
+    .coursleftBar {
+        border-radius: 7px;
+    }
+
+    .teacher {
+        letter-spacing: 1px;
+        text-transform: uppercase;
+    }
+
+    .cours_btmData p {
+        letter-spacing: 0.45px;
+    }
+
+    .tabLink p {
+        letter-spacing: 0.45px;
+    }
+
+    .cours_topData p:not(div) {
+        letter-spacing: 0.45px;
+        font-weight: 500;
+        font-size: 15px !important;
+    }
+
+    body {
+        background: #f9f9f9;
+    }
+
+    #navContent {
+        box-shadow: 0 1px 1px 0 rgba(0,0,0,0.14), 0 2px 1px -1px rgba(0,0,0,0.12), 0 1px 3px 0 rgba(0,0,0,0.20);
+    }
+
+    #menuContent {
+        box-shadow: 0 -1px 1px 0 rgba(0,0,0,0.14), 0 -2px 1px -1px rgba(0,0,0,0.12), 0 -1px 3px 0 rgba(0,0,0,0.20);
+    }
+
+    #profileOver {
+        background: linear-gradient(180deg, #F1F1F390, #f9f9f9f9);
+    }
+}
+
 .subject {
     background-color: #fff;
     box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12), 0 1px 3px 0 rgba(0, 0, 0, 0.20);

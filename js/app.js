@@ -687,8 +687,8 @@ for(ext in exts) {
 var latestVersion = localStorage.getItem('latestVersion')
 
 // Version de l'app
-const version = "3.7.2 stable";
-const release = '3.7';
+const version = "3.8 stable";
+const release = '3.8';
 
 // if (release !== latestVersion) {
 
