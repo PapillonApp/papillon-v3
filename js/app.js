@@ -265,6 +265,14 @@ function update() {
     location.reload(true);
 }
 
+function emptyCache() {
+    caches.keys().then(function(names) {
+        for (let name of names)
+            caches.delete(name);
+    });
+    location.reload(true);
+}
+
 // Charge les données de l'utilisateur
 let myName = "";
 let avatar = "";
@@ -679,7 +687,7 @@ for(ext in exts) {
 var latestVersion = localStorage.getItem('latestVersion')
 
 // Version de l'app
-const version = "3.7.1 stable";
+const version = "3.7.2 stable";
 const release = '3.7';
 
 // if (release !== latestVersion) {

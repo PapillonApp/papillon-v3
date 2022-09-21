@@ -42,6 +42,8 @@
         let resp = JSON.parse(data).data.files;
 
         if (resp.length !== 0) {
+
+            $('#ListeFichiers').html('');
             
             // sort by time
             resp.sort(function(a, b) {
