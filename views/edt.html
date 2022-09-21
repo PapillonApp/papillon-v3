@@ -166,9 +166,16 @@
 
                 let cancelled = false;
                 // si le cours est annulé, ajoute un status en conséquence
-                if(resp[course].isCancelled || resp[course].status == "Prof. absent") {
+                if(resp[course].isCancelled || resp[course].status == "Prof. absent" || resp[course].status == "Prof./pers. absent") {
                     status = `<span class="status statusCancelled">${resp[course].status}</span>`
                     cancelled = true;
+                }
+
+                // si le cours est une retenue, ajoute un status en conséquence
+                let retenue = false;
+                if(resp[course].subject.includes("Retenue")) {
+                    status = `<span class="status">Sanction</span>`
+                    retenue = true;
                 }
 
                 // wtf c'est quoi ça ????
@@ -212,7 +219,24 @@
 
 
                 // si 1=1, afficher le cours -> tt le temps afficher le cours
-                if (cancelled == true) {
+                if (retenue) {
+                    $('#ListeCours').append(`
+                        <div class="cours realCours ${allClasses} colored" style="--off: ${course * 50}ms; --bg:#ff5050;">
+                            <div class="coursleftBar"></div>
+                            <div class="cours_data">
+                                <div class="courd">
+                                    <h3>🚨 ${resp[course].subject} ${status}</h3>
+                                    <p><span class="teacher">${resp[course].teacher}</span></p>
+                                </div>
+                                <div class="cours_btmData">
+                                    <p>Salle ${resp[course].room}</p>
+                                    <p class="when"><span class="hrdeb ">${heureMinDebut}</span> <span>à ${heureMinFin}</span><span class="length">${lengthString} de cours</span></p>
+                                </div>
+                            </div>
+                        </div>
+                    `);
+                }
+                else if (cancelled == true) {
                     $('#ListeCours').append(`
                         <div class="cours realCours ${allClasses} colored" style="--off: ${course * 50}ms;">
                             <div class="coursleftBar"></div>
