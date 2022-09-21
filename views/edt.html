@@ -164,9 +164,11 @@
                     }
                 }
 
+                let cancelled = false;
                 // si le cours est annulé, ajoute un status en conséquence
-                if(resp[course].isCancelled) {
-                    status = `<span class="status statusCancelled">Cours annulé</span>`
+                if(resp[course].isCancelled || resp[course].status == "Prof. absent") {
+                    status = `<span class="status statusCancelled">${resp[course].status}</span>`
+                    cancelled = true;
                 }
 
                 // wtf c'est quoi ça ????
@@ -210,7 +212,24 @@
 
 
                 // si 1=1, afficher le cours -> tt le temps afficher le cours
-                if(1==1) {
+                if (cancelled == true) {
+                    $('#ListeCours').append(`
+                        <div class="cours realCours ${allClasses} colored" style="--off: ${course * 50}ms;">
+                            <div class="coursleftBar"></div>
+                            <div class="cours_data">
+                                <div class="courd">
+                                    <h3><span class="cancelled">${resp[course].subject}</span> ${status}</h3>
+                                    <p><span class="teacher cancelled">${resp[course].teacher}</span></p>
+                                </div>
+                                <div class="cours_btmData cancelled">
+                                    <p>Salle ${resp[course].room}</p>
+                                    <p class="when"><span class="hrdeb ">${heureMinDebut}</span> <span>à ${heureMinFin}</span><span class="length">${lengthString} de cours</span></p>
+                                </div>
+                            </div>
+                        </div>
+                    `);
+                }
+                else if(1==1) {
                     $('#ListeCours').append(`
                         <div class="cours realCours ${allClasses} colored" style="--off: ${course * 50}ms; --bg:${resp[course].color};">
                             <div class="coursleftBar"></div>
