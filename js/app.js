@@ -12,7 +12,7 @@ window.addEventListener('beforeinstallprompt', (e) => {
     deferredPrompt = e;
 });
 
-if ('serviceWorker' i  n navigator) {
+if ('serviceWorker' in navigator) {
     if (location.host !== "127.0.0.1:5500") {
         navigator.serviceWorker.register('/papillonWorker.js');
     }
@@ -293,7 +293,7 @@ function loadPronoteData() {
         
         // Si la requête fail, rafrachir le token
         if (data.message !== undefined) {
-            tokenRefreshBkg()
+            location.reload(true);
         }
         else {
             progressEnd();
