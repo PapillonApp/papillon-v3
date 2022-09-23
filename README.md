@@ -1,7 +1,7 @@
 
 <h1 align="center">
   <br>
-  <a href="https://github.com/ecnivtwelve/Papillon"><img src="https://i.ibb.co/MMfxNKq/Frame-23.png" alt="Markdownify" width="120"></a>
+  <a href="https://github.com/ecnivtwelve/Papillon"><img src="https://i.ibb.co/MMfxNKq/Frame-23.png" alt="Papillon" width="120"></a>
   <br>
   <b>Papillon</b> v3 (Pronote +)
   <br>
