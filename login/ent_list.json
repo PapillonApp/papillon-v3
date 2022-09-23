@@ -2,7 +2,8 @@
     {
       "name": "Académie de Rennes",
       "cas": "toutatice",
-      "url": "www.toutatice.fr"
+      "url": "www.toutatice.fr",
+      "py": "ac_rennes"
     },
     {
       "name": "Académie d`Orléans-Tours",
