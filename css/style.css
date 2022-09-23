@@ -200,7 +200,7 @@ only screen and (device-width: 428px) and (device-height: 926px) {
     align-items: flex-start;
     justify-content: flex-start;
     opacity: 0.2;
-    mask-image: linear-gradient(to right, rgba(0, 0, 0, 1), transparent);
+    mask-image: linear-gradient(to right, rgba(0, 0, 0, 1), transparent 60%);
 }
 
 .yesterday {
@@ -208,7 +208,7 @@ only screen and (device-width: 428px) and (device-height: 926px) {
     align-items: flex-end;
     justify-content: flex-end;
     opacity: 0.2;
-    mask-image: linear-gradient(to left, rgba(0, 0, 0, 1), transparent);
+    mask-image: linear-gradient(to left, rgba(0, 0, 0, 1), transparent 60%);
 }
 
 .today {
@@ -228,18 +228,20 @@ only screen and (device-width: 428px) and (device-height: 926px) {
 
 #rnPrev {
     position: absolute;
-    left: 24px;
+    left: 18px;
     z-index: 9999;
 }
 
 #rnNext {
     position: absolute;
-    right: 24px;
+    right: 18px;
     z-index: 9999;
 }
 
 .naviBtn {
     box-shadow: 0px 0px 10px #fff;
+    padding: 10px;
+    border-radius: 300px;
 }
 
 body.menuOpen #menuContent,
@@ -425,7 +427,7 @@ body.menuOpen #appContent {
     left: 0;
     height: 100%;
     background: #F1F1F3;
-    animation: menuTabs 0.3s forwards cubic-bezier(0, 0, 0, 1);
+    animation: menuTabs 0.1s forwards cubic-bezier(0, 0, 0, 1);
     pointer-events: all;
 }
 
@@ -444,24 +446,28 @@ body.menuOpen #appContent {
 }
 
 #menu.close #menuTabs {
-    animation: menuTabsClose 0.2s forwards;
+    animation: menuTabsClose 0.1s forwards;
 }
 
 @keyframes menuTabs {
     0% {
-        left: -90vw;
+        left: -30vw;
+        opacity: 0;
     }
     100% {
         left: 0vw;
+        opacity: 1;
     }
 }
 
 @keyframes menuTabsClose {
     0% {
         left: 0vw;
+        opacity: 1;
     }
     100% {
-        left: -90vw;
+        left: -30vw;
+        opacity: 0;
     }
 }
 
