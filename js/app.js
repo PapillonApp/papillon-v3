@@ -12,7 +12,7 @@ window.addEventListener('beforeinstallprompt', (e) => {
     deferredPrompt = e;
 });
 
-if ('serviceWorker' in navigator) {
+if ('serviceWorker' i  n navigator) {
     if (location.host !== "127.0.0.1:5500") {
         navigator.serviceWorker.register('/papillonWorker.js');
     }
