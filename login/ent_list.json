@@ -6,6 +6,11 @@
       "py": "ac_rennes"
     },
     {
+      "name": "Pas d'ENT",
+      "cas": "none",
+      "url": "none"
+    },
+    {
       "name": "Académie d`Orléans-Tours",
       "cas": "ac-orleans-tours",
       "url": "ent.netocentre.fr"
