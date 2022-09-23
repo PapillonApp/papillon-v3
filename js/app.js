@@ -295,40 +295,42 @@ function loadPronoteData() {
         if (data.message !== undefined) {
             tokenRefreshBkg()
         }
-        progressEnd();
+        else {
+            progressEnd();
 
-        // Décode le JSON depuis l'API
-        let resp = data.data.user;
-        userEverything = resp;
+            // Décode le JSON depuis l'API
+            let resp = data.data.user;
+            userEverything = resp;
 
-        // Récupère le prénom à partir des données de l'utilisateur
-        myNameStep = resp.name.split(" ");
-        lastName = myNameStep.shift();
-        firstName = myNameStep[0];
-        myName = firstName + " " + lastName;
+            // Récupère le prénom à partir des données de l'utilisateur
+            myNameStep = resp.name.split(" ");
+            lastName = myNameStep.shift();
+            firstName = myNameStep[0];
+            myName = firstName + " " + lastName;
 
-        // Si l'utilisateur à changé de nom, on le met à jour
-        if (localStorage.getItem('customName') !== null) {
-            myName = localStorage.getItem('customName');
+            // Si l'utilisateur à changé de nom, on le met à jour
+            if (localStorage.getItem('customName') !== null) {
+                myName = localStorage.getItem('customName');
+            }
+
+            // Remplis l'interface
+            $('#userName').text(myName);
+            $('#userClass').text(resp.studentClass.name + " – " + resp.establishmentsInfo[0].name);
+
+            // Si il n'y a pas d'avatar, mettre un placeholder
+            if(userEverything.avatar == null) {
+                avatar = "/assets/default.png";
+            }
+
+            avatar = resp.avatar;
+
+            // appliquer la pdp de l'utilisateur
+            if (localStorage.getItem('customPic') !== null) {
+                avatar = localStorage.getItem('customPic');
+            }
+
+            $('#profileAvatar').attr('src', avatar);
         }
-
-        // Remplis l'interface
-        $('#userName').text(myName);
-        $('#userClass').text(resp.studentClass.name + " – " + resp.establishmentsInfo[0].name);
-
-        // Si il n'y a pas d'avatar, mettre un placeholder
-        if(userEverything.avatar == null) {
-            avatar = "/assets/default.png";
-        }
-
-        avatar = resp.avatar;
-
-        // appliquer la pdp de l'utilisateur
-        if (localStorage.getItem('customPic') !== null) {
-            avatar = localStorage.getItem('customPic');
-        }
-
-        $('#profileAvatar').attr('src', avatar);
     });
 }
 
