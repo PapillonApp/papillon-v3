@@ -70,7 +70,6 @@
             allMarks = [];
         
             let resp = JSON.parse(data).data.marks.subjects;
-            console.log(resp)
             if(resp.length == 0) {
                 $('#ListeNotes').append(`
                     <div class="subject" style="--off: 0ms;--bg: #0066ff;">
