@@ -103,7 +103,7 @@
             for(id_s in resp) {
                 subject = resp[id_s];
                 $('#ListeNotes').append(`
-                    <div class="subject" style="--off: ${id_s * 50}ms;--bg:${subject.color}">
+                    <div class="subject subjectCard" style="--off: ${id_s * 50}ms;--bg:${subject.color}">
                         <div class="subjectName">
                             <p>${subject.name}</p>
                         </div>
@@ -178,7 +178,7 @@
             avrClass = averageStudentClass;
 
             if(!isNaN(averageStudent)) {
-                setMenuTabContent(`Moyenne générale : ${averageStudent.toFixed(2)}<small>/20</small>`);
+                setMenuTabContent(`Moyenne générale : ${averageStudent.toFixed(2)}/20`);
             }
         }
     }
