@@ -58,7 +58,7 @@
 ## Comment l'utiliser
 
 ### Sur Internet
-Rendez vous sur **https://v3.pronote.plus (version en production)** ou sur https://app.pronote.plus (version de développement) et profitez immédiatement
+Rendez vous sur **https://v3.pronote.plus (version en production)** ou sur https://app.pronote.plus (version de développement) et profitez immédiatement de l'expérience de Pronote+ !
 
 ### Localement / pour développer
 N'importe quel serveur web (Apache, Nginx, Express) fait l'aiffaire. Vous pouvez même ouvrir directement index.html dans votre navigateur.
@@ -66,7 +66,7 @@ N'importe quel serveur web (Apache, Nginx, Express) fait l'aiffaire. Vous pouvez
 ## Télécharger Pronote+
 
 ### L'app sur votre téléphone
-Sur iOS, on il existe le [profil d'installation](https://pronote.plus/download/PronotePlus.mobileconfig), et sur Android, il existe [une APK *(très instable)*](https://pronote.plus/download/PronotePlus.apk)
+Sur iOS, il existe le [profil d'installation](https://pronote.plus/download/PronotePlus.mobileconfig), et sur Android, il existe [une APK *(très instable)*](https://pronote.plus/download/PronotePlus.apk)
 On conseille cependant d'installer [la PWA](https://v3.pronote.plus/) en ajoutant le lien Chrome ou Safari sur votre écran d'accueil.
 
 ### Le code sur votre ordinateur
