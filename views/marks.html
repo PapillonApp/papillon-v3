@@ -51,12 +51,15 @@
         let half = new Date(rn);
         half.setDate(half.getDate() + 1);
         let from = half.toISOString().split("T")[0]
+
         progressStart();
         $.get(`https://ams01.pronote.plus/marks?token=${token}&rand=${uuidv4()}`, function( data ) {
+
             if(JSON.parse(data).errors !== undefined) {
                 tokenRefreshBkg()
             }
             progressEnd();
+
             localStorage.setItem('cache_marks', JSON.stringify(data));
             parse_marks(data);
         });
@@ -70,7 +73,7 @@
             if(resp.length == 0) {
                 $('#ListeNotes').append(`
                     <div class="subject" style="--off: 0ms;--bg: #0066ff;">
-                        <div class="subjectName">
+                        <div class="subjectName" style="--bg:#0066ff">
                             <p>Information</p>
                         </div>
                         <div class="subjectInner">
@@ -103,11 +106,11 @@
             for(id_s in resp) {
                 subject = resp[id_s];
                 $('#ListeNotes').append(`
-                    <div class="subject" style="--off: ${id_s * 50}ms;--bg:${subject.color}">
-                        <div class="subjectName">
+                    <div class="subject subjectCard" style="--off: ${id_s * 50}ms;--bg:${subject.color}; margin">
+                        <div class="subjectName" style="--bg:${subject.color}">
                             <p>${subject.name}</p>
                         </div>
-                        <div class="subjectInner"></div>
+                        <div class="subjectInner" id="marks_${id_s}"></div>
                     </div>
                 `);
 
@@ -118,12 +121,13 @@
 
                 for(mark_id in marks) {
                     try {
-                        mark = marks[mark_id];
+                        let mark = marks[mark_id];
                         
                         mark2push = mark;
                         mark2push.subject = subject.name;
+                        mark2push.color = subject.color;
                         allMarks.push(mark2push);
-                        
+
                         let allMarksId = parseInt(allMarks.length) - 1;
                         
                         let markname = "";
@@ -178,7 +182,7 @@
             avrClass = averageStudentClass;
 
             if(!isNaN(averageStudent)) {
-                setMenuTabContent(`Moyenne générale : ${averageStudent.toFixed(2)}<small>/20</small>`);
+                setMenuTabContent(`Moyenne générale : ${averageStudent.toFixed(2)}/20`);
             }
         }
     }

@@ -856,6 +856,10 @@ body.menuOpen #appContent {
     margin: 0;
 }
 
+.subjectCard {
+    margin-bottom: 6px;
+}
+
 .subjectName {
     background: linear-gradient(0deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.3) 100%), var(--bg);
     width: 100%;

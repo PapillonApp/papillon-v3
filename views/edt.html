@@ -194,8 +194,8 @@
                 }
 
                 // ajout des heures ET des minutes si ca dure plus d'1h
-                if (length % 60 !== 0) {
-                    lengthString = (length / 60) + "h" + (length % 60) + "min";
+                if (length % 60 !== 0 && length > 60) {
+                    lengthString = (parseInt(length / 60)) + "h" + (length % 60) + "min";
                 }
 
                 // si c'est un cours de plus de 1h, il est long
