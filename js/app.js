@@ -784,13 +784,13 @@ function openApp() {
         view('update', 'Notes de mise à jour', true)
     } else {
         // Ouvre l'emploi du temps
-        view('hw', 'Emploi du temps');
+        view('edt', 'Emploi du temps');
     }
     dateString = document.getElementById("todayName").innerText
     buttonNext = document.getElementById("rnNext")
     if (dateString.includes("dimanche")) {
         // avance de 1 jour
-        rnNext(false)
+        setTimeout(() => rnNext(false), 300);
     } else if (dateString.includes("samedi")) {
         // requête pour checker si y'a cours le samedi
         fetch(`https://ams01.pronote.plus/edt?token=${token}`)
@@ -798,8 +798,8 @@ function openApp() {
         .then(function(data) {
             if(data.data.timetable.length == 0) {
                 // avance de 2 jours
-                rnNext(false)
-                rnNext(false)
+                setTimeout(() => rnNext(false), 300);
+                setTimeout(() => rnNext(false), 400);
             }
         });
     }
