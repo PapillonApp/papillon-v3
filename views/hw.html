@@ -74,6 +74,66 @@
                 `);
             }
 
+            let newHW = JSON.parse(localStorage.getItem("newHW"));
+
+
+            if(newHW !== null) {
+                for (hw in newHW) {
+                    customHW = newHW[hw];
+
+                    // le = est volontaire pour l'afficher tout le temps
+                    if(customHW.date = rn.toISOString()) {
+                        $('#ListeDevoirs').append(`
+                            <div onclick="customHWMenu(${hw})" class="cours" style="--off: ${(resp.length * 50) + (hw * 50)}ms">
+                                <div class="coursleftBar"></div>
+                                <div class="cours_data">
+                                    <div class="cours_topData">
+                                        <p>Devoir personnalisé</p>
+                                        <div class="content hwContent">
+                                            ${customHW.content}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        `);
+                    }
+                }
+            }
+
+            $('#ListeDevoirs').append(`
+                    <div class="cours" style="--off: ${(resp.length * 50) + 50}ms">
+                        <div class="coursleftBar"></div>
+                        <div class="cours_data">
+                            <div class="cours_topData">
+                                <div class="content hwContent">
+                                    <input id="newHW" placeholder="Ajouter un devoir personnalisé"></input>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            `);
+
+            document.getElementById("newHW").addEventListener("keyup", function(event) {
+                if (event.keyCode === 13) {
+                    let newHW = localStorage.getItem("newHW");
+
+                    if(newHW == null) {
+                        newHW = [];
+                    }
+                    else {
+                        newHW = JSON.parse(newHW);
+                    }
+
+                    newHW.push({
+                        "date": rn.toISOString(),
+                        "content": document.getElementById("newHW").value
+                    });
+                    localStorage.setItem("newHW", JSON.stringify(newHW));
+
+                    allRefresh();
+                }
+            });
+
             if(resp.length === 0) {
                 $('#ListeDevoirs').append(`
                     <div class="cours" style="--off: 0ms">

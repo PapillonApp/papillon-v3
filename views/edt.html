@@ -107,6 +107,8 @@
                 // vide la liste actuelle de cours
                 $('#ListeCours').html(``);
 
+                allCourses = data.data.timetable;
+
                 // donne le nombre de cours dans length + les affiche en sous-titre
                 let nbCours = resp.length;
                 setMenuTabContent(nbCours + " cours pour cette journée");
