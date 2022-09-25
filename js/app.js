@@ -451,6 +451,57 @@ function openNews(id) {
 // ouvre un cours
 let allCourses = [];
 
+// ouvre un devoir perso
+function customHWMenu(id) {
+    let newHW = JSON.parse(localStorage.getItem("newHW"));
+    let hw = newHW[id];
+
+    let title = `Devoir perso.`;
+    let content = `
+        <a href="#" onclick="deleteCustomHW(${id})"><div class="cours file" style="--off: 0ms">
+            <span class="material-symbols-outlined">
+                delete
+            </span>
+            <div class="cours_topData">
+                <h3>Supprimer le devoir perso.</h3>
+            </div>
+        </div></a>
+
+        <a href="#" onclick="editCustomHW(${id})"><div class="cours file" style="--off: 0ms">
+            <span class="material-symbols-outlined">
+                edit
+            </span>
+            <div class="cours_topData">
+                <h3>Modifier le devoir perso.</h3>
+            </div>
+        </div></a>
+    `;
+
+    showModal(title, content);
+}
+
+// supprime un devoir perso
+function deleteCustomHW(id) {
+    let newHW = JSON.parse(localStorage.getItem("newHW"));
+    newHW.splice(id, 1);
+    localStorage.setItem("newHW", JSON.stringify(newHW));
+    allRefresh();
+    modalClose()
+}
+
+// modifie un devoir perso
+function editCustomHW(id) {
+    let newHW = JSON.parse(localStorage.getItem("newHW"));
+    let hw = newHW[id];
+    let edit = prompt("Modifier le devoir");
+    if (edit !== null) {
+        newHW[id].content = edit;
+        localStorage.setItem("newHW", JSON.stringify(newHW));
+        allRefresh();
+        modalClose()
+    }
+}
+
 // Changer le sous-titre de la page
 function setMenuTabContent(text) {
     $('#menuTabContent').css('display', 'none');
@@ -733,7 +784,7 @@ function openApp() {
         view('update', 'Notes de mise à jour', true)
     } else {
         // Ouvre l'emploi du temps
-        view('edt', 'Emploi du temps');
+        view('hw', 'Emploi du temps');
     }
     dateString = document.getElementById("todayName").innerText
     buttonNext = document.getElementById("rnNext")

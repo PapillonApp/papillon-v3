@@ -791,13 +791,25 @@ body.menuOpen #appContent {
 .cours_topData p {
     font-size: 16px;
     opacity: 50%;
+    margin-bottom: 5px;
 }
 
 .cours_topData .hwContent {
     width: 90%;
     overflow: hidden;
     overflow-wrap: break-word;
-    margin-top: 5px;
+    margin-top: 0px;
+}
+
+.cours_topData .hwContent input {
+    border: none;
+    font-size: 16px;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: fit-content;
+    outline: none !important;
+    border-radius: 0 !important;
 }
 
 .teacher {
@@ -1778,11 +1790,17 @@ a:active {
     height: calc(80vh - 48px - 30px);
     overflow-y: scroll !important;
     padding: 15px;
+    background-color: #f1f1f3;
 }
 
 #modalContentText {
     margin: 0;
     padding-bottom: 80px !important;
+}
+
+#modalContentText .cours {
+    margin: 0px;
+    margin-bottom: 10px;
 }
 
 @media screen and (prefers-color-scheme: dark) {
