@@ -72,6 +72,12 @@ function progressStart(speed) {
     }, 500);
 }
 
+// Si nous sommes sur ordinateur
+if (window.innerWidth > 800) {
+    // Injecte desktop.css
+    $('head').append('<link rel="stylesheet" href="css/desktop.css">');
+}
+
 // Change la valeur de la barre de progression
 function progressChange(value) {
     clearInterval(progressInterval);
