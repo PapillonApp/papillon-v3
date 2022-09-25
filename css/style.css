@@ -758,6 +758,10 @@ body.menuOpen #appContent {
     opacity: 50%;
 }
 
+.cours h3 span.cancelled {
+    font-style: normal !important;
+}
+
 .cours .teacher {
     font-size: 16px;
     font-weight: 500;
@@ -788,6 +792,9 @@ body.menuOpen #appContent {
 }
 
 .status {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     font-size: 14px;
     font-weight: 500;
     background: #0066ff20;
@@ -854,6 +861,10 @@ body.menuOpen #appContent {
 
 .subject * {
     margin: 0;
+}
+
+.subjectCard {
+    margin-bottom: 6px;
 }
 
 .subjectName {

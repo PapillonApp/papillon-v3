@@ -56,7 +56,7 @@
             for(id_s in resp) {
                 subject = resp[id_s];
                 $('#ListeEvals').append(`
-                    <div class="subject" style="--off: ${id_s * 50}ms;--bg:${subject.color}">
+                    <div class="subject subjectCard" style="--off: ${id_s * 50}ms;--bg:${subject.color};margin">
                         <div class="subjectName" style="--bg:${subject.color}">
                             <p>${subject.name}</p>
                         </div>
