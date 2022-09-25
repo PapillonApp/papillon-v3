@@ -633,6 +633,17 @@ body.menuOpen #appContent {
     color: #fff;
 }
 
+.link {
+    color: #0066ff;
+    text-decoration: underline;
+}
+
+@media screen and (prefers-color-scheme: dark) {
+    .link {
+        color: #6da7ff;
+    }
+}
+
 .userInfo {
     /* margin-left: 15px; */
     width: calc(90vw - 30px - 60px);

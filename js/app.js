@@ -431,7 +431,19 @@ let allNews = [];
 function openNews(id) {
     let news = allNews[id];
     let title = `<h4>${news.title}</h4><small>${news.author}</small>`;
+
+    let files = news.files;
+    console.log(files);
+
     let content = news.htmlContent;
+
+    for (fileID in files) {
+        let file = files[fileID];
+        let fileURL = file.url;
+        let fileName = file.name;
+
+        content = content + `<br><a class="link" href="${fileURL}" target="_blank">${fileName}</a>`;
+    }
 
     showModal(title, content);
 }
