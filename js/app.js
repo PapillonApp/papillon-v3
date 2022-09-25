@@ -436,6 +436,9 @@ function openNews(id) {
     showModal(title, content);
 }
 
+// ouvre un cours
+let allCourses = [];
+
 // Changer le sous-titre de la page
 function setMenuTabContent(text) {
     $('#menuTabContent').css('display', 'none');
