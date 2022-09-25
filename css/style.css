@@ -1699,3 +1699,101 @@ a:active {
     font-size: 14px;
     margin-right: 10px;
 }
+
+#modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(to bottom, #00000000, #00000090 30%);
+    z-index: 99999999999999999;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    display: none;
+}
+
+#modal.open {
+    display: flex;
+}
+
+#modalData {
+    background-color: #fff;
+    width: 97vw;
+    min-height: 80vh;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    animation: modal 0.3s forwards;
+}
+
+@keyframes modal {
+    0% {
+        transform: translateY(10vh);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+#modalTitle {
+    width: 100%;
+    min-height: 48px;
+    border-bottom: 1px solid #00000011;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+#modalTitleText {
+    font-size: 18px;
+    font-weight: 500;
+    margin: 10px 15px;
+}
+
+#modalTitleText * {
+    margin: 0;
+}
+
+#modalTitleText small {
+    opacity: 50%;
+}
+
+#modalContent {
+    height: calc(80vh - 48px - 30px);
+    overflow-y: scroll !important;
+    padding: 15px;
+}
+
+#modalContentText {
+    margin: 0;
+    padding-bottom: 80px !important;
+}
+
+@media screen and (prefers-color-scheme: dark) {
+    #modal {
+        background: linear-gradient(to bottom, #00000000, #000000 30%);
+    }
+    #modalData {
+        background-color: #151515;
+    }
+    #modalTitle {
+        border-bottom: 1px solid #ffffff11;
+    }
+    #modalTitleText {
+        color: #fff;
+    }
+    #modalContentText {
+        color: #fff;
+    }
+}
+
+#escapeTouch {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 14vh;
+}

@@ -426,6 +426,16 @@ function changePic() {
     }
 }
 
+// Ouvre une actualité
+let allNews = [];
+function openNews(id) {
+    let news = allNews[id];
+    let title = `<h4>${news.title}</h4><small>${news.author}</small>`;
+    let content = news.htmlContent;
+
+    showModal(title, content);
+}
+
 // Changer le sous-titre de la page
 function setMenuTabContent(text) {
     $('#menuTabContent').css('display', 'none');

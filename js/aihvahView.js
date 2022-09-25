@@ -175,3 +175,19 @@ function closeMenuPanel() {
         $('#menu').removeClass("close");
     }, 200);
 }
+
+function showModal(title, html) {
+    $('#modalTitleText').html(title);
+    $('#modalContentText').html(html);
+    $('#modal').css("display", "flex");
+    setTimeout(() => {
+        $('#modal').addClass("open");
+    }, 50);
+}
+
+function modalClose() {
+    $('#modal').fadeOut(200);
+    setTimeout(() => {
+        $('#modal').removeClass("open");
+    }, 200);
+}
