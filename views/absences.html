@@ -28,11 +28,8 @@
 
             $('#ListeAbsences').html("");
             $('#ListeRetards').html("");
-
-            console.log(data)
             
             resp = data.data.absences;
-            console.log(resp)
 
             if(resp == null) {
                 $('#ListeAbsences').append(`
@@ -47,15 +44,28 @@
                     </div>
                 `);
             }
+
+            if(resp == null) {
+                $('#ListeRetards').append(`
+                    <div class="cours file" style="--off: 0ms">
+                        <span class="material-symbols-outlined">
+                            schedule
+                        </span>
+                        <div>
+                            <h3>Pas de retards</h3>
+                            <p>Bravo pour ton assuiduité !</p>
+                        </div>
+                    </div>
+                `);
+            }
             
             for(absence_id in resp.absences) {
                 let absence = resp.absences[absence_id];
-                console.log(absence)
 
                 let dateFrom = new Date(parseInt(absence.from));
-                let from = dateFrom.toLocaleString();
+                let from = dateFrom.toLocaleString("fr-FR", {timeStyle: 'short', dateStyle: 'short'});
                 let dateTo = new Date(parseInt(absence.to));
-                let to = dateTo.toLocaleString();
+                let to = dateTo.toLocaleString("fr-FR", {timeStyle: 'short', dateStyle: 'short'});
 
                 if(absence.reason == "" || absence.reason == null) {
                     absence.reason = "Aucune raison";
@@ -91,7 +101,6 @@
 
             for(delay_id in resp.delays) {
                 let absence = resp.delays[delay_id];
-                console.log(absence)
 
                 let dateFrom = new Date(parseInt(absence.date));
                 let from = dateFrom.toLocaleString();
@@ -113,13 +122,12 @@
                     </div>
                 `);
             }
-        });
 
-        if(resp.delays.length == 0) {
+            if(resp.delays.length == 0) {
                 $('#ListeRetards').append(`
                     <div class="cours file" style="--off: 0ms">
                         <span class="material-symbols-outlined">
-                            person_off
+                            schedule
                         </span>
                         <div>
                             <h3>Pas de retards</h3>
@@ -128,6 +136,7 @@
                     </div>
                 `);
             }
+        });
         }, 200);
     }
     mainView_abs();
