@@ -37,31 +37,7 @@
             
             // gestion des erreurs
             if(data.errors !== undefined) {
-                if(data.code == 2) {
-                    // ratelimit
-                    Toastify({
-                        text: "Vous avez envoyé trop de demandes à Pronote, veuillez patienter quelques minutes.",
-                        gravity: "top",
-                        position: "center",
-                        className: "toasty",
-                        style: {
-                            background: "#FF0000",
-                        }
-                    }).showToast();
-                }
-                else {
-                    // si erreur inconnue -> vide le cache de l'edt
-                    Toastify({
-                        text: "Erreur inconnue. (" + data.errors + ")",
-                        gravity: "top",
-                        position: "center",
-                        className: "toasty",
-                        style: {
-                            background: "#FF0000",
-                        }
-                    }).showToast();
-                    localStorage.removeItem('cache_edt');
-                }
+                tokenRefreshBkg();
             }
             // termie le chargement
             progressEnd();
