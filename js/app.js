@@ -293,7 +293,7 @@ function loadPronoteData() {
         
         // Si la requête fail, rafrachir le token
         if (data.message !== undefined) {
-            location.reload(true);
+            tokenRefreshBkg();
         }
         else {
             progressEnd();
@@ -659,6 +659,7 @@ tries = 0;
 let triesReset;
 
 function tokenRefreshBkg() {
+    console.log("Refreshing token in background...");
     clearInterval(triesReset);
 
     let toastText = "Reconnexion à Pronote en arrière-plan...";
@@ -694,6 +695,7 @@ function tokenRefreshBkg() {
                     }
                 }).showToast();
             }
+            tokenRefreshBkg()
         } else if (resp.token !== undefined) {
             localStorage.setItem('authToken', resp.token);
             token = resp.token;
