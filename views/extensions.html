@@ -100,7 +100,7 @@
     availableExtensions = [];
 
     // affiche la liste des extensions disponibles
-    fetch("https://raw.githubusercontent.com/ecnivtwelve/Papillon/main/extensions/repo.json")
+    fetch("https://raw.githubusercontent.com/PapillonApp/Papillon/main/extensions/repo.json")
     .then(response => response.json())
     .then(data => {
         for(newExtension in data) {
